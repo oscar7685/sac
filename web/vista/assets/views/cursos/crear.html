@@ -1,0 +1,53 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.cursos.CREAR">EDITAR EDIFICIOS</h1>
+            <span class="mainDescription">Formulario para crear Curso.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="crearCursoCtrl2">
+            <form name="Form2" novalidate ng-submit="form.submit(Form2)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Cursos
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form2.codigo.$dirty && Form2.codigo.$invalid, 'has-success':Form2.codigo.$valid}">
+                                <label for="codigo" class="control-label">
+                                    Codigo Curso <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Codigo Curso" id="codigo" name="codigo" class="form-control" ng-model="curso.codigo" required/>
+                                <span class="error text-small block" ng-if="Form2.codigo.$dirty && Form2.codigo.$dirty && Form2.codigo.$invalid">El campo codigo es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.numeroEstudiantes.$dirty && Form2.numeroEstudiantes.$invalid, 'has-success':Form2.numeroEstudiantes.$valid}">
+                                <label for="numeroEstudiantes" class="control-label">
+                                    N° de Estudiantes <span class="symbol required"></span>
+                                </label>
+                                <input type="number" placeholder="N° de Estudiantes" id="numeroEstudiantes" name="numeroEstudiantes" class="form-control" ng-model="curso.numeroEstudiantes" ng-pattern="/^[0-9]*$/" required/>
+                                <span class="error text-small block" ng-if="Form2.numeroEstudiantes.$error.number">Numero no valido!</span>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Crear Curso
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
+                     Resetear
+                 </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->
+

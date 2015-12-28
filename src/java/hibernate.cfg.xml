@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+   <!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/naval</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">123456</property>-->
+    <property name="connection.datasource">java:/comp/env/jdbc/hibernate1</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping class="naval.dominio.Curso"/>
+    <mapping class="naval.dominio.Profesor"/>
+    <mapping class="naval.dominio.Permisos"/>
+    <mapping class="naval.dominio.Aula"/>
+    <mapping class="naval.dominio.Facultad"/>
+    <mapping class="naval.dominio.MotivoInasistenciaEstudiante"/>
+    <mapping class="naval.dominio.DetalleParteDiario"/>
+    <mapping class="naval.dominio.Usuario"/>
+    <mapping class="naval.dominio.Edificio"/>
+    <mapping class="naval.dominio.Rol"/>
+    <mapping class="naval.dominio.Hora"/>
+    <mapping class="naval.dominio.Horario"/>
+    <mapping class="naval.dominio.Dias"/>
+    <mapping class="naval.dominio.ResponsableCurso"/>
+    <mapping class="naval.dominio.DinamicasEmpleadas"/>
+    <mapping class="naval.dominio.ParteDiario"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,135 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.aulas.CREAR">CREAR AULAS</h1>
+            <span class="mainDescription">Formulario para editar Aulas.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="editarAulaCtrl2">
+            <form name="Form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Aulas
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form.nombre.$dirty && Form.nombre.$invalid, 'has-success':Form.nombre.$valid}">
+                                <label for="nombre" class="control-label">
+                                    Nombre Aula <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Nombre Aula" id="nombre" name="nombre" class="form-control" ng-model="aula.nombre" required/>
+                                <span class="error text-small block" ng-if="Form.nombre.$dirty && Form.nombre.$dirty && Form.nombre.$invalid">El campo nombre es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form.tipo.$dirty && Form.tipo.$invalid, 'has-success':Form.tipo.$valid}">
+                                <label for="tipo">
+                                    Tipo Aula <span class="symbol required"></span>
+                                </label>
+                                <select id="tipo" name="tipo" class="form-control" ng-model="aula.tipo" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="Aula">Aula</option>
+                                    <option value="Lab">Laboratorio</option>
+                                    <option value="Aud">Auditorio</option>
+                                    <option value="Aesp">Aula especializada</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form.tipo.$dirty && Form.tipo.$dirty && Form.tipo.$invalid">El campo tipo aula es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form.capacidad.$dirty && Form.capacidad.$invalid, 'has-success':Form.capacidad.$valid}">
+                                <label for="capacidad">
+                                    Capacidad (# Alumnos) <span class="symbol required"></span>
+                                </label>
+                                <input type="number" placeholder="Capacidad" id="capacidad" name="capacidad" class="form-control" ng-model="aula.capacidad" required/>
+                                <span class="error text-small block" ng-if="Form.capacidad.$dirty && Form.capacidad.$dirty && Form.capacidad.$invalid">El campo capacidad es invalido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form.estado.$dirty && Form.estado.$invalid, 'has-success':Form.estado.$valid}">
+                                <label for="estado">
+                                    Estado <span class="symbol required"></span>
+                                </label>
+                                <select id="estado"  name="estado" class="form-control" ng-model="aula.estado" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="Activa">Activa</option>
+                                    <option value="ActivaNovedad">Activa con Novedad</option>
+                                    <option value="Inactiva">Inactiva</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form.estado.$dirty && Form.estado.$dirty && Form.estado.$invalid">El campo estado es requerido</span>  
+                            </div>
+                            <div class="checkbox clip-check check-primary">
+                                <input type="checkbox" id="capacidadAudiovisual" name="capacidadAudiovisual" ng-model="aula.capacidadAudiovisual">
+                                <label for="capacidadAudiovisual">
+                                    Capacidad Audiovisual
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Ubicación del aula
+                            </legend>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" ng-class="{'has-error':Form.edificio.$dirty && Form.edificio.$invalid, 'has-success':Form.edificio.$valid}">
+                                        <label for="edificio">
+                                            Edificio <span class="symbol required"></span>
+                                        </label>
+                                        <select id="edificio" name="edificio" class="form-control" ng-model="aula.edificio.idedificio" ng-options="edificio.idedificio as edificio.nombre for edificio in edificios"  required>
+                                            <option value="">&nbsp;</option>
+                                        </select>
+                                        <span class="error text-small block" ng-if="Form.edificio.$dirty && Form.edificio.$dirty && Form.edificio.$invalid">El campo edificio es requerido</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':Form.piso.$dirty && Form.piso.$invalid, 'has-success':Form.piso.$valid}">
+                                        <label for="piso">
+                                            Piso <span class="symbol required"></span>
+                                        </label>
+                                        <select id="piso" class="form-control" ng-model="aula.piso" ng-options="val for val in pisosActuales">
+                                            <option value="">&nbsp;</option>
+                                        </select>
+                                        <span class="error text-small block" ng-if="Form.piso.$dirty && Form.piso.$dirty && Form.piso.$invalid">El campo piso es requerido</span>
+                                    </div>
+                                </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>
+                                Materiales
+                            </legend>
+                            <div class="form-group">
+                                <div class="checkbox clip-check check-primary">
+                                    <input type="checkbox" id="tablero" name="tablero" ng-model="aula.tablero">
+                                    <label for="tablero">
+                                        Tablero
+                                    </label>
+                                </div>
+                                <div class="checkbox clip-check check-primary">
+                                    <input type="checkbox" id="videoBeam"  name="videoBeam" ng-model="aula.videoBeam">
+                                    <label for="videoBeam">
+                                        Video Beam
+                                    </label>
+                                </div>
+                                <div class="checkbox clip-check check-primary">
+                                    <input type="checkbox" id="tv" name="tv" ng-model="aula.tv">
+                                    <label for="tv">
+                                        Tv
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Editar Aula
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form)">
+                    Resetear
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->

@@ -1,0 +1,36 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.profesores.LISTAR">Lista de Profesores</h1>
+            <span class="mainDescription">Lista todos los profesores registrados en el sistema.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: SIMPLE TABLE WITH PAGINATION -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+            <div ng-controller="tablaProfesoresCtrl">
+                <p>
+                    Mostrando registros del {{ tableParams.total() > 0 ? (tableParams.page() * tableParams.count()) - (tableParams.count()) + 1 : 0}} 
+                    al {{(tableParams.page() * tableParams.count()) < tableParams.total() ? (tableParams.page() * tableParams.count()) : tableParams.total()}} 
+                    de un total de {{tableParams.total()}}
+
+                </p>
+                <table ng-table="tableParams" class="table table-striped" show-filter="false">
+                    <tr ng-repeat="profesor in $data">
+                        <td data-title="'Codigo'" sortable="'codigo'"> <a ui-sref="app.profesores.editar({idprofesor:'{{profesor.idprofesor}}'})">{{profesor.codigo}}</a></td>
+                        <td data-title="'Nombre'" sortable="'nombre'" filter="{'nombre': 'text' }">{{profesor.nombre}}</td>
+                        <td data-title="'Facultad'" sortable="'facultad'">{{profesor.facultad.facultad}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: SIMPLE TABLE WITH PAGINATION -->
+
