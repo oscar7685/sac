@@ -53,6 +53,7 @@ app.constant('JS_REQUIRES', {
         'dynamicTableCtrl': 'assets/js/controllers/dynamicTableCtrl.js',
         'profesorCtrl': ['assets/js/controllers/profesorCtrl.js'],
         'cursoCtrl': ['assets/js/controllers/cursoCtrl.js'],
+        'horarioAulaCtrl': ['assets/js/controllers/horarioAulaCtrl.js'],
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
     },

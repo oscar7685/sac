@@ -1,0 +1,54 @@
+<style type="text/css">
+    .cal-month-box .ultima{
+        border-bottom: 1px solid #e1e1e1 !important;
+    }
+    .cal-month-box [class*="cal-cell"]{
+        min-height: 55pt !important;
+    }
+</style>    
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.horario.AULAS">HORARIO AULAS</h1>
+            <span class="mainDescription">Horario aula.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: CALENDAR -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'CalendarCtrl' -  localtion: assets/js/controllers/calendarCtrl.js /// -->
+            <div ng-controller="horarioAulaCtrl" id="demo">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center margin-bottom-20 margin-top-20">HORARIO AULAS</h2>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <div class="cal-row-fluid cal-row-head">
+                        <div class="cal-cell1 ng-binding ng-scope" style=""></div>
+                        <div class="cal-cell1 ng-binding ng-scope" ng-repeat="dia in dias">{{dia.nombre}}</div>
+                     </div>
+                    
+                    
+                    <div class="cal-month-box" ng-repeat="hora in horas">
+                        <div class="cal-row-fluid cal-before-eventlist">
+                            <div class="cal-cell1 cal-cell">{{hora.horainicio}} - {{hora.horafinal}}</div>
+                            <div class="cal-cell1 ng-binding ng-scope" ng-repeat="dia in dias"></div>
+                        </div>
+                    </div>
+                   
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: CALENDAR -->

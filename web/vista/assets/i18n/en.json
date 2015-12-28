@@ -79,6 +79,12 @@
                 "EDITAR": "Editar Curso",
                 "LISTAR": "Listar Cursos"
             },
+            "horario": {
+                "MAIN": "Horario",
+                "AULAS": "Horario Aulas",
+                "CURSOS": "Horario Curso",
+                "PROFESORES": "Horario Profesores"
+            },        
             "element": {
                 "MAIN": "UI Elements",
                 "ELEMENTS": "Elements",

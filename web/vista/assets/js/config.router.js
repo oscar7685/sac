@@ -4,7 +4,7 @@
  */
 
 app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$ocLazyLoadProvider', 'JS_REQUIRES',
-    function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $ocLazyLoadProvider, jsRequires) {
+    function($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $ocLazyLoadProvider, jsRequires) {
 
         app.controller = $controllerProvider.register;
         app.directive = $compileProvider.directive;
@@ -495,10 +495,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 // Login routes
 
                 .state('login', {
-                    url: '/login',
-                    template: '<div ui-view class="fade-in-right-big smooth"></div>',
-                    abstract: true
-                }).state('login.signin', {
+            url: '/login',
+            template: '<div ui-view class="fade-in-right-big smooth"></div>',
+            abstract: true
+        }).state('login.signin', {
             url: '/signin',
             templateUrl: "assets/views/login_login.html"
         }).state('login.forgot', {
@@ -510,13 +510,44 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('login.lockscreen', {
             url: '/lock',
             templateUrl: "assets/views/login_lock_screen.html"
+        }).state('app.horario', {
+            url: '/horario',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Horario',
+            ncyBreadcrumb: {
+                label: 'Horario'
+            }
+        }).state('app.horario.aula', {
+            url: '/aula',
+            templateUrl: "assets/views/horario/aula.html",
+            title: 'Horario Aula',
+            ncyBreadcrumb: {
+                label: 'Horario Aula'
+            },
+            resolve: loadSequence('mwl.calendar', 'horarioAulaCtrl')
+        }).state('app.horario.curso', {
+            url: '/curso',
+            templateUrl: "assets/views/horario/curso.html",
+            title: 'Horario Curso',
+            ncyBreadcrumb: {
+                label: 'Horario Curso'
+            },
+            resolve: loadSequence('mwl.calendar')
+        }).state('app.horario.profesor', {
+            url: '/curso',
+            templateUrl: "assets/views/horario/profesor.html",
+            title: 'Horario Profesor',
+            ncyBreadcrumb: {
+                label: 'Horario Profesor'
+            },
+            resolve: loadSequence('mwl.calendar')
         });
         // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
         function loadSequence() {
             var _args = arguments;
             return {
                 deps: ['$ocLazyLoad', '$q',
-                    function ($ocLL, $q) {
+                    function($ocLL, $q) {
                         var promise = $q.when(1);
                         for (var i = 0, len = _args.length; i < len; i++) {
                             promise = promiseThen(_args[i]);
@@ -526,7 +557,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                             if (typeof _arg == 'function')
                                 return promise.then(_arg);
                             else
-                                return promise.then(function () {
+                                return promise.then(function() {
                                     var nowLoad = requiredData(_arg);
                                     if (!nowLoad)
                                         return $.error('Route resolve: Bad resource name [' + _arg + ']');
@@ -545,7 +576,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             };
         }
     }]);
-app.factory('EdificioFactory', function ($resource) {
+app.factory('EdificioFactory', function($resource) {
     return $resource('/sac/api/Edificio/:idEdificio', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
@@ -553,7 +584,7 @@ app.factory('EdificioFactory', function ($resource) {
     });
 });
 
-app.factory('AulaFactory', function ($resource) {
+app.factory('AulaFactory', function($resource) {
     return $resource('/sac/api/Aula/:idAula', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
@@ -561,22 +592,36 @@ app.factory('AulaFactory', function ($resource) {
     });
 });
 
-app.factory('FacultadFactory', function ($resource) {
+app.factory('FacultadFactory', function($resource) {
     return $resource('/sac/api/Facultad/:idFacultad', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-app.factory('ProfesorFactory', function ($resource) {
+app.factory('ProfesorFactory', function($resource) {
     return $resource('/sac/api/Profesor/:idProfesor', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-app.factory('CursoFactory', function ($resource) {
+app.factory('CursoFactory', function($resource) {
     return $resource('/sac/api/Curso/:idCurso', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+app.factory('DiasFactory', function($resource) {
+    return $resource('/sac/api/Dias/:idDia', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+app.factory('HoraFactory', function($resource) {
+    return $resource('/sac/api/Hora/:idHora', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
