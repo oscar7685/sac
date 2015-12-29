@@ -17,5 +17,6 @@
     <bean class="naval.persistencia.dao.impl.CursoDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.DiasDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.HoraDAOImplHibernate" />
+    <bean class="naval.persistencia.dao.impl.HorarioDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.JsonTransformerImplJackson" /> 
 </beans>

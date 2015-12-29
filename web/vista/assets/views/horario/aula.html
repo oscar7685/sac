@@ -33,16 +33,19 @@
                     <div class="cal-row-fluid cal-row-head">
                         <div class="cal-cell1 ng-binding ng-scope" style=""></div>
                         <div class="cal-cell1 ng-binding ng-scope" ng-repeat="dia in dias">{{dia.nombre}}</div>
-                     </div>
-                    
-                    
-                    <div class="cal-month-box" ng-repeat="hora in horas">
-                        <div class="cal-row-fluid cal-before-eventlist">
-                            <div class="cal-cell1 cal-cell">{{hora.horainicio}} - {{hora.horafinal}}</div>
-                            <div class="cal-cell1 ng-binding ng-scope" ng-repeat="dia in dias"></div>
-                        </div>
                     </div>
-                   
+
+
+                    <div class="cal-month-box" ng-repeat="horax in horas">
+                        <div class="cal-row-fluid cal-before-eventlist">
+                            <div class="cal-cell1 cal-cell">{{horax.horainicio}} - {{horax.horafinal}}</div>
+                            <div class="cal-cell1 ng-binding ng-scope" ng-repeat="diax in dias"> 
+                                {{ (horarios| filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].curso.codigo }}
+                                
+                            </div>
+                        </div>  
+                    </div>
+
                 </div>
 
 

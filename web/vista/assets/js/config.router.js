@@ -4,7 +4,7 @@
  */
 
 app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$ocLazyLoadProvider', 'JS_REQUIRES',
-    function($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $ocLazyLoadProvider, jsRequires) {
+    function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $ocLazyLoadProvider, jsRequires) {
 
         app.controller = $controllerProvider.register;
         app.directive = $compileProvider.directive;
@@ -495,10 +495,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 // Login routes
 
                 .state('login', {
-            url: '/login',
-            template: '<div ui-view class="fade-in-right-big smooth"></div>',
-            abstract: true
-        }).state('login.signin', {
+                    url: '/login',
+                    template: '<div ui-view class="fade-in-right-big smooth"></div>',
+                    abstract: true
+                }).state('login.signin', {
             url: '/signin',
             templateUrl: "assets/views/login_login.html"
         }).state('login.forgot', {
@@ -547,7 +547,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             var _args = arguments;
             return {
                 deps: ['$ocLazyLoad', '$q',
-                    function($ocLL, $q) {
+                    function ($ocLL, $q) {
                         var promise = $q.when(1);
                         for (var i = 0, len = _args.length; i < len; i++) {
                             promise = promiseThen(_args[i]);
@@ -557,7 +557,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                             if (typeof _arg == 'function')
                                 return promise.then(_arg);
                             else
-                                return promise.then(function() {
+                                return promise.then(function () {
                                     var nowLoad = requiredData(_arg);
                                     if (!nowLoad)
                                         return $.error('Route resolve: Bad resource name [' + _arg + ']');
@@ -576,54 +576,68 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             };
         }
     }]);
-app.factory('EdificioFactory', function($resource) {
+app.factory('EdificioFactory', function ($resource) {
     return $resource('/sac/api/Edificio/:idEdificio', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-
-app.factory('AulaFactory', function($resource) {
+app.factory('AulaFactory', function ($resource) {
     return $resource('/sac/api/Aula/:idAula', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-
-app.factory('FacultadFactory', function($resource) {
+app.factory('FacultadFactory', function ($resource) {
     return $resource('/sac/api/Facultad/:idFacultad', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-app.factory('ProfesorFactory', function($resource) {
+app.factory('ProfesorFactory', function ($resource) {
     return $resource('/sac/api/Profesor/:idProfesor', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-app.factory('CursoFactory', function($resource) {
+app.factory('CursoFactory', function ($resource) {
     return $resource('/sac/api/Curso/:idCurso', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-app.factory('DiasFactory', function($resource) {
+app.factory('DiasFactory', function ($resource) {
     return $resource('/sac/api/Dias/:idDia', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
 });
-app.factory('HoraFactory', function($resource) {
+app.factory('HoraFactory', function ($resource) {
     return $resource('/sac/api/Hora/:idHora', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
     });
+});
+
+app.factory('HorarioFactory', function ($resource) {
+    return $resource('/sac/api/Horario/:idHorario', null,
+            [
+                {
+                    update: {
+                        method: 'PUT' // this method issues a PUT request
+                    }
+                },
+                {
+                    buscarH: {
+                        method: 'GET' // this method issues a PUT request
+                    }
+                }
+            ]);
 });
