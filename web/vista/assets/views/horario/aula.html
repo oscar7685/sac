@@ -38,10 +38,18 @@
 
                     <div class="cal-month-box" ng-repeat="horax in horas">
                         <div class="cal-row-fluid cal-before-eventlist">
-                            <div class="cal-cell1 cal-cell">{{horax.horainicio}} - {{horax.horafinal}}</div>
-                            <div class="cal-cell1 ng-binding ng-scope" ng-repeat="diax in dias"> 
-                                {{ (horarios| filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].curso.codigo }}
-                                
+                            <div class="cal-cell1 cal-cell">
+                                <div style="height: 36pt; margin: 10pt auto;text-align: center">
+                                    {{horax.horainicio}} - {{horax.horafinal}}</div>
+                            </div>
+
+                            <div class="cal-cell1 ng-binding ng-scope" ng-repeat="diax in dias">
+                                <div style="height: 36pt; margin: 10pt auto;text-align: center">
+                                    {{ (horarios | filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].curso.codigo}}
+                                    <br/>
+                                    {{ (horarios | filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].profesor.nombre}} 
+                                </div>
+
                             </div>
                         </div>  
                     </div>
