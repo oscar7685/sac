@@ -15,5 +15,7 @@ import naval.dominio.Horario;
  * @author Oscar
  */
 public interface HorarioDAO extends GenericDAO<Horario, Integer> {
-    List<Horario> findHorario(int idcurso) throws BussinessException;
+    List<Horario> findHorarioC(int idcurso) throws BussinessException;
+    List<Horario> findHorarioP(int idprofesor) throws BussinessException;
+    List<Horario> findHorarioA(int idaula) throws BussinessException;
 }

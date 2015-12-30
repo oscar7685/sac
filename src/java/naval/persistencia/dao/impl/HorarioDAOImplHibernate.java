@@ -25,17 +25,21 @@ public class HorarioDAOImplHibernate extends GenericDAOImplHibernate<Horario, In
 
     private final static Logger LOGGER = Logger.getLogger(HorarioDAOImplHibernate.class.getName());
     SessionFactory sessionFactory;
-
     public HorarioDAOImplHibernate() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
     @Override
-    public List<Horario> findHorario(int idcurso) throws BussinessException {
+    public List<Horario> findHorarioC(int idcurso) throws BussinessException {
         Session session = sessionFactory.getCurrentSession();
         try {
-
-            Query query = session.createQuery("SELECT e FROM Horario e where e.curso.idcurso:idc");
+            Query query = session.createQuery("SELECT e FROM Horario e "
+                    + "LEFT JOIN FETCH e.curso "
+                    + "LEFT JOIN FETCH e.profesor "
+                    + "LEFT JOIN FETCH e.hora "
+                    + "LEFT JOIN FETCH e.dias "
+                    + "LEFT JOIN FETCH e.aula "
+                    + "WHERE e.curso.idcurso like :idc");
             query.setParameter("idc", idcurso);
             List<Horario> entities = query.list();
 
@@ -77,6 +81,113 @@ public class HorarioDAOImplHibernate extends GenericDAOImplHibernate<Horario, In
             }
             throw new RuntimeException(ex);
         }
+    }
 
+    @Override
+    public List<Horario> findHorarioP(int idprofesor) throws BussinessException {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            Query query = session.createQuery("SELECT e FROM Horario e "
+                    + "LEFT JOIN FETCH e.curso "
+                    + "LEFT JOIN FETCH e.profesor "
+                    + "LEFT JOIN FETCH e.hora "
+                    + "LEFT JOIN FETCH e.dias "
+                    + "LEFT JOIN FETCH e.aula "
+                    + "WHERE e.profesor.idprofesor like :id");
+            query.setParameter("id", idprofesor);
+            List<Horario> entities = query.list();
+
+            return entities;
+        } catch (javax.validation.ConstraintViolationException cve) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new BussinessException(cve);
+        } catch (org.hibernate.exception.ConstraintViolationException cve) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new BussinessException(cve);
+        } catch (RuntimeException ex) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw ex;
+        } catch (Exception ex) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<Horario> findHorarioA(int idaula) throws BussinessException {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            Query query = session.createQuery("SELECT e FROM Horario e "
+                    + "LEFT JOIN FETCH e.curso "
+                    + "LEFT JOIN FETCH e.profesor "
+                    + "LEFT JOIN FETCH e.hora "
+                    + "LEFT JOIN FETCH e.dias "
+                    + "LEFT JOIN FETCH e.aula "
+                    + "WHERE e.aula.idaula like :id");
+            query.setParameter("id", idaula);
+            List<Horario> entities = query.list();
+
+            return entities;
+        } catch (javax.validation.ConstraintViolationException cve) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new BussinessException(cve);
+        } catch (org.hibernate.exception.ConstraintViolationException cve) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new BussinessException(cve);
+        } catch (RuntimeException ex) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw ex;
+        } catch (Exception ex) {
+            try {
+                if (session.getTransaction().isActive()) {
+                    session.getTransaction().rollback();
+                }
+            } catch (Exception exc) {
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new RuntimeException(ex);
+        }
     }
 }

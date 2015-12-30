@@ -26,9 +26,29 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="text-center margin-bottom-20 margin-top-20">HORARIO AULAS</h2>
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="aula">
+                                    Aula
+                                </label>
+                                <div class="col-sm-10">
+                                    <select id="aula" name="aula" class="form-control" ng-model="aula.idaula" ng-options="aula.idaula as aula.nombre for aula in aulas">
+                                        <option value="">&nbsp;</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </form>
                     </div>
                 </div>
+
+
+
                 <br>
+
+
+
+
                 <div>
                     <div class="cal-row-fluid cal-row-head">
                         <div class="cal-cell1 ng-binding ng-scope" style=""></div>
@@ -39,15 +59,15 @@
                     <div class="cal-month-box" ng-repeat="horax in horas">
                         <div class="cal-row-fluid cal-before-eventlist">
                             <div class="cal-cell1 cal-cell">
-                                <div style="height: 36pt; margin: 10pt auto;text-align: center">
+                                <div style="height: 36pt; margin: 10pt auto;" class="text-center">
                                     {{horax.horainicio}} - {{horax.horafinal}}</div>
                             </div>
 
                             <div class="cal-cell1 ng-binding ng-scope" ng-repeat="diax in dias">
-                                <div style="height: 36pt; margin: 10pt auto;text-align: center">
-                                    {{ (horarios | filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].curso.codigo}}
-                                    <br/>
-                                    {{ (horarios | filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].profesor.nombre}} 
+                                <div style="height: 36pt; margin: 10pt auto;" class="text-center">
+                                     {{(horarios| filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].curso.codigo}}
+                                     <br/>
+                                     {{ (horarios | filter:{ dias: {iddias: diax.iddias }, hora: {idhorario: horax.idhorario } })[0].profesor.nombre}} 
                                 </div>
 
                             </div>

@@ -532,15 +532,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Horario Curso'
             },
-            resolve: loadSequence('mwl.calendar')
+            resolve: loadSequence('mwl.calendar', 'horarioCursoCtrl')
         }).state('app.horario.profesor', {
-            url: '/curso',
+            url: '/profesor',
             templateUrl: "assets/views/horario/profesor.html",
             title: 'Horario Profesor',
             ncyBreadcrumb: {
                 label: 'Horario Profesor'
             },
-            resolve: loadSequence('mwl.calendar')
+            resolve: loadSequence('mwl.calendar', 'horarioProfesorCtrl')
         });
         // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
         function loadSequence() {
@@ -627,23 +627,26 @@ app.factory('HoraFactory', function ($resource) {
 });
 
 app.factory('HorarioFactory', function ($resource) {
-    return $resource('/sac/api/Horario/:idHorario', {
-        idcurso: '@idcurso'
-    },
-    [
-        {
-            update: {
-                method: 'PUT' // this method issues a PUT request
-            }
-        },
-        {
-            buscar: {
-                method: 'GET',
-                url: '/sac/api/Horario/:idcurso',
-                params: {
-                    idcurso: 'idcurso'
+    return $resource('/sac/api/Horario/:idHorario', null,
+            {
+                buscarC: {
+                    method: 'GET',
+                    url: '/sac/api/Horario/curso/:idcurso/',
+                    isArray: true
+                },
+                buscarA: {
+                    method: 'GET',
+                    url: '/sac/api/Horario/aula/:idaula/',
+                    isArray: true
+                },
+                buscarP: {
+                    method: 'GET',
+                    url: '/sac/api/Horario/profesor/:idprofesor/',
+                    isArray: true
+                },
+                update: {
+                    method: 'PUT' // this method issues a PUT request
                 }
             }
-        }
-    ]);
+    );
 });

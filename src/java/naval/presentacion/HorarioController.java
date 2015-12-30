@@ -45,10 +45,10 @@ public class HorarioController {
         }
     }
 
-    @RequestMapping(value = "/Horario/{idcurso}", method = RequestMethod.GET, produces = "application/json")
-    public void buscarH(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada, @PathVariable("idcurso") int idcurso) {
+    @RequestMapping(value = "/Horario/curso/{idcurso}", method = RequestMethod.GET, produces = "application/json")
+    public void buscar(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idcurso") int idcurso) {
         try {
-            List<Horario> auxs = horarioDAO.findHorario(idcurso);
+            List<Horario> auxs = horarioDAO.findHorarioC(idcurso);
 
             String jsonSalida = jsonTransformer.toJson(auxs);
 
@@ -79,6 +79,76 @@ public class HorarioController {
         }
     }
 
+    
+    @RequestMapping(value = "/Horario/aula/{idaula}", method = RequestMethod.GET, produces = "application/json")
+    public void buscarA(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idaula") int idaula) {
+        try {
+            List<Horario> auxs = horarioDAO.findHorarioA(idaula);
+
+            String jsonSalida = jsonTransformer.toJson(auxs);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            httpServletResponse.getWriter().println(jsonSalida);
+
+        } catch (BussinessException ex) {
+            Set<BussinessMessage> bussinessMessage = ex.getBussinessMessages();
+            String jsonSalida = jsonTransformer.toJson(bussinessMessage);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            try {
+                httpServletResponse.getWriter().println(jsonSalida);
+            } catch (IOException ex1) {
+                Logger.getLogger(HorarioController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } catch (Exception ex) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            httpServletResponse.setContentType("text/plain; charset=UTF-8");
+            try {
+                ex.printStackTrace(httpServletResponse.getWriter());
+            } catch (IOException ex1) {
+                Logger.getLogger(HorarioController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
+    
+    
+    @RequestMapping(value = "/Horario/profesor/{idprofesor}", method = RequestMethod.GET, produces = "application/json")
+    public void buscarP(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idprofesor") int idprofesor) {
+        try {
+            List<Horario> auxs = horarioDAO.findHorarioP(idprofesor);
+
+            String jsonSalida = jsonTransformer.toJson(auxs);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            httpServletResponse.getWriter().println(jsonSalida);
+
+        } catch (BussinessException ex) {
+            Set<BussinessMessage> bussinessMessage = ex.getBussinessMessages();
+            String jsonSalida = jsonTransformer.toJson(bussinessMessage);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            try {
+                httpServletResponse.getWriter().println(jsonSalida);
+            } catch (IOException ex1) {
+                Logger.getLogger(HorarioController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } catch (Exception ex) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            httpServletResponse.setContentType("text/plain; charset=UTF-8");
+            try {
+                ex.printStackTrace(httpServletResponse.getWriter());
+            } catch (IOException ex1) {
+                Logger.getLogger(HorarioController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
+    
     @RequestMapping(value = "/Horario/{idHorario}", method = RequestMethod.GET, produces = "application/json")
     public void read(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idHorario") int idHorario) {
         try {
