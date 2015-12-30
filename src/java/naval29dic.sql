@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50542
 File Encoding         : 65001
 
-Date: 2015-12-28 07:36:33
+Date: 2015-12-30 07:31:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,7 @@ CREATE TABLE `aula` (
 -- ----------------------------
 -- Records of aula
 -- ----------------------------
-INSERT INTO `aula` VALUES ('1', '0', 'Aula', '21', 'Activa', '0', '1', '0', '0', '0', '1', '1');
+INSERT INTO `aula` VALUES ('1', '1', 'Aula', '21', 'Activa', '0', '1', '0', '0', '0', '1', '1');
 INSERT INTO `aula` VALUES ('2', '2', 'Aula', '24', 'Activa', '0', '1', '0', '0', '0', '2', '1');
 INSERT INTO `aula` VALUES ('3', '3', 'Aula', '7', 'Activa', '0', '1', '0', '0', '0', '3', '1');
 INSERT INTO `aula` VALUES ('4', '4', 'Aula', '17', 'Activa', '0', '1', '0', '0', '0', '4', '1');
@@ -324,11 +324,39 @@ CREATE TABLE `horario` (
   CONSTRAINT `fk_horario_aula_dias1` FOREIGN KEY (`dias_iddias`) REFERENCES `dias` (`iddias`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_horario_aula_hora1` FOREIGN KEY (`hora_idhorario`) REFERENCES `hora` (`idhorario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_horario_aula_profesor1` FOREIGN KEY (`profesor_idprofesor`) REFERENCES `profesor` (`idprofesor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of horario
 -- ----------------------------
+INSERT INTO `horario` VALUES ('1', '20', '1', '1', '1', '1');
+INSERT INTO `horario` VALUES ('2', '28', '1', '1', '2', '1');
+INSERT INTO `horario` VALUES ('3', '28', '1', '1', '3', '1');
+INSERT INTO `horario` VALUES ('4', '27', '1', '1', '4', '1');
+INSERT INTO `horario` VALUES ('5', '27', '1', '1', '5', '1');
+INSERT INTO `horario` VALUES ('6', '193', '1', '1', '6', '1');
+INSERT INTO `horario` VALUES ('7', '194', '1', '1', '7', '1');
+INSERT INTO `horario` VALUES ('8', '194', '1', '1', '8', '1');
+INSERT INTO `horario` VALUES ('9', '194', '1', '1', '9', '1');
+INSERT INTO `horario` VALUES ('10', '194', '1', '1', '10', '1');
+INSERT INTO `horario` VALUES ('11', '194', '1', '1', '11', '1');
+INSERT INTO `horario` VALUES ('12', '193', '1', '1', '12', '1');
+INSERT INTO `horario` VALUES ('13', '193', '1', '1', '13', '1');
+INSERT INTO `horario` VALUES ('14', '194', '1', '1', '14', '1');
+INSERT INTO `horario` VALUES ('15', '21', '2', '2', '1', '2');
+INSERT INTO `horario` VALUES ('16', '21', '2', '2', '2', '2');
+INSERT INTO `horario` VALUES ('17', '1', '2', '2', '3', '2');
+INSERT INTO `horario` VALUES ('18', '1', '2', '2', '4', '2');
+INSERT INTO `horario` VALUES ('19', '1', '2', '2', '5', '2');
+INSERT INTO `horario` VALUES ('20', '1', '2', '2', '6', '2');
+INSERT INTO `horario` VALUES ('21', '194', '2', '2', '7', '2');
+INSERT INTO `horario` VALUES ('22', '194', '2', '2', '8', '2');
+INSERT INTO `horario` VALUES ('23', '194', '2', '2', '9', '2');
+INSERT INTO `horario` VALUES ('24', '194', '2', '2', '10', '2');
+INSERT INTO `horario` VALUES ('25', '194', '2', '2', '11', '2');
+INSERT INTO `horario` VALUES ('26', '193', '2', '2', '12', '2');
+INSERT INTO `horario` VALUES ('27', '193', '2', '2', '13', '2');
+INSERT INTO `horario` VALUES ('28', '194', '2', '2', '14', '2');
 
 -- ----------------------------
 -- Table structure for motivo_inasistencia_estudiante
