@@ -627,17 +627,23 @@ app.factory('HoraFactory', function ($resource) {
 });
 
 app.factory('HorarioFactory', function ($resource) {
-    return $resource('/sac/api/Horario/:idHorario', null,
-            [
-                {
-                    update: {
-                        method: 'PUT' // this method issues a PUT request
-                    }
-                },
-                {
-                    buscarH: {
-                        method: 'GET' // this method issues a PUT request
-                    }
+    return $resource('/sac/api/Horario/:idHorario', {
+        idcurso: '@idcurso'
+    },
+    [
+        {
+            update: {
+                method: 'PUT' // this method issues a PUT request
+            }
+        },
+        {
+            buscar: {
+                method: 'GET',
+                url: '/sac/api/Horario/:idcurso',
+                params: {
+                    idcurso: 'idcurso'
                 }
-            ]);
+            }
+        }
+    ]);
 });

@@ -45,6 +45,40 @@ public class HorarioController {
         }
     }
 
+    @RequestMapping(value = "/Horario/{idcurso}", method = RequestMethod.GET, produces = "application/json")
+    public void buscarH(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada, @PathVariable("idcurso") int idcurso) {
+        try {
+            List<Horario> auxs = horarioDAO.findHorario(idcurso);
+
+            String jsonSalida = jsonTransformer.toJson(auxs);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            httpServletResponse.getWriter().println(jsonSalida);
+
+        } catch (BussinessException ex) {
+            Set<BussinessMessage> bussinessMessage = ex.getBussinessMessages();
+            String jsonSalida = jsonTransformer.toJson(bussinessMessage);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            try {
+                httpServletResponse.getWriter().println(jsonSalida);
+            } catch (IOException ex1) {
+                Logger.getLogger(HorarioController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } catch (Exception ex) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            httpServletResponse.setContentType("text/plain; charset=UTF-8");
+            try {
+                ex.printStackTrace(httpServletResponse.getWriter());
+            } catch (IOException ex1) {
+                Logger.getLogger(HorarioController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
+
     @RequestMapping(value = "/Horario/{idHorario}", method = RequestMethod.GET, produces = "application/json")
     public void read(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idHorario") int idHorario) {
         try {
@@ -130,7 +164,6 @@ public class HorarioController {
             } catch (IOException ex1) {
                 Logger.getLogger(HorarioController.class.getName()).log(Level.SEVERE, null, ex1);
             }
-
 
         } catch (Exception ex) {
             httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

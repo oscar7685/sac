@@ -23,7 +23,7 @@ import org.hibernate.SessionFactory;
  */
 public class ProfesorDAOImplHibernate extends GenericDAOImplHibernate<Profesor, Integer> implements ProfesorDAO {
 
-    private final static Logger LOGGER = Logger.getLogger(AulaDAOImplHibernate.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(ProfesorDAOImplHibernate.class.getName());
     SessionFactory sessionFactory;
 
     public ProfesorDAOImplHibernate() {

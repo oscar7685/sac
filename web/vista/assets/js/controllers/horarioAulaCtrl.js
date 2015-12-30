@@ -13,12 +13,11 @@ app.controller('horarioAulaCtrl', ["$scope", "DiasFactory", "HoraFactory", "Hora
             });
 
         });
-        HorarioFactory.query().$promise.then(function (result3) {
+
+        HorarioFactory.buscar({idcurso: '1'}).$promise.then(function (result3) {
             $scope.horarios = result3;
-
-            //console.log($scope.filtrado2(1, 1));
-
         });
+
     }]);
 
 
