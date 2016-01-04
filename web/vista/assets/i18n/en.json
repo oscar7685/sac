@@ -84,7 +84,12 @@
                 "AULAS": "Horario Aulas",
                 "CURSOS": "Horario Curso",
                 "PROFESORES": "Horario Profesores"
-            },        
+            },
+            "mantenimiento": {
+                "MAIN": "Mantenimiento",
+                "CREAR": "Solicitar Mantenimiento",
+                "LISTAR": "Horario de Mantenimientos"
+            },
             "element": {
                 "MAIN": "UI Elements",
                 "ELEMENTS": "Elements",

@@ -24,24 +24,14 @@ public class ResponsableCurso  implements java.io.Serializable {
 
      private Integer idresponsableCurso;
      private Curso curso;
-     private String usuario;
-     private String nombre;
-     private String apellido;
-     private String estado;
+     private Usuario usuario;
 
     public ResponsableCurso() {
     }
 
-	
-    public ResponsableCurso(Curso curso) {
-        this.curso = curso;
-    }
-    public ResponsableCurso(Curso curso, String usuario, String nombre, String apellido, String estado) {
+    public ResponsableCurso(Curso curso, Usuario usuario) {
        this.curso = curso;
        this.usuario = usuario;
-       this.nombre = nombre;
-       this.apellido = apellido;
-       this.estado = estado;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -66,44 +56,14 @@ public class ResponsableCurso  implements java.io.Serializable {
         this.curso = curso;
     }
 
-    
-    @Column(name="usuario", length=45)
-    public String getUsuario() {
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="usuario_usuario", nullable=false)
+    public Usuario getUsuario() {
         return this.usuario;
     }
     
-    public void setUsuario(String usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    
-    @Column(name="nombre", length=45)
-    public String getNombre() {
-        return this.nombre;
-    }
-    
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    
-    @Column(name="apellido", length=45)
-    public String getApellido() {
-        return this.apellido;
-    }
-    
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    
-    @Column(name="estado", length=45)
-    public String getEstado() {
-        return this.estado;
-    }
-    
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
 

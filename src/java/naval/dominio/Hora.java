@@ -63,7 +63,7 @@ public class Hora implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "horainicio", length = 10)
+    @Column(name = "horainicio", length = 19)
     public Date getHorainicio() {
         return this.horainicio;
     }
@@ -73,7 +73,7 @@ public class Hora implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "horafinal", length = 10)
+    @Column(name = "horafinal", length = 19)
     public Date getHorafinal() {
         return this.horafinal;
     }

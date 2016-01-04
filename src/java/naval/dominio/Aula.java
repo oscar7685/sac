@@ -3,7 +3,6 @@ package naval.dominio;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -31,27 +30,24 @@ public class Aula implements java.io.Serializable {
     private String nombre;
     private String tipo;
     private Integer capacidad;
-    private Integer piso;
     private String estado;
     private Boolean capacidadAudiovisual;
     private Boolean tablero;
     private Boolean videoBeam;
     private Boolean tv;
-    private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
+    private Integer piso;
     private Set<Horario> horarios = new HashSet<Horario>(0);
+    private Set<Mantenimiento> mantenimientos = new HashSet<Mantenimiento>(0);
+    private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
 
     public Aula() {
-    }
-
-    public Aula(Integer idaula) {
-        this.idaula = idaula;
     }
 
     public Aula(Edificio edificio) {
         this.edificio = edificio;
     }
 
-    public Aula(Curso curso, Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Set<ParteDiario> parteDiarios, Set<Horario> horarios) {
+    public Aula(Curso curso, Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Integer piso, Set<Horario> horarios, Set<Mantenimiento> mantenimientos, Set<ParteDiario> parteDiarios) {
         this.curso = curso;
         this.edificio = edificio;
         this.nombre = nombre;
@@ -62,8 +58,10 @@ public class Aula implements java.io.Serializable {
         this.tablero = tablero;
         this.videoBeam = videoBeam;
         this.tv = tv;
-        this.parteDiarios = parteDiarios;
+        this.piso = piso;
         this.horarios = horarios;
+        this.mantenimientos = mantenimientos;
+        this.parteDiarios = parteDiarios;
     }
 
     @Id
@@ -88,7 +86,7 @@ public class Aula implements java.io.Serializable {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
-    
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "edificio_idedificio", nullable = false)
@@ -125,14 +123,6 @@ public class Aula implements java.io.Serializable {
 
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
-    }
-    @Column(name = "piso")
-    public Integer getPiso() {
-        return piso;
-    }
-
-    public void setPiso(Integer piso) {
-        this.piso = piso;
     }
 
     @Column(name = "estado", length = 500)
@@ -180,14 +170,13 @@ public class Aula implements java.io.Serializable {
         this.tv = tv;
     }
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
-    public Set<ParteDiario> getParteDiarios() {
-        return this.parteDiarios;
+    @Column(name = "piso")
+    public Integer getPiso() {
+        return this.piso;
     }
 
-    public void setParteDiarios(Set<ParteDiario> parteDiarios) {
-        this.parteDiarios = parteDiarios;
+    public void setPiso(Integer piso) {
+        this.piso = piso;
     }
 
     @JsonIgnore
@@ -199,10 +188,24 @@ public class Aula implements java.io.Serializable {
     public void setHorarios(Set<Horario> horarios) {
         this.horarios = horarios;
     }
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
+    public Set<Mantenimiento> getMantenimientos() {
+        return this.mantenimientos;
+    }
 
-    @Override
-    public String toString() {
-        return "id:" + this.idaula;
+    public void setMantenimientos(Set<Mantenimiento> mantenimientos) {
+        this.mantenimientos = mantenimientos;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
+    public Set<ParteDiario> getParteDiarios() {
+        return this.parteDiarios;
+    }
+
+    public void setParteDiarios(Set<ParteDiario> parteDiarios) {
+        this.parteDiarios = parteDiarios;
     }
 
 }

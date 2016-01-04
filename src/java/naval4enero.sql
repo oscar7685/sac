@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Local
-Source Server Version : 50542
+Source Server         : sac
+Source Server Version : 50710
 Source Host           : localhost:3306
 Source Database       : naval
 
 Target Server Type    : MYSQL
-Target Server Version : 50542
+Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2015-12-30 07:31:14
+Date: 2016-01-04 12:20:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,7 @@ CREATE TABLE `aula` (
 -- ----------------------------
 -- Records of aula
 -- ----------------------------
-INSERT INTO `aula` VALUES ('1', '1', 'Aula', '21', 'Activa', '0', '1', '0', '0', '0', '1', '1');
+INSERT INTO `aula` VALUES ('1', '1', 'Aula', '21', 'Activa', '0', '1', '0', '0', '0', null, '1');
 INSERT INTO `aula` VALUES ('2', '2', 'Aula', '24', 'Activa', '0', '1', '0', '0', '0', '2', '1');
 INSERT INTO `aula` VALUES ('3', '3', 'Aula', '7', 'Activa', '0', '1', '0', '0', '0', '3', '1');
 INSERT INTO `aula` VALUES ('4', '4', 'Aula', '17', 'Activa', '0', '1', '0', '0', '0', '4', '1');

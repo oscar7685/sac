@@ -75,9 +75,4 @@ public class Edificio implements java.io.Serializable {
         this.aulas = aulas;
     }
 
-    @Override
-    public String toString() {
-        return "id:" + this.idedificio;
-    }
-
 }

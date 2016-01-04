@@ -375,6 +375,43 @@
             </li>-->
         </ul>
     </li>
+    
+    <li ng-class="{'active open':$state.includes('app.mantenimiento')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-calendar"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.mantenimiento.MAIN"> Mantenimiento </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.mantenimiento.crear">
+                    <span class="title" translate="sidebar.nav.mantenimiento.CREAR">Solicitar Mantenimiento</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.mantenimiento.horario">
+                    <span class="title" translate="sidebar.nav.mantenimiento.LISTAR">Horario de Mantenimientos</span>
+                </a>
+            </li>
+            <!--<li ui-sref-active="active">
+                <a ui-sref="app.pages.messages">
+                    <span class="title" translate="sidebar.nav.pages.MESSAGES">Messages</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.pages.blank">
+                    <span class="title" translate="sidebar.nav.pages.BLANKPAGE">Blank Page</span>
+                </a>
+            </li>-->
+        </ul>
+    </li>
+    
+    
     <!--  <li ng-class="{'active open':$state.includes('app.utilities')}">
           <a href="javascript:void(0)">
               <div class="item-content">

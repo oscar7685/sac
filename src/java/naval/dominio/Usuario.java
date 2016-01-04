@@ -2,12 +2,15 @@ package naval.dominio;
 // Generated 21/12/2015 11:03:03 PM by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +29,10 @@ public class Usuario  implements java.io.Serializable {
      private String apellido;
      private String password;
      private String estado;
+     private Set<Mantenimiento> mantenimientosForTrabajador = new HashSet<Mantenimiento>(0);
+     private Set<Mantenimiento> mantenimientosForSolicitante = new HashSet<Mantenimiento>(0);
+     private Set<Mantenimiento> mantenimientosForAprobadoPor = new HashSet<Mantenimiento>(0);
+     private Set<ResponsableCurso> responsableCursos = new HashSet<ResponsableCurso>(0);
 
     public Usuario() {
     }
@@ -35,13 +42,17 @@ public class Usuario  implements java.io.Serializable {
         this.usuario = usuario;
         this.rol = rol;
     }
-    public Usuario(String usuario, Rol rol, String nombre, String apellido, String password, String estado) {
+    public Usuario(String usuario, Rol rol, String nombre, String apellido, String password, String estado, Set<Mantenimiento> mantenimientosForTrabajador, Set<Mantenimiento> mantenimientosForSolicitante, Set<Mantenimiento> mantenimientosForAprobadoPor, Set<ResponsableCurso> responsableCursos) {
        this.usuario = usuario;
        this.rol = rol;
        this.nombre = nombre;
        this.apellido = apellido;
        this.password = password;
        this.estado = estado;
+       this.mantenimientosForTrabajador = mantenimientosForTrabajador;
+       this.mantenimientosForSolicitante = mantenimientosForSolicitante;
+       this.mantenimientosForAprobadoPor = mantenimientosForAprobadoPor;
+       this.responsableCursos = responsableCursos;
     }
    
      @Id 
@@ -104,6 +115,42 @@ public class Usuario  implements java.io.Serializable {
     
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioByTrabajador")
+    public Set<Mantenimiento> getMantenimientosForTrabajador() {
+        return this.mantenimientosForTrabajador;
+    }
+    
+    public void setMantenimientosForTrabajador(Set<Mantenimiento> mantenimientosForTrabajador) {
+        this.mantenimientosForTrabajador = mantenimientosForTrabajador;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioBySolicitante")
+    public Set<Mantenimiento> getMantenimientosForSolicitante() {
+        return this.mantenimientosForSolicitante;
+    }
+    
+    public void setMantenimientosForSolicitante(Set<Mantenimiento> mantenimientosForSolicitante) {
+        this.mantenimientosForSolicitante = mantenimientosForSolicitante;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="usuarioByAprobadoPor")
+    public Set<Mantenimiento> getMantenimientosForAprobadoPor() {
+        return this.mantenimientosForAprobadoPor;
+    }
+    
+    public void setMantenimientosForAprobadoPor(Set<Mantenimiento> mantenimientosForAprobadoPor) {
+        this.mantenimientosForAprobadoPor = mantenimientosForAprobadoPor;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="usuario")
+    public Set<ResponsableCurso> getResponsableCursos() {
+        return this.responsableCursos;
+    }
+    
+    public void setResponsableCursos(Set<ResponsableCurso> responsableCursos) {
+        this.responsableCursos = responsableCursos;
     }
 
 

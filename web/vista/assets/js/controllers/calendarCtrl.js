@@ -5,6 +5,12 @@
 app.controller('CalendarCtrl', ["$scope", "$aside", "moment", "SweetAlert", function ($scope, $aside, moment, SweetAlert) {
 
 
+moment.locale('es');
+/*moment.locale('en', {
+  week : {
+    dow : 1 // Monday is the first day of the week
+  }
+});*/
 var vm = this;
     var date = new Date();
     var d = date.getDate();

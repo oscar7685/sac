@@ -533,6 +533,21 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Horario Curso'
             },
             resolve: loadSequence('mwl.calendar', 'horarioCursoCtrl')
+        }).state('app.mantenimiento', {
+            url: '/mantenimiento',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Mantenimiento',
+            ncyBreadcrumb: {
+                label: 'Mantenimiento'
+            }
+        }).state('app.mantenimiento.horario', {
+            url: '/horario',
+            templateUrl: "assets/views/mantenimiento/horario.html",
+            title: 'Horario de Mantenimientos',
+            ncyBreadcrumb: {
+                label: 'Horario de Mantenimientos'
+            },
+            resolve: loadSequence('mwl.calendar', 'calendarCtrl',"momentEs")
         }).state('app.horario.profesor', {
             url: '/profesor',
             templateUrl: "assets/views/horario/profesor.html",
