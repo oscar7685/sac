@@ -10,7 +10,7 @@
 </section>
 <!-- end: PAGE TITLE -->
 <!-- start: CALENDAR -->
-<div class="container-fluid container-fullw bg-white" ng-controller="CalendarCtrl">
+<div class="container-fluid container-fullw bg-white">
 	<div class="row">
 		<div class="col-md-12">
 			<!-- /// controller:  'CalendarCtrl' -  localtion: assets/js/controllers/calendarCtrl.js /// -->
@@ -19,14 +19,14 @@
 					<div class="col-md-12">
 						<div class="margin-bottom-30">
 							<button class="btn btn-primary btn-o btn-wide" ng-click="addEvent()">
-								<i class="ti-plus"></i> Agregar nuevo evento
+								<i class="ti-plus"></i> Agregar nuevo mantenimiento
 							</button>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<h2 class="text-center margin-bottom-20 margin-top-20">{{ calendarTitle }} </h2>
+						<h2 class="text-center margin-bottom-20 margin-top-20 text-uppercase">{{ calendarTitle }} </h2>
 					</div>
 					<div class="col-xs-8">
 						<div class="btn-group">
@@ -110,13 +110,15 @@
 					<div class="modal-body">
 					<div class="form-group">
 					<label>
-					Event title
+					Descripción de trabajo a realizar
 					</label>
 					<input type="datetime" placeholder="Enter title" class="form-control underline text-large" ng-model="event.title" >
 					</div>
+                                       
+                                
 					<div class="form-group">
 					<label>
-					Start
+					Inicio
 					</label>
 					<span class="input-icon">
 					<input type="text" class="form-control underline" ng-click="startOpen = !startOpen" datepicker-popup="fullDate" ng-model="event.startsAt" is-open="startOpen" ng-init="startOpen = false" max-date="event.endsAt" close-text="Close" />
@@ -125,7 +127,7 @@
 					</div>
 					<div class="form-group">
 					<label>
-					End
+					Final
 					</label>
 					<span class="input-icon">
 					<input type="text" class="form-control underline" ng-click="endOpen = !endOpen" datepicker-popup="fullDate" ng-model="event.endsAt" is-open="endOpen" ng-init="endOpen = false" min-date="event.startsAt" close-text="Close" />
@@ -190,7 +192,7 @@
 					</button>
 					</div>
 				</script>
-				<!-- end: EDIT EVENT TEMPLATE -->
+   				<!-- end: EDIT EVENT TEMPLATE -->
 			</div>
 		</div>
 	</div>

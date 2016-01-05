@@ -8,36 +8,36 @@ $provide.value("$locale", {
       "p. m."
     ],
     "DAY": [
-      "domingo",
-      "lunes",
-      "martes",
-      "mi\u00e9rcoles",
-      "jueves",
-      "viernes",
-      "s\u00e1bado"
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Mi\u00e9rcoles",
+      "Jueves",
+      "Viernes",
+      "S\u00e1bado"
     ],
     "ERANAMES": [
       "antes de Cristo",
       "despu\u00e9s de Cristo"
     ],
     "ERAS": [
-      "a. C.",
-      "d. C."
+      "A. C.",
+      "D. C."
     ],
     "FIRSTDAYOFWEEK": 0,
     "MONTH": [
-      "enero",
-      "febrero",
-      "marzo",
-      "abril",
-      "mayo",
-      "junio",
-      "julio",
-      "agosto",
-      "septiembre",
-      "octubre",
-      "noviembre",
-      "diciembre"
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
     ],
     "SHORTDAY": [
       "dom.",

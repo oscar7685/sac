@@ -641,6 +641,14 @@ app.factory('HoraFactory', function ($resource) {
     });
 });
 
+app.factory('MantenimientoFactory', function ($resource) {
+    return $resource('/sac/api/Mantenimiento/:idMantenimiento', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+
 app.factory('HorarioFactory', function ($resource) {
     return $resource('/sac/api/Horario/:idHorario', null,
             {

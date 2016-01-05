@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2016-01-04 12:20:26
+Date: 2016-01-05 16:33:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,7 +37,7 @@ CREATE TABLE `aula` (
   KEY `fk_aula_curso1_idx` (`responsable`),
   CONSTRAINT `fk_aula_curso1` FOREIGN KEY (`responsable`) REFERENCES `curso` (`idcurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_aula_edificio` FOREIGN KEY (`edificio_idedificio`) REFERENCES `edificio` (`idedificio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aula
@@ -90,7 +90,6 @@ INSERT INTO `aula` VALUES ('45', 'A. TACTICA', 'Aula', '32', 'Activa', '0', '7',
 INSERT INTO `aula` VALUES ('46', 'A. NAVEGACION', 'Aula', '29', 'Activa', '0', '7', '0', '0', '0', '46', '1');
 INSERT INTO `aula` VALUES ('47', 'A. ARQUITECTURA NAVAL', 'Aula', '0', 'Inactiva', '0', '8', '0', '0', '0', null, '1');
 INSERT INTO `aula` VALUES ('48', 'LAB. ELECTRICIDAD', 'Aula', '0', 'Inactiva', '0', '8', '0', '0', '0', null, '1');
-INSERT INTO `aula` VALUES ('49', 'Aula de prueba', 'Lab', '22', 'Activa', '1', '12', '0', '1', '1', null, '2');
 
 -- ----------------------------
 -- Table structure for curso
@@ -101,7 +100,7 @@ CREATE TABLE `curso` (
   `codigo` varchar(45) NOT NULL,
   `numero_estudiantes` int(11) DEFAULT NULL,
   PRIMARY KEY (`idcurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of curso
@@ -149,7 +148,6 @@ INSERT INTO `curso` VALUES ('42', 'CCPAD', '0');
 INSERT INTO `curso` VALUES ('44', '4.2 IM', '20');
 INSERT INTO `curso` VALUES ('45', 'COMANDO 84', '0');
 INSERT INTO `curso` VALUES ('46', '2.1 A', '30');
-INSERT INTO `curso` VALUES ('47', 'Curso XY', '20');
 
 -- ----------------------------
 -- Table structure for detalle_parte_diario
@@ -217,10 +215,10 @@ INSERT INTO `dinamicas_empleadas` VALUES ('1', 'TI', 'TRABAJO INDIVIDUAL');
 INSERT INTO `dinamicas_empleadas` VALUES ('2', 'CM', 'CLASE MAGISTRAL');
 INSERT INTO `dinamicas_empleadas` VALUES ('3', 'QR', 'QUIZ INICIO DE CLASE');
 INSERT INTO `dinamicas_empleadas` VALUES ('4', 'PT', 'PASADA A TABLERO');
-INSERT INTO `dinamicas_empleadas` VALUES ('5', 'EP', 'EVALUACIÓN PARCIAL');
-INSERT INTO `dinamicas_empleadas` VALUES ('6', 'EFP', 'EVALUACIÓN DEL PERIODO');
-INSERT INTO `dinamicas_empleadas` VALUES ('7', 'STG', 'SOCIALIZACIÓN TRABAJO EN GRUPO');
-INSERT INTO `dinamicas_empleadas` VALUES ('8', 'OBG', 'OBSERVACIÓN GENERAL - AL RESPALDO');
+INSERT INTO `dinamicas_empleadas` VALUES ('5', 'EP', 'EVALUACION PARCIAL');
+INSERT INTO `dinamicas_empleadas` VALUES ('6', 'EFP', 'EVALUACION DEL PERIODO');
+INSERT INTO `dinamicas_empleadas` VALUES ('7', 'STG', 'SOCIALIZACION TRABAJO EN GRUPO');
+INSERT INTO `dinamicas_empleadas` VALUES ('8', 'OBG', 'OBSERVACION GENERAL - AL RESPALDO');
 INSERT INTO `dinamicas_empleadas` VALUES ('9', 'PL', 'PLENARIA EN CLASE DE TEMA FINAL');
 INSERT INTO `dinamicas_empleadas` VALUES ('10', 'TGR', 'TRABAJO EN GRUPO SUPERVISADO');
 
@@ -233,7 +231,7 @@ CREATE TABLE `edificio` (
   `nombre` varchar(45) DEFAULT NULL,
   `pisos` int(11) DEFAULT NULL,
   PRIMARY KEY (`idedificio`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edificio
@@ -248,7 +246,6 @@ INSERT INTO `edificio` VALUES ('7', 'PLANETARIO', '5');
 INSERT INTO `edificio` VALUES ('8', 'CASA BLANCA', '5');
 INSERT INTO `edificio` VALUES ('9', 'COMANDO', '5');
 INSERT INTO `edificio` VALUES ('10', 'ALFA SEXTANTIS', '5');
-INSERT INTO `edificio` VALUES ('12', 'EDIFICIO COOL', '2');
 
 -- ----------------------------
 -- Table structure for facultad
@@ -359,6 +356,42 @@ INSERT INTO `horario` VALUES ('27', '193', '2', '2', '13', '2');
 INSERT INTO `horario` VALUES ('28', '194', '2', '2', '14', '2');
 
 -- ----------------------------
+-- Table structure for mantenimiento
+-- ----------------------------
+DROP TABLE IF EXISTS `mantenimiento`;
+CREATE TABLE `mantenimiento` (
+  `idmantenimiento` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_inicio` datetime DEFAULT NULL,
+  `fecha_final` datetime DEFAULT NULL,
+  `descripcion` varchar(2000) NOT NULL,
+  `prioridad` varchar(45) DEFAULT NULL,
+  `tipo` varchar(255) DEFAULT NULL,
+  `aula_idaula` int(11) NOT NULL,
+  `solicitante` varchar(255) DEFAULT NULL,
+  `trabajador` varchar(255) DEFAULT NULL,
+  `aprobado` tinyint(1) DEFAULT NULL,
+  `fuera_servicio` tinyint(1) DEFAULT NULL,
+  `leido` tinyint(1) DEFAULT NULL,
+  `aprobado_por` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idmantenimiento`),
+  KEY `fk_mantenimiento_aula1_idx` (`aula_idaula`),
+  KEY `fk_mantenimiento_usuario1_idx` (`solicitante`),
+  KEY `fk_mantenimiento_usuario2_idx` (`trabajador`),
+  KEY `fk_mantenimiento_usuario3_idx` (`aprobado_por`),
+  CONSTRAINT `fk_mantenimiento_aula1` FOREIGN KEY (`aula_idaula`) REFERENCES `aula` (`idaula`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mantenimiento_usuario1` FOREIGN KEY (`solicitante`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mantenimiento_usuario2` FOREIGN KEY (`trabajador`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mantenimiento_usuario3` FOREIGN KEY (`aprobado_por`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mantenimiento
+-- ----------------------------
+INSERT INTO `mantenimiento` VALUES ('1', '2016-01-06 11:30:00', '2016-01-07 11:30:10', 'Un mantenimiento preventivo', '1', 'Preventivo', '1', null, 'oscar7685', null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('2', '2016-01-06 13:30:00', '2016-01-06 16:00:00', 'Un mantenimiento preventivo', '1', 'Preventivo', '2', null, 'oscar7685', null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('3', '2016-01-18 13:30:00', '2016-01-20 16:00:00', 'Un mantenimiento preventivo', '1', 'Preventivo', '2', null, 'oscar7685', null, null, null, null);
+
+-- ----------------------------
 -- Table structure for motivo_inasistencia_estudiante
 -- ----------------------------
 DROP TABLE IF EXISTS `motivo_inasistencia_estudiante`;
@@ -367,22 +400,11 @@ CREATE TABLE `motivo_inasistencia_estudiante` (
   `codigo` varchar(45) DEFAULT NULL,
   `descripcion` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`idmotivo_inasistencia`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of motivo_inasistencia_estudiante
 -- ----------------------------
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('1', 'SR', 'SERVICIO DE RANCHO');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('2', 'ES', 'EXCUSA DE SERVICIO');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('3', 'L', 'LICENCIA');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('4', 'CM', 'CONSULTA MEDICA');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('5', 'OS', 'ORDENES DE SERVICIO');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('6', 'OD', 'ODONTOLOGIA');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('7', 'H', 'HOSPITALIZACIÓN');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('8', 'SE', 'SIN EXCUSA');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('9', 'OC', 'OTRAS CAUSAS (JUSTIFICADAS)');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('10', 'RL', 'RETARDO A LICENCIA');
-INSERT INTO `motivo_inasistencia_estudiante` VALUES ('11', 'PB', 'PROCESO DE BAJA');
 
 -- ----------------------------
 -- Table structure for parte_diario
@@ -433,7 +455,7 @@ CREATE TABLE `profesor` (
   PRIMARY KEY (`idprofesor`),
   KEY `fk_profesor_facultad1_idx` (`facultad_idfacultad`),
   CONSTRAINT `fk_profesor_facultad1` FOREIGN KEY (`facultad_idfacultad`) REFERENCES `facultad` (`idfacultad`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of profesor
@@ -443,7 +465,7 @@ INSERT INTO `profesor` VALUES ('2', 'AM-1', 'PF. GARCES GABRIEL', '2');
 INSERT INTO `profesor` VALUES ('3', 'AM-2', 'PF. GRACIA ACERO LUIS DANIEL', '2');
 INSERT INTO `profesor` VALUES ('4', 'AM-3', 'PF. MORENO GALVIS ANDRES JUVENAL', '2');
 INSERT INTO `profesor` VALUES ('5', 'AM-4', 'PF. GARCES LUIS GUILLERMO', '2');
-INSERT INTO `profesor` VALUES ('6', 'AM-5', 'CC. URREGO NIÑO DIANA', '2');
+INSERT INTO `profesor` VALUES ('6', 'AM-5', 'CC. URREGO NIÃ‘O DIANA', '2');
 INSERT INTO `profesor` VALUES ('7', 'AM-6', 'CF. BERNAL MARIO', '2');
 INSERT INTO `profesor` VALUES ('8', 'AM-7', 'PF. PAUTT JUAN', '2');
 INSERT INTO `profesor` VALUES ('9', 'AM-8', 'PF. OSORIO DIANA', '2');
@@ -452,7 +474,7 @@ INSERT INTO `profesor` VALUES ('11', 'AM-10', 'PF. OSORIO RICO ALFONSO', '2');
 INSERT INTO `profesor` VALUES ('12', 'AM-11', 'CF. CHAPARRO ORTIZ ALEJANDRO', '2');
 INSERT INTO `profesor` VALUES ('13', 'AM-12', 'PR. PARDO RAMOS PATRICIA', '2');
 INSERT INTO `profesor` VALUES ('14', 'AM-13', 'PF. TORRES  YAZAGARAY OSCAR', '2');
-INSERT INTO `profesor` VALUES ('15', 'AM-14', 'PF. JACOME PEÑARANDA INGRID', '2');
+INSERT INTO `profesor` VALUES ('15', 'AM-14', 'PF. JACOME PEÃ‘ARANDA INGRID', '2');
 INSERT INTO `profesor` VALUES ('16', 'AM-15', 'PF. ZAPATEIRO ORLANDO', '2');
 INSERT INTO `profesor` VALUES ('17', 'AM-16', 'PF. RODRIGUEZ MARRUGO JENNY', '2');
 INSERT INTO `profesor` VALUES ('18', 'AM-17', 'TF.MORENO MARCELA', '2');
@@ -479,7 +501,7 @@ INSERT INTO `profesor` VALUES ('38', 'IN-12', 'PF. CARRILLO SANDRA', '3');
 INSERT INTO `profesor` VALUES ('39', 'IN-13', 'PF. RAMOS ALCIDES', '3');
 INSERT INTO `profesor` VALUES ('40', 'IN-14', 'PF. CARDENAS LUIS', '3');
 INSERT INTO `profesor` VALUES ('41', 'IN-15', 'CF. CALLAMAND RAFAEL', '3');
-INSERT INTO `profesor` VALUES ('42', 'IN-16', 'TN. PARRA MONTAÑEZ DIEGO ENRIQUE', '3');
+INSERT INTO `profesor` VALUES ('42', 'IN-16', 'TN. PARRA MONTAÃ‘EZ DIEGO ENRIQUE', '3');
 INSERT INTO `profesor` VALUES ('43', 'IN-17', 'PF. CAJAL BARRIOS JUAN VICENTE', '3');
 INSERT INTO `profesor` VALUES ('44', 'IN-18', 'PF. CANTILLO INGRID', '3');
 INSERT INTO `profesor` VALUES ('45', 'IN-20', 'PF. PEREZ HARVEY', '3');
@@ -492,9 +514,9 @@ INSERT INTO `profesor` VALUES ('51', 'CN-2', 'TN. VARGAS CARDENAS GUSTAVO', '4')
 INSERT INTO `profesor` VALUES ('52', 'CN-3', 'BERBEO CALDERON LUIS', '4');
 INSERT INTO `profesor` VALUES ('53', 'CN-4', 'TF. RIVERA VARGAS MARIO', '4');
 INSERT INTO `profesor` VALUES ('54', 'CN-5', 'PF. PINZON JUAN CARLOS', '4');
-INSERT INTO `profesor` VALUES ('55', 'CN-7', 'PF. LONDOÑO SERGIO', '4');
+INSERT INTO `profesor` VALUES ('55', 'CN-7', 'PF. LONDOÃ‘O SERGIO', '4');
 INSERT INTO `profesor` VALUES ('56', 'CN-8', 'PF. SAENZ MARCO', '4');
-INSERT INTO `profesor` VALUES ('57', 'CN-9', 'TN. SALGUERO LONDOÑO DIEGO', '4');
+INSERT INTO `profesor` VALUES ('57', 'CN-9', 'TN. SALGUERO LONDOÃ‘O DIEGO', '4');
 INSERT INTO `profesor` VALUES ('58', 'CN-10', 'SJT. GUTIERREZ GUTIERREZ ANDRES', '4');
 INSERT INTO `profesor` VALUES ('59', 'CN-11', 'SJ. VILLAREAL VELAZCO OSWALDO', '4');
 INSERT INTO `profesor` VALUES ('60', 'CN-12', 'TF. MEJIA ANDRES MAURICIO', '4');
@@ -582,7 +604,7 @@ INSERT INTO `profesor` VALUES ('141', 'CS-25', 'PF. SALOM BENJAMIN', '1');
 INSERT INTO `profesor` VALUES ('142', 'CS-26', 'CF. PAEZ CECILIA', '1');
 INSERT INTO `profesor` VALUES ('143', 'CS-27', 'CF. SANCHEZ PIEDRAITA GLORIA', '1');
 INSERT INTO `profesor` VALUES ('144', 'CS-28', 'PF. PASCUALES JOSE', '1');
-INSERT INTO `profesor` VALUES ('145', 'CS-29', 'TN. SIERRA IBAÑEZ LUISA JOANNE', '1');
+INSERT INTO `profesor` VALUES ('145', 'CS-29', 'TN. SIERRA IBAÃ‘EZ LUISA JOANNE', '1');
 INSERT INTO `profesor` VALUES ('146', 'CS-30', 'PF. MOUTHON PAOLA', '1');
 INSERT INTO `profesor` VALUES ('147', 'IM-1', 'CT. CASTRO PARRA CRISTIAN', '6');
 INSERT INTO `profesor` VALUES ('148', 'IM-2', 'CT. PEREZ ZAMORA OSCAR', '6');
@@ -592,20 +614,20 @@ INSERT INTO `profesor` VALUES ('151', 'IM-5', 'TE. RIVERA TAPIAS JHON', '6');
 INSERT INTO `profesor` VALUES ('152', 'IM-6', 'TE. TORRES BUENO YEISON', '6');
 INSERT INTO `profesor` VALUES ('153', 'IM-7', 'SV. JULIO ARROYO LORGIO ANTONIO', '6');
 INSERT INTO `profesor` VALUES ('154', 'IM-8', 'SV. HERAZO WALTER JOSE', '6');
-INSERT INTO `profesor` VALUES ('155', 'IM-9', 'SV. QUIÑONEZ PADILLA DARIO', '6');
+INSERT INTO `profesor` VALUES ('155', 'IM-9', 'SV. QUIÃ‘ONEZ PADILLA DARIO', '6');
 INSERT INTO `profesor` VALUES ('156', 'IM-10', 'PF. ORTEGA ALGUEDO ANTONIO', '6');
 INSERT INTO `profesor` VALUES ('157', 'IM-11', 'TC. RODRIGUEZ PRIETO GERMAN ANDRES', '6');
 INSERT INTO `profesor` VALUES ('158', 'IM-12', 'PF. TOVAR VARGAS JUAN MANUEL', '6');
 INSERT INTO `profesor` VALUES ('159', 'IM-13', 'TECIM. FLOREZ HILDEBRANDO', '6');
 INSERT INTO `profesor` VALUES ('160', 'IM-15', 'CT. USME OSCAR', '6');
 INSERT INTO `profesor` VALUES ('161', 'IM-16', 'TE. BARRIOS WILSON', '6');
-INSERT INTO `profesor` VALUES ('162', 'IM-17', 'CT. MUÑOZ DONALDO', '6');
+INSERT INTO `profesor` VALUES ('162', 'IM-17', 'CT. MUÃ‘OZ DONALDO', '6');
 INSERT INTO `profesor` VALUES ('163', 'IM-18', 'MY. QUIJANO YOHANNY', '6');
 INSERT INTO `profesor` VALUES ('164', 'IM-19', 'PF. ROJAS RODRIGUEZ ANGEL', '6');
 INSERT INTO `profesor` VALUES ('165', 'IM-20', 'MY. LLANOS RENDON JHON FREDY', '6');
 INSERT INTO `profesor` VALUES ('166', 'IM-21', 'SV. CAEDONA QUICENO JHON', '6');
 INSERT INTO `profesor` VALUES ('167', 'IM-22', 'TF. RODRIGUEZ TORRES JAVIER ENRIQUE', '6');
-INSERT INTO `profesor` VALUES ('168', 'IM-23', 'TE. PATERNINA MIROÑA OSCAR JAVIER', '6');
+INSERT INTO `profesor` VALUES ('168', 'IM-23', 'TE. PATERNINA MIROÃ‘A OSCAR JAVIER', '6');
 INSERT INTO `profesor` VALUES ('169', 'IM-24', 'PF. PINZON MORA EDWIN FERNEY', '6');
 INSERT INTO `profesor` VALUES ('170', 'IM-25', 'S3. BERTEL ALVIS ARNOVIS', '6');
 INSERT INTO `profesor` VALUES ('171', 'IM-26', 'SS. LARA GOMEZ JOSE LUIS', '6');
@@ -632,7 +654,6 @@ INSERT INTO `profesor` VALUES ('191', 'OF-19', 'TF. GRISALES CESAR', '7');
 INSERT INTO `profesor` VALUES ('192', 'OF-20 ', 'TF. OTALORA NATALIA', '7');
 INSERT INTO `profesor` VALUES ('193', 'D-1', 'ESTUDIO', '8');
 INSERT INTO `profesor` VALUES ('194', 'D-2', 'LIBRE', '8');
-INSERT INTO `profesor` VALUES ('195', '12345678', 'Charles Xavier', '8');
 
 -- ----------------------------
 -- Table structure for responsable_curso
@@ -640,14 +661,13 @@ INSERT INTO `profesor` VALUES ('195', '12345678', 'Charles Xavier', '8');
 DROP TABLE IF EXISTS `responsable_curso`;
 CREATE TABLE `responsable_curso` (
   `idresponsable_curso` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario` varchar(45) DEFAULT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
-  `apellido` varchar(45) DEFAULT NULL,
   `curso_idcurso` int(11) NOT NULL,
-  `estado` varchar(45) DEFAULT NULL,
+  `usuario_usuario` varchar(255) NOT NULL,
   PRIMARY KEY (`idresponsable_curso`),
   KEY `fk_responsable_curso_curso1_idx` (`curso_idcurso`),
-  CONSTRAINT `fk_responsable_curso_curso1` FOREIGN KEY (`curso_idcurso`) REFERENCES `curso` (`idcurso`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_responsable_curso_usuario1_idx` (`usuario_usuario`),
+  CONSTRAINT `fk_responsable_curso_curso1` FOREIGN KEY (`curso_idcurso`) REFERENCES `curso` (`idcurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_responsable_curso_usuario1` FOREIGN KEY (`usuario_usuario`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -667,6 +687,7 @@ CREATE TABLE `rol` (
 -- ----------------------------
 -- Records of rol
 -- ----------------------------
+INSERT INTO `rol` VALUES ('1', 'Administrador');
 
 -- ----------------------------
 -- Table structure for rol_has_permisos
@@ -705,3 +726,4 @@ CREATE TABLE `usuario` (
 -- ----------------------------
 -- Records of usuario
 -- ----------------------------
+INSERT INTO `usuario` VALUES ('oscar7685', 'Oscar', 'Ballestero', '123456', 'Activo', '1');
