@@ -123,9 +123,6 @@ app.constant('JS_REQUIRES', {
         }, {
             name: 'ng-nestable',
             files: ['../bower_components/ng-nestable/src/angular-nestable.js']
-        },{
-            name: 'momentEs',
-            files: ['../bower_components/moment/locale/es.js']
         }, {
             name: 'vAccordion',
             files: ['../bower_components/v-accordion/dist/v-accordion.min.js', '../bower_components/v-accordion/dist/v-accordion.min.css']

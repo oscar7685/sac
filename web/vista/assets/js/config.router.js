@@ -547,7 +547,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Horario de Mantenimientos'
             },
-            resolve: loadSequence('mwl.calendar', 'calendarCtrl',"momentEs")
+            resolve: loadSequence('mwl.calendar', 'calendarCtrl')
         }).state('app.horario.profesor', {
             url: '/profesor',
             templateUrl: "assets/views/horario/profesor.html",
