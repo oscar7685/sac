@@ -124,7 +124,7 @@ public class Mantenimiento implements java.io.Serializable {
         this.usuarioByAprobadoPor = usuarioByAprobadoPor;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd HH:mm", timezone = "America/Bogota")
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd HH:mm", timezone = "America/Bogota")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_inicio", length = 10)
     public Date getFechaInicio() {
@@ -135,7 +135,7 @@ public class Mantenimiento implements java.io.Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "America/Bogota")
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "America/Bogota")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_final", length = 10)
     public Date getFechaFinal() {

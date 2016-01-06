@@ -489,7 +489,7 @@ img-crop {
   width: 8px !important;
 }
 
-.event-job {
+.event-job, .event-preventivo  {
   background-color: #007AFF !important;
 }
 
@@ -501,7 +501,7 @@ img-crop {
   background-color: #FF6600 !important;
 }
 
-.event-cancelled {
+.event-cancelled, .event-correctivo {
   background-color: #FFB848 !important;
 }
 
