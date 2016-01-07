@@ -1,172 +1,194 @@
 <!-- start: PAGE TITLE -->
 <section id="page-title">
-	<div class="row">
-		<div class="col-sm-8">
-			<h1 class="mainTitle" translate="sidebar.nav.pages.CALENDAR">CALENDAR</h1>
-			<span class="mainDescription">A port of the bootstrap calendar widget to AngularJS (no jQuery required).</span>
-		</div>
-		<div ncy-breadcrumb></div>
-	</div>
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.pages.CALENDAR">CALENDAR</h1>
+            <span class="mainDescription">A port of the bootstrap calendar widget to AngularJS (no jQuery required).</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
 </section>
 <!-- end: PAGE TITLE -->
 <!-- start: CALENDAR -->
 <div class="container-fluid container-fullw bg-white">
-	<div class="row">
-		<div class="col-md-12">
-			<!-- /// controller:  'CalendarCtrl' -  localtion: assets/js/controllers/calendarCtrl.js /// -->
-			<div ng-controller="CalendarCtrl" id="demo">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="margin-bottom-30">
-							<button class="btn btn-primary btn-o btn-wide" ng-click="addEvent()">
-								<i class="ti-plus"></i> Agregar nuevo mantenimiento
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<h2 class="text-center margin-bottom-20 margin-top-20 text-uppercase">{{ calendarTitle }} </h2>
-					</div>
-					<div class="col-xs-8">
-						<div class="btn-group">
-							<button class="btn btn-primary" mwl-date-modifier date="calendarDay" decrement="calendarView">
-								<i class="ti-angle-left"></i>
-							</button>
-							<button class="btn btn-primary" mwl-date-modifier date="calendarDay" increment="calendarView">
-								<i class="ti-angle-right"></i>
-							</button>
-						</div>
-						<button class="btn btn-primary btn-o" mwl-date-modifier date="calendarDay" set-to-today>
-							Hoy
-						</button>
-					</div>
-					<div class="col-xs-4 text-right">
-						<div class="visible-md visible-lg hidden-sm hidden-xs">
-							<div class="btn-group">
-								<label class="btn btn-primary" ng-model="calendarView" btn-radio="'year'">
-                                                                    A&nacute;o
-								</label>
-								<label class="btn btn-primary" ng-model="calendarView" btn-radio="'month'">
-									Mes
-								</label>
-								<label class="btn btn-primary" ng-model="calendarView" btn-radio="'week'">
-									Semana
-								</label>
-								<label class="btn btn-primary" ng-model="calendarView" btn-radio="'day'">
-									Dia
-								</label>
-							</div>
-						</div>
-						<div class="visible-xs visible-sm hidden-md hidden-lg">
-							<div class="btn-group" dropdown>
-								<button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
-									<i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu pull-right dropdown-light" role="menu">
-									<li>
-										<a ng-model="calendarView" btn-radio="'year'" href="">
-											A&nacute;o
-										</a>
-									</li>
-									<li>
-										<a ng-model="calendarView" btn-radio="'month'" href="">
-											Mes
-										</a>
-									</li>
-									<li>
-										<a ng-model="calendarView" btn-radio="'week'" href="">
-											Semana
-										</a>
-									</li>
-									<li>
-										<a ng-model="calendarView" btn-radio="'day'" href="">
-											Dia
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<br>
-				<mwl-calendar
-				events="events"
-				view="calendarView"
-				view-title="calendarTitle"
-				current-day="calendarDay"
-				on-event-click="eventClicked(calendarEvent)"
-				edit-event-html="'<div class=\'btn btn-primary btn-sm pull-right\'><i class=\'ti-pencil\'></i></div>'"
-				delete-event-html="'<div class=\'btn btn-danger btn-sm margin-right-10 pull-right\'><i class=\'ti-close\'></i></div>'"
-				on-edit-event-click="eventEdited(calendarEvent)"
-				on-delete-event-click="eventDeleted(calendarEvent)"
-				auto-open="false"
-				></mwl-calendar>
-				<br>
-				<br>
-				<br>
-				<!-- start: EDIT EVENT TEMPLATE -->
-				<script type="text/ng-template" id="calendarEvent.html">
-					<div class="modal-body">
-					<div class="form-group">
-					<label>
-					Descripción de trabajo a realizar
-					</label>
-					<input type="datetime" placeholder="Enter title" class="form-control underline text-large" ng-model="event.title" >
-					</div>
-                                       <div class="form-group">
-					<label>
-					Inicio
-					</label>
-					<span class="input-icon">
-					<input type="text" class="form-control underline" ng-click="startOpen = !startOpen" datepicker-popup="fullDate" ng-model="event.startsAt" is-open="startOpen" ng-init="startOpen = false" max-date="event.endsAt" close-text="Close" />
-					<i class="ti-calendar"></i> </span>
-					<timepicker ng-model="event.startsAt" show-meridian="true" ng-show="!event.allDay"></timepicker>
-					</div>
-					<div class="form-group">
-					<label>
-					Final
-					</label>
-					<span class="input-icon">
-					<input type="text" class="form-control underline" ng-click="endOpen = !endOpen" datepicker-popup="fullDate" ng-model="event.endsAt" is-open="endOpen" ng-init="endOpen = false" min-date="event.startsAt" close-text="Close" />
-					<i class="ti-calendar"></i> </span>
-					<timepicker ng-model="event.endsAt" show-meridian="true" ng-show="!event.allDay"></timepicker>
-					</div>
-					<div class="form-group">
-					<label>
-					Tipo
-					</label>
-					<div class="row">
-					<div class="col-xs-6">
-					<div class="radio clip-radio radio-primary">
-					<input type="radio" id="preventivo" name="optionsCategory" value="preventivo" ng-model="event.type">
-					<label for="preventivo">
-					<span class="fa fa-circle text-primary"></span> Preventivo
-					</label>
-					</div>
-					<div class="radio clip-radio radio-primary">
-					<input type="radio" id="correctivo" name="optionsCategory" value="correctivo" ng-model="event.type">
-					<label for="correctivo">
-					<span class="fa fa-circle text-yellow"></span> Correctivo
-					</label>
-					</div>
-					</div>
-					</div>
-					</div>
-					</div>
-					</div>
-					<div class="modal-footer">
-					<button class="btn btn-danger btn-o" ng-click="deleteEvent(event)">
-					Delete
-					</button>
-					<button class="btn btn-primary btn-o" ng-click="cancel()">
-					Ok
-					</button>
-					</div>
-				</script>
-   				<!-- end: EDIT EVENT TEMPLATE -->
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'CalendarCtrl' -  localtion: assets/js/controllers/calendarCtrl.js /// -->
+            <div ng-controller="CalendarCtrl" id="demo">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="margin-bottom-30">
+                            <button class="btn btn-primary btn-o btn-wide" ng-click="addEvent()">
+                                <i class="ti-plus"></i> Agregar nuevo mantenimiento
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center margin-bottom-20 margin-top-20 text-uppercase">{{ calendarTitle}} </h2>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" mwl-date-modifier date="calendarDay" decrement="calendarView">
+                                <i class="ti-angle-left"></i>
+                            </button>
+                            <button class="btn btn-primary" mwl-date-modifier date="calendarDay" increment="calendarView">
+                                <i class="ti-angle-right"></i>
+                            </button>
+                        </div>
+                        <button class="btn btn-primary btn-o" mwl-date-modifier date="calendarDay" set-to-today>
+                            Hoy
+                        </button>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                            <div class="btn-group">
+                                <label class="btn btn-primary" ng-model="calendarView" btn-radio="'year'">
+                                    A&nacute;o
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" btn-radio="'month'">
+                                    Mes
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" btn-radio="'week'">
+                                    Semana
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" btn-radio="'day'">
+                                    Dia
+                                </label>
+                            </div>
+                        </div>
+                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                            <div class="btn-group" dropdown>
+                                <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                    <li>
+                                        <a ng-model="calendarView" btn-radio="'year'" href="">
+                                            A&nacute;o
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" btn-radio="'month'" href="">
+                                            Mes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" btn-radio="'week'" href="">
+                                            Semana
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" btn-radio="'day'" href="">
+                                            Dia
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <mwl-calendar
+                    events="events"
+                    view="calendarView"
+                    view-title="calendarTitle"
+                    current-day="calendarDay"
+                    on-event-click="eventClicked(calendarEvent)"
+                    edit-event-html="'<div class=\'btn btn-primary btn-sm pull-right\'><i class=\'ti-pencil\'></i></div>'"
+                    delete-event-html="'<div class=\'btn btn-danger btn-sm margin-right-10 pull-right\'><i class=\'ti-close\'></i></div>'"
+                    on-edit-event-click="eventEdited(calendarEvent)"
+                    on-delete-event-click="eventDeleted(calendarEvent)"
+                    auto-open="false"
+                    day-view-start="06:00"
+                    day-view-end="22:00"
+                    day-view-split="30"></mwl-calendar>
+                <br>
+                <br>
+                <br>
+                <!-- start: EDIT EVENT TEMPLATE -->
+                <script type="text/ng-template" id="calendarEvent.html">
+                    <div class="modal-body">
+            <div class="form-group">
+                <label>
+                    Descripción de trabajo a realizar
+                </label>
+                <textarea placeholder="Ingrese la descripcion del trabajo a realizar" class="form-control underline" rows="3" ng-model="event.title"></textarea>
+            </div>        
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>
+                            Inicio
+                        </label>
+                        <span class="input-icon">
+                            <input type="text" class="form-control underline" ng-click="startOpen = !startOpen" datepicker-popup="dd/MM/yyyy" ng-model="event.startsAt" is-open="startOpen" ng-init="startOpen = false" max-date="event.endsAt" close-text="Close" />
+                            <i class="ti-calendar"></i> </span>
+                        <timepicker ng-model="event.startsAt" show-meridian="true" ng-show="!event.allDay"></timepicker>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>
+                            Final
+                        </label>
+                        <span class="input-icon">
+                            <input type="text" class="form-control underline" ng-click="endOpen = !endOpen" 
+                                   datepicker-popup="dd/MM/yyyy" ng-model="event.endsAt" is-open="endOpen" ng-init="endOpen = false" min-date="event.startsAt" close-text="Close" />
+                            <i class="ti-calendar"></i> </span>
+                        <timepicker ng-model="event.endsAt" show-meridian="true" ng-show="!event.allDay"></timepicker>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>
+                            Tipo
+                        </label>
+                        <div class="radio clip-radio radio-primary">
+                            <input type="radio" id="preventivo" name="optionsCategory" value="preventivo" ng-model="event.type">
+                            <label for="preventivo">
+                                <span class="fa fa-circle text-primary"></span> Preventivo
+                            </label>
+                        </div>
+                        <div class="radio clip-radio radio-primary">
+                            <input type="radio" id="correctivo" name="optionsCategory" value="correctivo" ng-model="event.type">
+                            <label for="correctivo">
+                                <span class="fa fa-circle text-yellow"></span> Correctivo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="aula">
+                            Aula
+                        </label>
+                        <select id="aula" name="aula" class="form-control" ng-model="aula.idaula" ng-options="aula.idaula as aula.nombre for aula in aulas"  required>
+                           <option value="">&nbsp;</option>
+                         </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger btn-o" ng-click="deleteEvent(event)">
+                Delete
+            </button>
+            <button class="btn btn-primary btn-o" ng-click="cancel()">
+                Ok
+            </button>
+        </div>
+                </script>
+                <!-- end: EDIT EVENT TEMPLATE -->
+            </div>
+        </div>
+    </div>
 </div>
 <!-- end: CALENDAR -->

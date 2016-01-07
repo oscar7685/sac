@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>
+                    Descripción de trabajo a realizar
+                </label>
+                <textarea placeholder="Ingrese la descripcion del trabajo a realizar" class="form-control underline" rows="3" ng-model="event.title"></textarea>
+            </div>        
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>
+                            Inicio
+                        </label>
+                        <span class="input-icon">
+                            <input type="text" class="form-control underline" ng-click="startOpen = !startOpen" datepicker-popup="dd/MM/yyyy" ng-model="event.startsAt" is-open="startOpen" ng-init="startOpen = false" max-date="event.endsAt" close-text="Close" />
+                            <i class="ti-calendar"></i> </span>
+                        <timepicker ng-model="event.startsAt" show-meridian="true" ng-show="!event.allDay"></timepicker>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>
+                            Final
+                        </label>
+                        <span class="input-icon">
+                            <input type="text" class="form-control underline" ng-click="endOpen = !endOpen" 
+                                   datepicker-popup="dd/MM/yyyy" ng-model="event.endsAt" is-open="endOpen" ng-init="endOpen = false" min-date="event.startsAt" close-text="Close" />
+                            <i class="ti-calendar"></i> </span>
+                        <timepicker ng-model="event.endsAt" show-meridian="true" ng-show="!event.allDay"></timepicker>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>
+                            Tipo
+                        </label>
+                        <div class="radio clip-radio radio-primary">
+                            <input type="radio" id="preventivo" name="optionsCategory" value="preventivo" ng-model="event.type">
+                            <label for="preventivo">
+                                <span class="fa fa-circle text-primary"></span> Preventivo
+                            </label>
+                        </div>
+                        <div class="radio clip-radio radio-primary">
+                            <input type="radio" id="correctivo" name="optionsCategory" value="correctivo" ng-model="event.type">
+                            <label for="correctivo">
+                                <span class="fa fa-circle text-yellow"></span> Correctivo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="aula">
+                            Aula
+                        </label>
+                        <select id="aula" name="aula" class="form-control"  required>
+                            <option value="">&nbsp;</option>
+                            <option value="Aula">Aula</option>
+                            <option value="Lab">Laboratorio</option>
+                            <option value="Aud">Auditorio</option>
+                            <option value="Aesp">Aula especializada</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger btn-o" ng-click="deleteEvent(event)">
+                Delete
+            </button>
+            <button class="btn btn-primary btn-o" ng-click="cancel()">
+                Ok
+            </button>
+        </div>
+    </body>
+</html>
