@@ -36,7 +36,7 @@ public class Mantenimiento implements java.io.Serializable {
     private Date fechaFinal;
     @JsonProperty("title")
     private String descripcion;
-    private String prioridad;
+    private String solicitud;
     @JsonProperty("type")
     private String tipo;
     private Boolean aprobado;
@@ -53,7 +53,7 @@ public class Mantenimiento implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
-    public Mantenimiento(Aula aula, Usuario usuarioByTrabajador, Usuario usuarioBySolicitante, Usuario usuarioByAprobadoPor, Date fechaInicio, Date fechaFinal, String descripcion, String prioridad, String tipo, Boolean aprobado, Boolean fueraServicio, Boolean leido) {
+    public Mantenimiento(Aula aula, Usuario usuarioByTrabajador, Usuario usuarioBySolicitante, Usuario usuarioByAprobadoPor, Date fechaInicio, Date fechaFinal, String descripcion, String solicitud, String tipo, Boolean aprobado, Boolean fueraServicio, Boolean leido) {
         this.aula = aula;
         this.usuarioByTrabajador = usuarioByTrabajador;
         this.usuarioBySolicitante = usuarioBySolicitante;
@@ -61,7 +61,7 @@ public class Mantenimiento implements java.io.Serializable {
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.descripcion = descripcion;
-        this.prioridad = prioridad;
+        this.solicitud = solicitud;
         this.tipo = tipo;
         this.aprobado = aprobado;
         this.fueraServicio = fueraServicio;
@@ -146,7 +146,7 @@ public class Mantenimiento implements java.io.Serializable {
         this.fechaFinal = fechaFinal;
     }
 
-    @Column(name = "descripcion", nullable = false, length = 2000)
+    @Column(name = "descripcion", length = 2000)
     public String getDescripcion() {
         return this.descripcion;
     }
@@ -155,13 +155,13 @@ public class Mantenimiento implements java.io.Serializable {
         this.descripcion = descripcion;
     }
 
-    @Column(name = "prioridad", length = 45)
-    public String getPrioridad() {
-        return this.prioridad;
+    @Column(name = "solicitud", length = 2000)
+    public String getSolicitud() {
+        return this.solicitud;
     }
 
-    public void setPrioridad(String prioridad) {
-        this.prioridad = prioridad;
+    public void setSolicitud(String solicitud) {
+        this.solicitud = solicitud;
     }
 
     @Column(name = "tipo")

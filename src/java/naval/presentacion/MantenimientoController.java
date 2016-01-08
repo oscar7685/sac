@@ -80,7 +80,8 @@ public class MantenimientoController {
         try {
             Mantenimiento aux = (Mantenimiento) jsonTransformer.fromJson(jsonEntrada, Mantenimiento.class);
             mantenimientoDAO.saveOrUpdate(aux);
-            String jsonSalida = jsonTransformer.toJson(aux);
+            List<Mantenimiento> m = mantenimientoDAO.findLast("idmantenimiento");
+            String jsonSalida = jsonTransformer.toJson(m.get(0));
 
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
             httpServletResponse.setContentType("application/json; charset=UTF-8");
@@ -114,7 +115,8 @@ public class MantenimientoController {
         try {
             Mantenimiento aux2 = (Mantenimiento) jsonTransformer.fromJson(jsonEntrada, Mantenimiento.class);
             mantenimientoDAO.saveOrUpdate(aux2);
-            String jsonSalida = jsonTransformer.toJson(aux2);
+            List<Mantenimiento> m = mantenimientoDAO.findLast("idmantenimiento");
+            String jsonSalida = jsonTransformer.toJson(m.get(0));
             
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
             httpServletResponse.setContentType("application/json; charset=UTF-8");

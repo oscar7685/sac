@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2016-01-05 16:33:16
+Date: 2016-01-08 16:29:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -363,8 +363,8 @@ CREATE TABLE `mantenimiento` (
   `idmantenimiento` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_inicio` datetime DEFAULT NULL,
   `fecha_final` datetime DEFAULT NULL,
-  `descripcion` varchar(2000) NOT NULL,
-  `prioridad` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(2000) DEFAULT NULL,
+  `solicitud` varchar(2000) DEFAULT NULL,
   `tipo` varchar(255) DEFAULT NULL,
   `aula_idaula` int(11) NOT NULL,
   `solicitante` varchar(255) DEFAULT NULL,
@@ -382,14 +382,14 @@ CREATE TABLE `mantenimiento` (
   CONSTRAINT `fk_mantenimiento_usuario1` FOREIGN KEY (`solicitante`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_mantenimiento_usuario2` FOREIGN KEY (`trabajador`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_mantenimiento_usuario3` FOREIGN KEY (`aprobado_por`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mantenimiento
 -- ----------------------------
-INSERT INTO `mantenimiento` VALUES ('1', '2016-01-06 11:30:00', '2016-01-07 11:30:10', 'Un mantenimiento preventivo', '1', 'Preventivo', '1', null, 'oscar7685', null, null, null, null);
-INSERT INTO `mantenimiento` VALUES ('2', '2016-01-06 13:30:00', '2016-01-06 16:00:00', 'Un mantenimiento preventivo', '1', 'Preventivo', '2', null, 'oscar7685', null, null, null, null);
-INSERT INTO `mantenimiento` VALUES ('3', '2016-01-18 13:30:00', '2016-01-20 16:00:00', 'Un mantenimiento preventivo', '1', 'Preventivo', '2', null, 'oscar7685', null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('1', '2016-01-06 11:30:00', '2016-01-07 11:30:10', 'Un mantenimiento preventivo1', '1', 'preventivo', '1', null, 'oscar7685', null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('2', '2016-01-06 13:30:00', '2016-01-06 16:00:00', 'Un mantenimiento preventivo2', '1', 'preventivo', '2', null, 'oscar7685', null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('3', '2016-01-18 13:30:00', '2016-01-20 16:00:00', 'Un mantenimiento correctivo3', '1', 'correctivo', '2', null, 'oscar7685', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for motivo_inasistencia_estudiante

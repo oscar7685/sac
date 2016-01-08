@@ -56,6 +56,7 @@ app.constant('JS_REQUIRES', {
         'horarioAulaCtrl': ['assets/js/controllers/horarioAulaCtrl.js'],
         'horarioProfesorCtrl': ['assets/js/controllers/horarioProfesorCtrl.js'],
         'horarioCursoCtrl': ['assets/js/controllers/horarioCursoCtrl.js'],
+        'mantenimientoCtrl': ['assets/js/controllers/mantenimientoCtrl.js'],
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
     },
