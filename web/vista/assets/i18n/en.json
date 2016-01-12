@@ -14,11 +14,11 @@
             "SEEALL": "See All"
         },
         "user": {
-            "PROFILE": "My Profile",
+            "PROFILE": "Mi Perfil",
             "CALENDAR": "My Calendar",
-            "MESSAGES": "My Messages",
+            "MESSAGES": "Mis Mensajes",
             "LOCKSCREEN": "Lock Screen",
-            "LOGOUT": "Log Out"
+            "LOGOUT": "Cerrar Sesión"
         }
     },
     "offsidebar": {
