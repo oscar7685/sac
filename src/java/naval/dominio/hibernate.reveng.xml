@@ -2,22 +2,23 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="naval"/>
-  <table-filter match-name="horario"/>
-  <table-filter match-name="facultad"/>
-  <table-filter match-name="aula"/>
-  <table-filter match-name="permisos"/>
-  <table-filter match-name="dinamicas_empleadas"/>
-  <table-filter match-name="profesor"/>
-  <table-filter match-name="parte_diario"/>
-  <table-filter match-name="rol"/>
-  <table-filter match-name="detalle_parte_diario"/>
-  <table-filter match-name="usuario"/>
   <table-filter match-name="hora"/>
-  <table-filter match-name="mantenimiento"/>
-  <table-filter match-name="motivo_inasistencia_estudiante"/>
-  <table-filter match-name="curso"/>
-  <table-filter match-name="responsable_curso"/>
-  <table-filter match-name="edificio"/>
-  <table-filter match-name="rol_has_permisos"/>
   <table-filter match-name="dias"/>
+  <table-filter match-name="rol"/>
+  <table-filter match-name="rol_has_permisos"/>
+  <table-filter match-name="edificio"/>
+  <table-filter match-name="permisos"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="parte_diario"/>
+  <table-filter match-name="responsable_curso"/>
+  <table-filter match-name="profesor"/>
+  <table-filter match-name="aula"/>
+  <table-filter match-name="curso"/>
+  <table-filter match-name="motivo_inasistencia_estudiante"/>
+  <table-filter match-name="facultad"/>
+  <table-filter match-name="detalle_parte_diario"/>
+  <table-filter match-name="horario"/>
+  <table-filter match-name="dinamicas_empleadas"/>
+  <table-filter match-name="mantenimiento"/>
+  <table-filter match-name="solicitud"/>
 </hibernate-reverse-engineering>

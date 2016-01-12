@@ -27,45 +27,38 @@ public class Mantenimiento implements java.io.Serializable {
 
     private Integer idmantenimiento;
     private Aula aula;
+    private Solicitud solicitud;
     private Usuario usuarioByTrabajador;
-    private Usuario usuarioBySolicitante;
     private Usuario usuarioByAprobadoPor;
-    @JsonProperty("startsAt")
     private Date fechaInicio;
-    @JsonProperty("endsAt")
     private Date fechaFinal;
-    @JsonProperty("title")
     private String descripcion;
-    private String solicitud;
-    @JsonProperty("type")
     private String tipo;
     private Boolean aprobado;
     private Boolean fueraServicio;
     private Boolean leido;
+    private Boolean realizado;
 
     public Mantenimiento() {
     }
 
-    public Mantenimiento(Aula aula, Usuario usuarioByTrabajador, Usuario usuarioByAprobadoPor, String descripcion) {
+    public Mantenimiento(Aula aula) {
         this.aula = aula;
-        this.usuarioByTrabajador = usuarioByTrabajador;
-        this.usuarioByAprobadoPor = usuarioByAprobadoPor;
-        this.descripcion = descripcion;
     }
 
-    public Mantenimiento(Aula aula, Usuario usuarioByTrabajador, Usuario usuarioBySolicitante, Usuario usuarioByAprobadoPor, Date fechaInicio, Date fechaFinal, String descripcion, String solicitud, String tipo, Boolean aprobado, Boolean fueraServicio, Boolean leido) {
+    public Mantenimiento(Aula aula, Solicitud solicitud, Usuario usuarioByTrabajador, Usuario usuarioByAprobadoPor, Date fechaInicio, Date fechaFinal, String descripcion, String tipo, Boolean aprobado, Boolean fueraServicio, Boolean leido, Boolean realizado) {
         this.aula = aula;
+        this.solicitud = solicitud;
         this.usuarioByTrabajador = usuarioByTrabajador;
-        this.usuarioBySolicitante = usuarioBySolicitante;
         this.usuarioByAprobadoPor = usuarioByAprobadoPor;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.descripcion = descripcion;
-        this.solicitud = solicitud;
         this.tipo = tipo;
         this.aprobado = aprobado;
         this.fueraServicio = fueraServicio;
         this.leido = leido;
+        this.realizado = realizado;
     }
 
     @Id
@@ -90,27 +83,25 @@ public class Mantenimiento implements java.io.Serializable {
         this.aula = aula;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "solicitud_idsolicitud")
+    public Solicitud getSolicitud() {
+        return this.solicitud;
+    }
+
+    public void setSolicitud(Solicitud solicitud) {
+        this.solicitud = solicitud;
+    }
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trabajador")
-
     public Usuario getUsuarioByTrabajador() {
         return this.usuarioByTrabajador;
     }
 
     public void setUsuarioByTrabajador(Usuario usuarioByTrabajador) {
         this.usuarioByTrabajador = usuarioByTrabajador;
-    }
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "solicitante")
-    public Usuario getUsuarioBySolicitante() {
-        return this.usuarioBySolicitante;
-    }
-
-    public void setUsuarioBySolicitante(Usuario usuarioBySolicitante) {
-        this.usuarioBySolicitante = usuarioBySolicitante;
     }
 
     @JsonIgnore
@@ -124,9 +115,8 @@ public class Mantenimiento implements java.io.Serializable {
         this.usuarioByAprobadoPor = usuarioByAprobadoPor;
     }
 
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd HH:mm", timezone = "America/Bogota")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_inicio", length = 10)
+    @Column(name = "fecha_inicio", length = 19)
     public Date getFechaInicio() {
         return this.fechaInicio;
     }
@@ -137,7 +127,7 @@ public class Mantenimiento implements java.io.Serializable {
 
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "America/Bogota")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_final", length = 10)
+    @Column(name = "fecha_final", length = 19)
     public Date getFechaFinal() {
         return this.fechaFinal;
     }
@@ -153,15 +143,6 @@ public class Mantenimiento implements java.io.Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @Column(name = "solicitud", length = 2000)
-    public String getSolicitud() {
-        return this.solicitud;
-    }
-
-    public void setSolicitud(String solicitud) {
-        this.solicitud = solicitud;
     }
 
     @Column(name = "tipo")
@@ -198,6 +179,15 @@ public class Mantenimiento implements java.io.Serializable {
 
     public void setLeido(Boolean leido) {
         this.leido = leido;
+    }
+
+    @Column(name = "realizado")
+    public Boolean getRealizado() {
+        return this.realizado;
+    }
+
+    public void setRealizado(Boolean realizado) {
+        this.realizado = realizado;
     }
 
 }

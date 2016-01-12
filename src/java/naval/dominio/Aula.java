@@ -36,9 +36,10 @@ public class Aula implements java.io.Serializable {
     private Boolean videoBeam;
     private Boolean tv;
     private Integer piso;
-    private Set<Horario> horarios = new HashSet<Horario>(0);
     private Set<Mantenimiento> mantenimientos = new HashSet<Mantenimiento>(0);
     private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
+    private Set<Horario> horarios = new HashSet<Horario>(0);
+    private Set<Solicitud> solicituds = new HashSet<Solicitud>(0);
 
     public Aula() {
     }
@@ -47,7 +48,7 @@ public class Aula implements java.io.Serializable {
         this.edificio = edificio;
     }
 
-    public Aula(Curso curso, Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Integer piso, Set<Horario> horarios, Set<Mantenimiento> mantenimientos, Set<ParteDiario> parteDiarios) {
+    public Aula(Curso curso, Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Integer piso, Set<Mantenimiento> mantenimientos, Set<ParteDiario> parteDiarios, Set<Horario> horarios, Set<Solicitud> solicituds) {
         this.curso = curso;
         this.edificio = edificio;
         this.nombre = nombre;
@@ -59,9 +60,10 @@ public class Aula implements java.io.Serializable {
         this.videoBeam = videoBeam;
         this.tv = tv;
         this.piso = piso;
-        this.horarios = horarios;
         this.mantenimientos = mantenimientos;
         this.parteDiarios = parteDiarios;
+        this.horarios = horarios;
+        this.solicituds = solicituds;
     }
 
     @Id
@@ -181,15 +183,6 @@ public class Aula implements java.io.Serializable {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
-    public Set<Horario> getHorarios() {
-        return this.horarios;
-    }
-
-    public void setHorarios(Set<Horario> horarios) {
-        this.horarios = horarios;
-    }
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
     public Set<Mantenimiento> getMantenimientos() {
         return this.mantenimientos;
     }
@@ -206,6 +199,26 @@ public class Aula implements java.io.Serializable {
 
     public void setParteDiarios(Set<ParteDiario> parteDiarios) {
         this.parteDiarios = parteDiarios;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
+    public Set<Horario> getHorarios() {
+        return this.horarios;
+    }
+
+    public void setHorarios(Set<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
+    public Set<Solicitud> getSolicituds() {
+        return this.solicituds;
+    }
+
+    public void setSolicituds(Set<Solicitud> solicituds) {
+        this.solicituds = solicituds;
     }
 
 }
