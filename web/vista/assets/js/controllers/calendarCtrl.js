@@ -2,9 +2,6 @@
 /**
  * Controller of the angularBootstrapCalendarApp
  */
-angular.module('mwl.calendar.docs', ['mwl.calendar', 'ngAnimate', 'ui.bootstrap']);
-angular
-        .module('mwl.calendar.docs')
 app.controller('CalendarCtrl', ["$scope", "$aside", "moment", "SweetAlert",
     "MantenimientoFactory", "AulaFactory", function ($scope, $aside, moment,
             SweetAlert, MantenimientoFactory, AulaFactory) {

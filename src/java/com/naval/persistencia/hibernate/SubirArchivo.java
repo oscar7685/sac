@@ -45,25 +45,32 @@ public class SubirArchivo extends HttpServlet {
         PrintWriter writer = response.getWriter();
 
         response.setContentType("text/plain");
-        //String idUltimaPQRS1 = (String) sesion.getAttribute("ultimoMatenimiento");
-        //int idUltimaPQRS = Integer.parseInt(idUltimaPQRS1);
+        String ultimoMatenimiento = (String) sesion.getAttribute("ultimoMatenimiento");
+
         List<FileItem> items;
         try {
             items = uploadHandler.parseRequest(request);
             for (FileItem item : items) {
                 if (!item.isFormField()) {
 
-                    /* FileItem actual = null;
+                    FileItem actual = null;
                     actual = item;
                     String fileName = actual.getName();
 
                     String str = request.getSession().getServletContext().getRealPath("/adjuntos/");
-                    fileName = idUltimaPQRS + "-" + fileName;
+                    fileName = ultimoMatenimiento + "-" + fileName;
                     // nos quedamos solo con el nombre y descartamos el path
                     File fichero = new File(str + "\\" + fileName);
-                     */
-                    try {
 
+                    try {
+                        actual.write(fichero);
+                        String aux = "{\"name\":\"" + fichero.getName()
+                                + "\",\"size\":\"" + 2000 + "\",\"url\":\"/adjuntos/" + fichero.getName()
+                                + "\",\"thumbnailUrl\":\"/thumbnails/" + fichero.getName()
+                                + "\",\"deleteUrl\":\"/Subir?file=" + fichero.getName()
+                                + "\",\"deleteType\":\"DELETE\",\"type\":\"" + fichero.getName() + "\"}";
+
+                        writer.write("{\"files\":[" + aux + "]}");
                     } catch (Exception e) {
                     }
                 }

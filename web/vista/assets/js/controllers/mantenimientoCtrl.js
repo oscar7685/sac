@@ -39,7 +39,7 @@ app.controller('crearMantenimientoCtrl2', ["$scope", "MantenimientoFactory", "Au
         $scope.mantenimientoRecienCreado = "";
 
         var uploaderImages = $scope.uploaderImages = new FileUploader({
-            url: 'SubirAdjunto'
+            url: '/sac/SubirArchivo'
         });
 
         // FILTERS
@@ -63,11 +63,14 @@ app.controller('crearMantenimientoCtrl2', ["$scope", "MantenimientoFactory", "Au
             console.info('onAfterAddingAll', addedFileItems);
         };
         uploaderImages.onBeforeUploadItem = function (item) {
-            formData = [{
-                    idmantenimiento: $scope.mantenimientoRecienCreado
-                }];
+            /* uploaderImages.onBeforeUploadItem = function (item) {
+             var formData = [{
+             idmantenimiento: $scope.mantenimientoRecienCreado
+             }];
+             Array.prototype.push.apply(item.formData, uploaderImages.formData);
+             };*/
             console.log('onBeforeUploadItemXXXX');
-            // console.info('onBeforeUploadItem', item);
+
         };
         uploaderImages.onProgressItem = function (fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);

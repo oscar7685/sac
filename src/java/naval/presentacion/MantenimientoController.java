@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import naval.dominio.Mantenimiento;
 import naval.persistencia.dao.JsonTransformer;
 import naval.persistencia.dao.MantenimientoDAO;
@@ -117,6 +118,9 @@ public class MantenimientoController {
             mantenimientoDAO.saveOrUpdate(aux2);
             List<Mantenimiento> m = mantenimientoDAO.findLast("idmantenimiento");
             String jsonSalida = jsonTransformer.toJson(m.get(0));
+            HttpSession sesion = httpServletRequest.getSession();
+            
+            sesion.setAttribute("ultimoMatenimiento", ""+m.get(0).getIdmantenimiento());
             
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
             httpServletResponse.setContentType("application/json; charset=UTF-8");
