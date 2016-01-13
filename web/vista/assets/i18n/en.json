@@ -4,9 +4,9 @@
     },
     "topbar": {
         "messages": {
-            "MAIN": "Messages",
-            "HEADER": "Unread messages",
-            "SEEALL": "See All"
+            "MAIN": "Notificaciones",
+            "HEADER": "Notificaciones sin leer",
+            "SEEALL": "Ver Todas"
         },
         "activities": {
             "MAIN": "Activities",
@@ -87,7 +87,9 @@
             },
             "mantenimiento": {
                 "MAIN": "Mantenimiento",
-                "CREAR": "Solicitar Mantenimiento",
+                "CREAR": "Crear Mantenimiento",
+                "SOLICITAR": "Solicitar Mantenimiento",
+                "SOLICITUDES": "Listar Solicitudes",
                 "LISTAR": "Horario de Mantenimientos"
             },
             "element": {

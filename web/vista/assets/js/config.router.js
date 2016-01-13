@@ -548,14 +548,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Horario de Mantenimientos'
             },
             resolve: loadSequence('mwl.calendar', 'calendarCtrl')
-        }).state('app.mantenimiento.crear', {
+        }).state('app.mantenimiento.solicitar', {
             url: '/crear',
-            templateUrl: "assets/views/mantenimiento/crear.html",
-            title: 'Crear Mantenimientos',
+            templateUrl: "assets/views/mantenimiento/solicitar.html",
+            title: 'Solicitar Mantenimientos',
             ncyBreadcrumb: {
-                label: 'Horario de Mantenimientos'
+                label: 'Solicitar Mantenimientos'
             },
             resolve: loadSequence('angularFileUpload', 'mantenimientoCtrl')
+        }).state('app.mantenimiento.solicitudes', {
+            url: '/solicitudes',
+            templateUrl: "assets/views/mantenimiento/solicitudes.html",
+            title: 'Listar Solicitudes',
+            ncyBreadcrumb: {
+                label: 'Listar Solicitudes'
+            },
+            resolve: loadSequence('ngTable', 'mantenimientoCtrl')
         }).state('app.horario.profesor', {
             url: '/profesor',
             templateUrl: "assets/views/horario/profesor.html",
@@ -649,8 +657,23 @@ app.factory('HoraFactory', function ($resource) {
     });
 });
 
+app.factory('SolicitudFactory', function ($resource) {
+    return $resource('/sac/api/Solicitud/:idSolicitud', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+
 app.factory('MantenimientoFactory', function ($resource) {
     return $resource('/sac/api/Mantenimiento/:idMantenimiento', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+app.factory('UsuarioFactory', function ($resource) {
+    return $resource('/sac/api/Usuario/:idUsuario', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }

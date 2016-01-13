@@ -6,12 +6,12 @@
 package naval.persistencia.dao;
 
 import com.naval.persistencia.dao.GenericDAO;
-import naval.dominio.Usuario;
+import naval.dominio.Notificacion;
 
 /**
  *
  * @author Oscar
  */
-public interface UsuarioDAO extends GenericDAO<Usuario, String> {
+public interface NotificacionDAO extends GenericDAO<Notificacion, Integer> {
 
 }

@@ -5,14 +5,14 @@
  */
 package naval.persistencia.dao.impl;
 
-import naval.persistencia.dao.UsuarioDAO;
+import naval.persistencia.dao.NotificacionDAO;
 import com.naval.persistencia.dao.impl.GenericDAOImplHibernate;
-import naval.dominio.Usuario;
+import naval.dominio.Notificacion;
 
 /**
  *
  * @author Oscar
  */
-public class UsuarioDAOImplHibernate extends GenericDAOImplHibernate<Usuario, String> implements UsuarioDAO{
+public class NotificacionDAOImplHibernate extends GenericDAOImplHibernate<Notificacion, Integer> implements NotificacionDAO{
 
 }

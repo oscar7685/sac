@@ -45,7 +45,7 @@ public class SubirArchivo extends HttpServlet {
         PrintWriter writer = response.getWriter();
 
         response.setContentType("text/plain");
-        String ultimoMatenimiento = (String) sesion.getAttribute("ultimoMatenimiento");
+        String ultimoMatenimiento = (String) sesion.getAttribute("ultimaSolicitud");
 
         List<FileItem> items;
         try {

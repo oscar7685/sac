@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.mantenimiento.CREAR">CREAR MANTENIMIENTO</h1>
-            <span class="mainDescription">Formulario para crear Mantenimientos.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.mantenimiento.CREAR">SOLICITAR MANTENIMIENTO</h1>
+            <span class="mainDescription">Formulario para solicitar Mantenimientos.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -12,7 +12,7 @@
 <!-- start: FIELDSET -->
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
-        <div class="col-md-12" ng-controller="crearMantenimientoCtrl2">
+        <div class="col-md-12" ng-controller="solicitarMantenimientoCtrl2">
             <form name="Form2" novalidate ng-submit="form.submit(Form2)">
                 <fieldset>
                     <legend>
@@ -22,14 +22,14 @@
                         <label for="solicitud" class="control-label">
                             Descripcion de la Solicitud <span class="symbol required"></span>
                         </label>
-                        <input type="text" placeholder="Descripción del mantenimiento" id="solicitud" name="solicitud" class="form-control" ng-model="mantenimiento.solicitud" required/>
+                        <textarea placeholder="Descripción de la solicitud" id="solicitud" name="solicitud" class="form-control" ng-model="solicitud.solicitud" required></textarea>
                         <span class="error text-small block" ng-if="Form2.solicitud.$dirty && Form2.solicitud.$dirty && Form2.solicitud.$invalid">El campo descripción de la solicitud es requerido</span>
                     </div>
                     <div class="form-group" ng-class="{'has-error':Form2.aula.$dirty && Form2.aula.$invalid, 'has-success':Form2.aula.$valid}">
                         <label for="aula">
                             Dependencia <span class="symbol required"></span>
                         </label>
-                        <select id="aula" name="aula" class="form-control" ng-model="mantenimiento.aula.idaula" ng-options="aula.idaula as aula.nombre for aula in aulas"  required>
+                        <select id="aula" name="aula" class="form-control" ng-model="solicitud.aula.idaula" ng-options="aula.idaula as aula.nombre for aula in aulas"  required>
                             <option value="">&nbsp;</option>
                         </select>
                         <span class="error text-small block" ng-if="Form2.aula.$dirty && Form2.aula.$dirty && Form2.aula.$invalid">El campo Dependencia es requerido</span>
@@ -120,7 +120,7 @@
 
                 </fieldset>
                 <button class="btn btn-o btn-primary" type="submit">
-                    Crear Mantenimiento
+                    Crear Solicitud
                 </button>   
                 <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
                     Resetear

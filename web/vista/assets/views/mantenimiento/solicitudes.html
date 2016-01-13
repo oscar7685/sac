@@ -1,0 +1,34 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.mantenimiento.SOLICITUDES">Lista de Solicitudes</h1>
+            <span class="mainDescription">Lista todas las solicitudes de mantenimiento registradas en el sistema.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: SIMPLE TABLE WITH PAGINATION -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+            <div ng-controller="tablaSolicitudesCtrl">
+                <p>
+                    Mostrando registros del {{ tableParams.total() > 0 ? (tableParams.page() * tableParams.count()) - (tableParams.count()) + 1 : 0}} 
+                    al {{(tableParams.page() * tableParams.count()) < tableParams.total() ? (tableParams.page() * tableParams.count()) : tableParams.total()}} 
+                    de un total de {{tableParams.total()}}
+                </p>
+                <table ng-table="tableParams" class="table table-striped" show-filter="true">
+                    <tr ng-repeat="solicitud in $data">
+                        <td data-title="'Id'" sortable="'Id'" filter="{'Id': 'text'}"><a ui-sref="app.mantenimiento.editarSolicitud({idsolicitud:'{{solicitud.idsolicitud}}'})">{{solicitud.idsolicitud}}</a></td>
+                        <td data-title="'Solicitud'" sortable="'Solicitud'">{{solicitud.solicitud}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: SIMPLE TABLE WITH PAGINATION -->
+

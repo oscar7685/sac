@@ -30,13 +30,16 @@ public class Mantenimiento implements java.io.Serializable {
     private Solicitud solicitud;
     private Usuario usuarioByTrabajador;
     private Usuario usuarioByAprobadoPor;
+    @JsonProperty("startsAt")
     private Date fechaInicio;
+    @JsonProperty("endsAt")
     private Date fechaFinal;
+    @JsonProperty("title")
     private String descripcion;
+    @JsonProperty("type")
     private String tipo;
     private Boolean aprobado;
     private Boolean fueraServicio;
-    private Boolean leido;
     private Boolean realizado;
 
     public Mantenimiento() {
@@ -46,7 +49,7 @@ public class Mantenimiento implements java.io.Serializable {
         this.aula = aula;
     }
 
-    public Mantenimiento(Aula aula, Solicitud solicitud, Usuario usuarioByTrabajador, Usuario usuarioByAprobadoPor, Date fechaInicio, Date fechaFinal, String descripcion, String tipo, Boolean aprobado, Boolean fueraServicio, Boolean leido, Boolean realizado) {
+    public Mantenimiento(Aula aula, Solicitud solicitud, Usuario usuarioByTrabajador, Usuario usuarioByAprobadoPor, Date fechaInicio, Date fechaFinal, String descripcion, String tipo, Boolean aprobado, Boolean fueraServicio, Boolean realizado) {
         this.aula = aula;
         this.solicitud = solicitud;
         this.usuarioByTrabajador = usuarioByTrabajador;
@@ -57,7 +60,6 @@ public class Mantenimiento implements java.io.Serializable {
         this.tipo = tipo;
         this.aprobado = aprobado;
         this.fueraServicio = fueraServicio;
-        this.leido = leido;
         this.realizado = realizado;
     }
 
@@ -170,15 +172,6 @@ public class Mantenimiento implements java.io.Serializable {
 
     public void setFueraServicio(Boolean fueraServicio) {
         this.fueraServicio = fueraServicio;
-    }
-
-    @Column(name = "leido")
-    public Boolean getLeido() {
-        return this.leido;
-    }
-
-    public void setLeido(Boolean leido) {
-        this.leido = leido;
     }
 
     @Column(name = "realizado")
