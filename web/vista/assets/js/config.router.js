@@ -564,6 +564,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Listar Solicitudes'
             },
             resolve: loadSequence('ngTable', 'mantenimientoCtrl')
+        }).state('app.mantenimiento.editarSolicitud', {
+            url: '/editarSolicitud:idsolicitud',
+            templateUrl: "assets/views/mantenimiento/editarsolicitud.html",
+            title: 'Editar Solicitud',
+            ncyBreadcrumb: {
+                label: 'Editar Solicitud'
+            },
+            resolve: loadSequence('angularFileUpload', 'mantenimientoCtrl')
         }).state('app.horario.profesor', {
             url: '/profesor',
             templateUrl: "assets/views/horario/profesor.html",

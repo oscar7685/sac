@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.mantenimiento.CREAR">SOLICITAR MANTENIMIENTO</h1>
-            <span class="mainDescription">Formulario para solicitar Mantenimientos.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.mantenimiento.EDITARSOLICITUD">EDITAR SOLICITUD DE MANTENIMIENTO</h1>
+            <span class="mainDescription">Formulario para editar la solicitud de mantenimiento.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -12,11 +12,11 @@
 <!-- start: FIELDSET -->
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
-        <div class="col-md-12" ng-controller="solicitarMantenimientoCtrl2">
+        <div class="col-md-12" ng-controller="editarSolicitudMantenimientoCtrl2">
             <form name="Form2" novalidate ng-submit="form.submit(Form2)">
                 <fieldset>
                     <legend>
-                        Solicitud de Mantenimiento
+                        Editar Solicitud de Mantenimiento
                     </legend>
                     <div class="form-group" ng-class="{'has-error': Form2.solicitud.$dirty && Form2.solicitud.$invalid, 'has-success':Form2.solicitud.$valid}">
                         <label for="solicitud" class="control-label">
@@ -85,12 +85,15 @@
                                                     <!--<button type="button" class="btn btn-primary btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                                                         <span class="glyphicon glyphicon-upload"></span> Subir
                                                     </button>
-                                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
-                                                    </button>-->
+                                                    -->
                                                     <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
                                                         <span class="glyphicon glyphicon-trash"></span> Eliminar
-                                                    </button></td>
+                                                    </button>
+                                                    <a download="{{ item.file.name}}" title="{{ item.file.name}}" target="_blank" href="{{ item.file.url}}" class="btn btn-primary btn-xs" 
+                                                       ng-disabled="!item.isSuccess">
+                                                        <span class="glyphicon glyphicon-download"></span> Descargar
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -102,16 +105,16 @@
                                             <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploaderImages.progress + '%' }"></div>
                                         </div>
                                     </div>
-                                   <!-- <button type="button" class="btn btn-primary btn-s" ng-click="uploaderImages.uploadAll()" ng-disabled="!uploaderImages.getNotUploadedItems().length">
-                                        <span class="glyphicon glyphicon-upload"></span> Subir todo
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-o btn-s" ng-click="uploaderImages.cancelAll()" ng-disabled="!uploaderImages.isUploading">
-                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancelar todo
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-o btn-s" ng-click="uploaderImages.clearQueue()" ng-disabled="!uploaderImages.queue.length">
-                                        <span class="glyphicon glyphicon-trash"></span> Eliminar todo
-                                    </button>
-                                   -->
+                                    <!-- <button type="button" class="btn btn-primary btn-s" ng-click="uploaderImages.uploadAll()" ng-disabled="!uploaderImages.getNotUploadedItems().length">
+                                         <span class="glyphicon glyphicon-upload"></span> Subir todo
+                                     </button>
+                                     <button type="button" class="btn btn-primary btn-o btn-s" ng-click="uploaderImages.cancelAll()" ng-disabled="!uploaderImages.isUploading">
+                                         <span class="glyphicon glyphicon-ban-circle"></span> Cancelar todo
+                                     </button>
+                                     <button type="button" class="btn btn-primary btn-o btn-s" ng-click="uploaderImages.clearQueue()" ng-disabled="!uploaderImages.queue.length">
+                                         <span class="glyphicon glyphicon-trash"></span> Eliminar todo
+                                     </button>
+                                    -->
                                 </div>
                             </div>
                         </div>
@@ -120,7 +123,7 @@
 
                 </fieldset>
                 <button class="btn btn-o btn-primary" type="submit">
-                    Crear Solicitud
+                    Editar Solicitud
                 </button>   
                 <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
                     Resetear

@@ -64,11 +64,14 @@ public class SubirArchivo extends HttpServlet {
 
                     try {
                         actual.write(fichero);
-                        String aux = "{\"name\":\"" + fichero.getName()
-                                + "\",\"size\":\"" + 2000 + "\",\"url\":\"/adjuntos/" + fichero.getName()
+                        String aux = "{"
+                                + "\"name\":\"" + fichero.getName()
+                                + "\",\"size\":\"" + 2000
+                                + "\",\"url\":\"/adjuntos/" + fichero.getName()
                                 + "\",\"thumbnailUrl\":\"/thumbnails/" + fichero.getName()
                                 + "\",\"deleteUrl\":\"/Subir?file=" + fichero.getName()
-                                + "\",\"deleteType\":\"DELETE\",\"type\":\"" + fichero.getName() + "\"}";
+                                + "\",\"deleteType\":\"DELETE"
+                                + "\",\"type\":\"" + fichero.getName() + "\"}";
 
                         writer.write("{\"files\":[" + aux + "]}");
                     } catch (Exception e) {
@@ -91,7 +94,46 @@ public class SubirArchivo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String idSolicitud = request.getParameter("idSolicitud");
+        if (idSolicitud == null) {
+            processRequest(request, response);
+        } else {
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/json;charset=UTF-8");
+
+            try {
+                String str = request.getSession().getServletContext().getRealPath("/adjuntos/");
+                // nos quedamos solo con el nombre y descartamos el path
+                File fichero = new File(str);
+
+                String aux = "";
+                for (File file : fichero.listFiles()) {
+                    String elemento2[] = file.getName().split("-");
+
+                    if (!aux.equals("")) {
+                        if (elemento2[0].equals("" + idSolicitud)) {
+                            aux += ",{\"name\":\"" + elemento2[1] + "\""
+                                    + ",\"size\":\"" + file.length() + "\""
+                                    + ",\"url\":\"/sac/adjuntos/" + file.getName() + "\""
+                                    + "}";
+                        }
+                    } else if (elemento2[0].equals("" + idSolicitud)) {
+                        aux += "{\"name\":\"" + elemento2[1] + "\""
+                                + ",\"size\":\"" + file.length() + "\""
+                                + ",\"url\":\"/sac/adjuntos/" + file.getName() + "\""
+                                + "}";
+                    }
+                }
+                writer.write("[" + aux + "]");
+
+            } catch (Exception e) {
+
+            } finally {
+            }
+
+        }
+
     }
 
     /**

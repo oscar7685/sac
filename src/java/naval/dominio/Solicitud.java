@@ -1,6 +1,7 @@
 package naval.dominio;
 // Generated 12/01/2016 11:21:10 AM by Hibernate Tools 4.3.1
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.HashSet;
@@ -92,6 +93,7 @@ public class Solicitud implements java.io.Serializable {
         this.solicitud = solicitud;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "America/Bogota")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha", nullable = false, length = 19)
     public Date getFecha() {

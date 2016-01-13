@@ -22,8 +22,9 @@
                 </p>
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
                     <tr ng-repeat="solicitud in $data">
-                        <td data-title="'Id'" sortable="'Id'" filter="{'Id': 'text'}"><a ui-sref="app.mantenimiento.editarSolicitud({idsolicitud:'{{solicitud.idsolicitud}}'})">{{solicitud.idsolicitud}}</a></td>
-                        <td data-title="'Solicitud'" sortable="'Solicitud'">{{solicitud.solicitud}}</td>
+                        <td data-title="'Solicitud'" sortable="'Solicitud'"><a ui-sref="app.mantenimiento.editarSolicitud({idsolicitud:'{{solicitud.idsolicitud}}'})">{{solicitud.solicitud}}</a></td>
+                        <td data-title="'Aula'" sortable="'Aula'" filter="{'Aula': 'text'}">{{solicitud.aula.nombre}}</td>
+                        <td data-title="'Fecha'" sortable="'Fecha'">{{solicitud.fecha}}</td>
                     </tr>
                 </table>
             </div>
