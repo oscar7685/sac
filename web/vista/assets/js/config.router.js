@@ -548,6 +548,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Horario de Mantenimientos'
             },
             resolve: loadSequence('mwl.calendar', 'calendarCtrl')
+        }).state('app.mantenimiento.crear', {
+            url: '/horario',
+            templateUrl: "assets/views/mantenimiento/crear.html",
+            title: 'Crear Mantenimiento',
+            ncyBreadcrumb: {
+                label: 'Crear Mantenimiento'
+            },
+            resolve: loadSequence('mantenimientoCtrl')
         }).state('app.mantenimiento.solicitar', {
             url: '/crear',
             templateUrl: "assets/views/mantenimiento/solicitar.html",

@@ -90,6 +90,7 @@
                 "CREAR": "Crear Mantenimiento",
                 "SOLICITAR": "Solicitar Mantenimiento",
                 "SOLICITUDES": "Listar Solicitudes",
+                "EDITARSOLICITUD": "Editar Solicitud",
                 "LISTAR": "Horario de Mantenimientos"
             },
             "element": {

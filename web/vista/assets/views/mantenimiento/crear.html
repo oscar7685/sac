@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.mantenimiento.SOLICITAR">SOLICITAR MANTENIMIENTO</h1>
-            <span class="mainDescription">Formulario para solicitar Mantenimientos.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.mantenimiento.CREAR">CREAR MANTENIMIENTO</h1>
+            <span class="mainDescription">Formulario para crear Mantenimiento.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -16,11 +16,11 @@
             <form name="Form2" novalidate ng-submit="form.submit(Form2)">
                 <fieldset>
                     <legend>
-                        Solicitud de Mantenimiento
+                        Descripcion del Mantenimiento
                     </legend>
                     <div class="form-group" ng-class="{'has-error': Form2.solicitud.$dirty && Form2.solicitud.$invalid, 'has-success':Form2.solicitud.$valid}">
                         <label for="solicitud" class="control-label">
-                            Descripcion de la Solicitud <span class="symbol required"></span>
+                            Descripcion del Mantenimiento <span class="symbol required"></span>
                         </label>
                         <textarea placeholder="Descripción de la solicitud" id="solicitud" name="solicitud" class="form-control" ng-model="solicitud.solicitud" required></textarea>
                         <span class="error text-small block" ng-if="Form2.solicitud.$dirty && Form2.solicitud.$dirty && Form2.solicitud.$invalid">El campo descripción de la solicitud es requerido</span>

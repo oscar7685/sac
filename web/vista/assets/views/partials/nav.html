@@ -119,7 +119,7 @@
 
         </ul>
     </li>
-
+    <!--
      <li ng-class="{'active open':$state.includes('app.ui')}">
          <a href="javascript:void(0)">
              <div class="item-content">
@@ -321,6 +321,7 @@
              </li>
          </ul>
      </li> 
+     -->
      
     <li ng-class="{'active open':$state.includes('app.horario')}">
         <a href="javascript:void(0)">
@@ -398,6 +399,11 @@
             <li ui-sref-active="active">
                 <a ui-sref="app.mantenimiento.solicitudes">
                     <span class="title" translate="sidebar.nav.mantenimiento.SOLICITUDES">Listar Solicitudes</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.mantenimiento.crear">
+                    <span class="title" translate="sidebar.nav.mantenimiento.CREAR">Crear Mantenimiento</span>
                 </a>
             </li>
             <li ui-sref-active="active">

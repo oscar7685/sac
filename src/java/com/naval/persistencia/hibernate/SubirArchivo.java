@@ -99,6 +99,7 @@ public class SubirArchivo extends HttpServlet {
         if (idSolicitud == null) {
             processRequest(request, response);
         } else {
+
             PrintWriter writer = response.getWriter();
             response.setContentType("application/json;charset=UTF-8");
 
@@ -133,7 +134,6 @@ public class SubirArchivo extends HttpServlet {
             }
 
         }
-
     }
 
     /**
@@ -147,7 +147,50 @@ public class SubirArchivo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String idSolicitud = request.getParameter("idSolicitud");
+        String accion = request.getParameter("accion");
+        if (accion != null && "editarSolicitud".equals(accion)) {
+            ServletFileUpload uploadHandler = new ServletFileUpload(new DiskFileItemFactory());
+            PrintWriter writer = response.getWriter();
+
+            List<FileItem> items;
+            try {
+                items = uploadHandler.parseRequest(request);
+                for (FileItem item : items) {
+                    if (!item.isFormField()) {
+
+                        FileItem actual = null;
+                        actual = item;
+                        String fileName = actual.getName();
+
+                        String str = request.getSession().getServletContext().getRealPath("/adjuntos/");
+                        fileName = idSolicitud + "-" + fileName;
+                        // nos quedamos solo con el nombre y descartamos el path
+                        File fichero = new File(str + "\\" + fileName);
+
+                        try {
+                            actual.write(fichero);
+                            String aux = "{"
+                                    + "\"name\":\"" + fichero.getName()
+                                    + "\",\"size\":\"" + 2000
+                                    + "\",\"url\":\"/adjuntos/" + fichero.getName()
+                                    + "\",\"thumbnailUrl\":\"/thumbnails/" + fichero.getName()
+                                    + "\",\"deleteUrl\":\"/Subir?file=" + fichero.getName()
+                                    + "\",\"deleteType\":\"DELETE"
+                                    + "\",\"type\":\"" + fichero.getName() + "\"}";
+
+                            writer.write("{\"files\":[" + aux + "]}");
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+            }
+
+        } else {
+            processRequest(request, response);
+        }
+
     }
 
     @Override
