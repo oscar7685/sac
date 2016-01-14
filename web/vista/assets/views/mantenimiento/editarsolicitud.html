@@ -86,10 +86,10 @@
                                                         <span class="glyphicon glyphicon-upload"></span> Subir
                                                     </button>
                                                     -->
-                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="removeFile(item)">
                                                         <span class="glyphicon glyphicon-trash"></span> Eliminar
                                                     </button>
-                                                    <a download="{{ item.file.name}}" title="{{ item.file.name}}" target="_blank" href="{{ item.file.url}}" class="btn btn-primary btn-xs" 
+                                                    <a download="{{ item.file.name}}" title="{{ item.file.name}}" target="_blank" href="{{item._file.url}}" class="btn btn-primary btn-xs" 
                                                        ng-disabled="!item.isSuccess">
                                                         <span class="glyphicon glyphicon-download"></span> Descargar
                                                     </a>

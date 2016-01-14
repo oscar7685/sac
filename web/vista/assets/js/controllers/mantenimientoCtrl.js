@@ -213,7 +213,22 @@ app.controller('editarSolicitudMantenimientoCtrl2', ["$scope", "$http", "$state"
                 uploaderImages.onCompleteAll = function () {
                     console.info('onCompleteAll');
                 };
-                console.info('uploaderXX', uploaderImages);
+                $scope.removeFile = function (item) {
+                    if (item._file.url) {
+                        var archivo = item._file.url;
+                        archivo = archivo.substring(archivo.lastIndexOf("/") + 1);
+                        console.log("archivo: " + archivo);
+                        $http({
+                            method: 'DELETE',
+                            url: '/sac/SubirArchivo?archivo=' + archivo
+                        }).success(function (datos) {
+                            console.log("archivo borrado con exito");
+                        });
+                    }
+                    item.remove();
+                    //index of the file in the list is - item.$index
+                }
+
                 AulaFactory.query().$promise.then(function (result) {
                     $scope.aulas = result;
                     $scope.master = angular.copy($scope.solicitud);
@@ -240,13 +255,13 @@ app.controller('editarSolicitudMantenimientoCtrl2', ["$scope", "$http", "$state"
                                 return;
                             } else {
                                 if (form.$valid) {
-                                    SolicitudFactory.save($scope.solicitud).$promise.then(function (result) {
+                                    SolicitudFactory.update({idSolicitud: $scope.solicitud.idsolicitud}, $scope.solicitud).$promise.then(function (result) {
                                         if (uploaderImages.queue.length > 0) {
-                                            uploaderImages.uploadAll();
+                                          //  uploaderImages.uploadAll();
                                         } else {
                                             console.log("hacer lo que se valla a hacer");
                                             //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
-                                            $location.path("app/mantenimiento/horarios");
+                                            $location.path("app/mantenimiento/solicitudes");
                                         }
 
                                     }, function (bussinessMessages) {
@@ -260,10 +275,10 @@ app.controller('editarSolicitudMantenimientoCtrl2', ["$scope", "$http", "$state"
                             $scope.solicitud = angular.copy($scope.master);
                             form.$setPristine(true);
                         }
-                    };
-                });
-
-
+                    }
+                    ;
+                }
+                );
             });
 
         });

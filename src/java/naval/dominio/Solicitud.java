@@ -3,6 +3,7 @@ package naval.dominio;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -63,7 +64,8 @@ public class Solicitud implements java.io.Serializable {
     public void setIdsolicitud(Integer idsolicitud) {
         this.idsolicitud = idsolicitud;
     }
-
+    
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aula_idaula", nullable = false)
     public Aula getAula() {
@@ -73,7 +75,7 @@ public class Solicitud implements java.io.Serializable {
     public void setAula(Aula aula) {
         this.aula = aula;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "solicitante", nullable = false)
     public Usuario getUsuario() {

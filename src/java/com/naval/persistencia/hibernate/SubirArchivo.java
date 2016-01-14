@@ -150,6 +150,20 @@ public class SubirArchivo extends HttpServlet {
         processRequest(request, response);
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String archivo = request.getParameter("archivo");
+        String str = "";
+        if (archivo != null && !archivo.equals("")) {
+            str = request.getSession().getServletContext().getRealPath("/adjuntos/");
+            File fichero1 = new File(str + "\\" + archivo);
+            fichero1.delete();
+        }
+
+    }
+
     /**
      * Returns a short description of the servlet.
      *
