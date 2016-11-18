@@ -3,7 +3,7 @@
  * Config for the router
  */
 
-app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$ocLazyLoadProvider', 'JS_REQUIRES',
+app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$ocLazyLoadProvider', 'JS_REQUIRES', 
     function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $ocLazyLoadProvider, jsRequires) {
 
         app.controller = $controllerProvider.register;
@@ -20,10 +20,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             events: true,
             modules: jsRequires.modules
         });
-        // APPLICATION ROUTES
+               // APPLICATION ROUTES
         // -----------------------------------
         // For any unmatched url, redirect to /app/dashboard
-        $urlRouterProvider.otherwise("/app/dashboard");
+        $urlRouterProvider.otherwise("/login/signin");
         //
         // Set up the states
         $stateProvider.state('app', {
@@ -497,10 +497,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 .state('login', {
                     url: '/login',
                     template: '<div ui-view class="fade-in-right-big smooth"></div>',
+                    resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl'),
                     abstract: true
                 }).state('login.signin', {
             url: '/signin',
-            templateUrl: "assets/views/login_login.html"
+            templateUrl: "assets/views/login_login.html",
+            resolve: loadSequence('loginCtrl')
         }).state('login.forgot', {
             url: '/forgot',
             templateUrl: "assets/views/login_forgot.html"
@@ -672,7 +674,6 @@ app.factory('HoraFactory', function ($resource) {
         }
     });
 });
-
 app.factory('SolicitudFactory', function ($resource) {
     return $resource('/sac/api/Solicitud/:idSolicitud', null, {
         update: {
@@ -680,7 +681,6 @@ app.factory('SolicitudFactory', function ($resource) {
         }
     });
 });
-
 app.factory('MantenimientoFactory', function ($resource) {
     return $resource('/sac/api/Mantenimiento/:idMantenimiento', null, {
         update: {
@@ -690,12 +690,14 @@ app.factory('MantenimientoFactory', function ($resource) {
 });
 app.factory('UsuarioFactory', function ($resource) {
     return $resource('/sac/api/Usuario/:idUsuario', null, {
-        update: {
-            method: 'PUT' // this method issues a PUT request
+        login: {
+            method: 'POST',
+            url: '/sac/api/Usuario/Login',
+            params: {usuario: '@usuario', password: '@password'},
+            isArray: false
         }
     });
 });
-
 app.factory('HorarioFactory', function ($resource) {
     return $resource('/sac/api/Horario/:idHorario', null,
             {

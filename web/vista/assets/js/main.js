@@ -13,7 +13,7 @@ function ($rootScope, $state, $stateParams) {
     // set below basic information
     $rootScope.app = {
         name: 'Naval', // name of your project
-        author: 'Escuela Naval', // author's name or company name
+        author: 'Escuela Naval de Cadetes Almirante Padilla', // author's name or company name
         description: 'Naval', // brief description
         version: '1.0', // current version
         year: ((new Date()).getFullYear()), // automatic current year (for copyright information)

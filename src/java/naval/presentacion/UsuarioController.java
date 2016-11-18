@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UsuarioController {
@@ -36,7 +36,29 @@ public class UsuarioController {
     @Autowired
     private JsonTransformer jsonTransformer;
 
-    
+    @RequestMapping(value = {"/Usuario/Login"}, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public void loguear(HttpServletRequest httpRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada) throws IOException {
+        try {
+            Usuario aux2 = (Usuario) jsonTransformer.fromJson(jsonEntrada, Usuario.class);
+            boolean credencialesValidas = false;
+            if (aux2 != null && aux2.getUsuario() != null) {
+                Usuario userBD = usuarioDAO.get(aux2.getUsuario());
+                if (userBD != null && userBD.getPassword().equals(aux2.getPassword())) {
+                    httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+                    httpServletResponse.setContentType("application/json; charset=UTF-8");
+                    httpServletResponse.getWriter().println(jsonEntrada);
+                    credencialesValidas = true;
+                }
+            }
+            if (!credencialesValidas) {
+                httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+                httpServletResponse.setContentType("application/json; charset=UTF-8");
+                httpServletResponse.getWriter().println("{\"error\":\"error\"}");
+            }
+        } catch (BussinessException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @RequestMapping(value = {"/Usuario"}, method = RequestMethod.GET, produces = "application/json")
     public void find(HttpServletRequest httpRequest, HttpServletResponse httpServletResponse) throws IOException {

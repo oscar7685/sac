@@ -130,7 +130,7 @@ public class AulaController {
     }
 
     @RequestMapping(value = "/Aula", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public void insert(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada) {
+        public void insert(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada) {
         try {
             Aula aux2 = (Aula) jsonTransformer.fromJson(jsonEntrada, Aula.class);
             aulaDAO.saveOrUpdate(aux2);
