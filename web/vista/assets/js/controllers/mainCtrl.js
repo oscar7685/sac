@@ -13,7 +13,8 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
             if (toState.name.indexOf('app') !== -1 && !$rootScope.authenticated) {
                 $state.go('login.signin');
             } else if (toState.name.indexOf('login') !== -1 && $rootScope.authenticated) {
-                $state.go('app.dashboard');
+                $rootScope.authenticated = false;
+                $state.go('login.signin');
             }
             cfpLoadingBar.start();
         });

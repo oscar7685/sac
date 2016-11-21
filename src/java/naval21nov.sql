@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : sac
-Source Server Version : 50710
+Source Server         : Local
+Source Server Version : 50542
 Source Host           : localhost:3306
 Source Database       : naval
 
 Target Server Type    : MYSQL
-Target Server Version : 50710
+Target Server Version : 50542
 File Encoding         : 65001
 
-Date: 2016-01-08 16:29:44
+Date: 2016-11-21 07:13:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -364,32 +364,31 @@ CREATE TABLE `mantenimiento` (
   `fecha_inicio` datetime DEFAULT NULL,
   `fecha_final` datetime DEFAULT NULL,
   `descripcion` varchar(2000) DEFAULT NULL,
-  `solicitud` varchar(2000) DEFAULT NULL,
   `tipo` varchar(255) DEFAULT NULL,
   `aula_idaula` int(11) NOT NULL,
-  `solicitante` varchar(255) DEFAULT NULL,
   `trabajador` varchar(255) DEFAULT NULL,
   `aprobado` tinyint(1) DEFAULT NULL,
   `fuera_servicio` tinyint(1) DEFAULT NULL,
-  `leido` tinyint(1) DEFAULT NULL,
   `aprobado_por` varchar(255) DEFAULT NULL,
+  `solicitud_idsolicitud` int(11) DEFAULT NULL,
+  `realizado` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idmantenimiento`),
   KEY `fk_mantenimiento_aula1_idx` (`aula_idaula`),
-  KEY `fk_mantenimiento_usuario1_idx` (`solicitante`),
   KEY `fk_mantenimiento_usuario2_idx` (`trabajador`),
   KEY `fk_mantenimiento_usuario3_idx` (`aprobado_por`),
+  KEY `fk_mantenimiento_solicitud1_idx` (`solicitud_idsolicitud`),
   CONSTRAINT `fk_mantenimiento_aula1` FOREIGN KEY (`aula_idaula`) REFERENCES `aula` (`idaula`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_mantenimiento_usuario1` FOREIGN KEY (`solicitante`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mantenimiento_solicitud1` FOREIGN KEY (`solicitud_idsolicitud`) REFERENCES `solicitud` (`idsolicitud`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_mantenimiento_usuario2` FOREIGN KEY (`trabajador`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_mantenimiento_usuario3` FOREIGN KEY (`aprobado_por`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mantenimiento
 -- ----------------------------
-INSERT INTO `mantenimiento` VALUES ('1', '2016-01-06 11:30:00', '2016-01-07 11:30:10', 'Un mantenimiento preventivo1', '1', 'preventivo', '1', null, 'oscar7685', null, null, null, null);
-INSERT INTO `mantenimiento` VALUES ('2', '2016-01-06 13:30:00', '2016-01-06 16:00:00', 'Un mantenimiento preventivo2', '1', 'preventivo', '2', null, 'oscar7685', null, null, null, null);
-INSERT INTO `mantenimiento` VALUES ('3', '2016-01-18 13:30:00', '2016-01-20 16:00:00', 'Un mantenimiento correctivo3', '1', 'correctivo', '2', null, 'oscar7685', null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('1', '2016-01-06 11:30:00', '2016-01-07 11:30:10', 'Un mantenimiento preventivo1', 'preventivo', '1', null, null, null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('2', '2016-01-06 13:30:00', '2016-01-06 16:00:00', 'Un mantenimiento preventivo2', 'preventivo', '2', null, null, null, null, null, null);
+INSERT INTO `mantenimiento` VALUES ('3', '2016-01-18 13:30:00', '2016-01-20 16:00:00', 'Un mantenimiento correctivo3', 'correctivo', '2', null, null, null, null, '1', null);
 
 -- ----------------------------
 -- Table structure for motivo_inasistencia_estudiante
@@ -404,6 +403,42 @@ CREATE TABLE `motivo_inasistencia_estudiante` (
 
 -- ----------------------------
 -- Records of motivo_inasistencia_estudiante
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for notificacion
+-- ----------------------------
+DROP TABLE IF EXISTS `notificacion`;
+CREATE TABLE `notificacion` (
+  `idnotificacion` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(45) NOT NULL,
+  `fecha_evento` datetime NOT NULL,
+  `usuario_realizador` varchar(255) NOT NULL,
+  PRIMARY KEY (`idnotificacion`),
+  KEY `fk_notificacion_usuario1_idx` (`usuario_realizador`),
+  CONSTRAINT `fk_notificacion_usuario1` FOREIGN KEY (`usuario_realizador`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notificacion
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for notificacion_has_usuario
+-- ----------------------------
+DROP TABLE IF EXISTS `notificacion_has_usuario`;
+CREATE TABLE `notificacion_has_usuario` (
+  `notificacion_idnotificacion` int(11) NOT NULL,
+  `usuario_lector` varchar(255) NOT NULL,
+  PRIMARY KEY (`notificacion_idnotificacion`,`usuario_lector`),
+  KEY `fk_notificacion_has_usuario_usuario1_idx` (`usuario_lector`),
+  KEY `fk_notificacion_has_usuario_notificacion1_idx` (`notificacion_idnotificacion`),
+  CONSTRAINT `fk_notificacion_has_usuario_notificacion1` FOREIGN KEY (`notificacion_idnotificacion`) REFERENCES `notificacion` (`idnotificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notificacion_has_usuario_usuario1` FOREIGN KEY (`usuario_lector`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notificacion_has_usuario
 -- ----------------------------
 
 -- ----------------------------
@@ -442,6 +477,12 @@ CREATE TABLE `permisos` (
 -- ----------------------------
 -- Records of permisos
 -- ----------------------------
+INSERT INTO `permisos` VALUES ('1', 'ver Aulas');
+INSERT INTO `permisos` VALUES ('2', 'ver Edificios');
+INSERT INTO `permisos` VALUES ('3', 'ver Profesores');
+INSERT INTO `permisos` VALUES ('4', 'ver Cursos');
+INSERT INTO `permisos` VALUES ('5', 'ver Horarios');
+INSERT INTO `permisos` VALUES ('6', 'ver Mantenimientos');
 
 -- ----------------------------
 -- Table structure for profesor
@@ -688,6 +729,7 @@ CREATE TABLE `rol` (
 -- Records of rol
 -- ----------------------------
 INSERT INTO `rol` VALUES ('1', 'Administrador');
+INSERT INTO `rol` VALUES ('2', 'SAC');
 
 -- ----------------------------
 -- Table structure for rol_has_permisos
@@ -706,6 +748,38 @@ CREATE TABLE `rol_has_permisos` (
 -- ----------------------------
 -- Records of rol_has_permisos
 -- ----------------------------
+INSERT INTO `rol_has_permisos` VALUES ('1', '1');
+INSERT INTO `rol_has_permisos` VALUES ('2', '1');
+INSERT INTO `rol_has_permisos` VALUES ('1', '2');
+INSERT INTO `rol_has_permisos` VALUES ('2', '2');
+INSERT INTO `rol_has_permisos` VALUES ('1', '3');
+INSERT INTO `rol_has_permisos` VALUES ('1', '4');
+INSERT INTO `rol_has_permisos` VALUES ('2', '4');
+INSERT INTO `rol_has_permisos` VALUES ('1', '5');
+INSERT INTO `rol_has_permisos` VALUES ('2', '5');
+INSERT INTO `rol_has_permisos` VALUES ('1', '6');
+
+-- ----------------------------
+-- Table structure for solicitud
+-- ----------------------------
+DROP TABLE IF EXISTS `solicitud`;
+CREATE TABLE `solicitud` (
+  `idsolicitud` int(11) NOT NULL AUTO_INCREMENT,
+  `solicitante` varchar(255) NOT NULL,
+  `solicitud` varchar(2000) NOT NULL,
+  `aula_idaula` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY (`idsolicitud`),
+  KEY `fk_solicitud_usuario1_idx` (`solicitante`),
+  KEY `fk_solicitud_aula1_idx` (`aula_idaula`),
+  CONSTRAINT `fk_solicitud_aula1` FOREIGN KEY (`aula_idaula`) REFERENCES `aula` (`idaula`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_solicitud_usuario1` FOREIGN KEY (`solicitante`) REFERENCES `usuario` (`usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of solicitud
+-- ----------------------------
+INSERT INTO `solicitud` VALUES ('1', 'oscar7685', 'Solicitud modificado', '33', '2016-01-12 21:33:00');
 
 -- ----------------------------
 -- Table structure for usuario
@@ -726,4 +800,5 @@ CREATE TABLE `usuario` (
 -- ----------------------------
 -- Records of usuario
 -- ----------------------------
+INSERT INTO `usuario` VALUES ('acortez', 'Andres', 'Cortez', '123456', 'Activo', '2');
 INSERT INTO `usuario` VALUES ('oscar7685', 'Oscar', 'Ballestero', '123456', 'Activo', '1');

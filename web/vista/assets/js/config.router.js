@@ -3,7 +3,7 @@
  * Config for the router
  */
 
-app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$ocLazyLoadProvider', 'JS_REQUIRES', 
+app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$ocLazyLoadProvider', 'JS_REQUIRES',
     function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $ocLazyLoadProvider, jsRequires) {
 
         app.controller = $controllerProvider.register;
@@ -20,7 +20,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             events: true,
             modules: jsRequires.modules
         });
-               // APPLICATION ROUTES
+        // APPLICATION ROUTES
         // -----------------------------------
         // For any unmatched url, redirect to /app/dashboard
         $urlRouterProvider.otherwise("/login/signin");
@@ -693,6 +693,7 @@ app.factory('UsuarioFactory', function ($resource) {
         login: {
             method: 'POST',
             url: '/sac/api/Usuario/Login',
+            headers: {'Content-Type': 'application/json'},
             params: {usuario: '@usuario', password: '@password'},
             isArray: false
         }

@@ -22,7 +22,7 @@ app.controller('loginCtrl', ["$rootScope", "$scope", "UsuarioFactory", "$locatio
             });
 
         }
-        authenticate();
+        //authenticate();
         $scope.form = {
             submit: function (form) {
                 var firstError = null;
@@ -51,6 +51,8 @@ app.controller('loginCtrl', ["$rootScope", "$scope", "UsuarioFactory", "$locatio
                                 //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                             } else {
                                 $location.path("/login/signin");
+                                SweetAlert.swal("¡Usuario y/o contraseña incorrecto(s)!", "", "error");
+
                             }
                         });
                     }
@@ -59,4 +61,20 @@ app.controller('loginCtrl', ["$rootScope", "$scope", "UsuarioFactory", "$locatio
             }
         };
 
+    }]);
+
+app.controller('logoutCtrl', ["$rootScope", "$location", function ($rootScope, $location) {
+        $rootScope.authenticated = false;
+        $location.path("/login/signin");
+        
+        /*
+         * $scope.logout = function () {
+            $http.post('logout', {}).success(function () {
+                $rootScope.authenticated = false;
+                $location.path("/");
+            }).error(function (data) {
+                $rootScope.authenticated = false;
+            });
+        }
+         */
     }]);

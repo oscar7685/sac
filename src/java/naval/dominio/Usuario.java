@@ -69,7 +69,6 @@ public class Usuario implements java.io.Serializable {
         this.usuario = usuario;
     }
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_codigo", nullable = false)
     public Rol getRol() {

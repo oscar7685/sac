@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import naval.dominio.Permisos;
+import naval.dominio.Rol;
 import naval.dominio.Usuario;
 import naval.persistencia.dao.UsuarioDAO;
 import naval.persistencia.dao.JsonTransformer;
@@ -44,9 +46,14 @@ public class UsuarioController {
             if (aux2 != null && aux2.getUsuario() != null) {
                 Usuario userBD = usuarioDAO.get(aux2.getUsuario());
                 if (userBD != null && userBD.getPassword().equals(aux2.getPassword())) {
+                    Rol r = userBD.getRol();
+                    Set<Permisos> permisos = r.getPermisoses();
                     httpServletResponse.setStatus(HttpServletResponse.SC_OK);
                     httpServletResponse.setContentType("application/json; charset=UTF-8");
-                    httpServletResponse.getWriter().println(jsonEntrada);
+                    String jsonSalida = jsonTransformer.toJson(userBD);
+                    //jsonSalida += jsonTransformer.toJson(r);
+                    //jsonSalida += jsonTransformer.toJson(permisos);
+                    httpServletResponse.getWriter().println(jsonSalida);
                     credencialesValidas = true;
                 }
             }
