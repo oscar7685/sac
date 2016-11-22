@@ -12,6 +12,7 @@ app.controller('loginCtrl', ["$rootScope", "$scope", "UsuarioFactory", "$locatio
             UsuarioFactory.login(credentials).$promise.then(function (data) {
                 if (data.usuario) {
                     $rootScope.authenticated = true;
+                    $rootScope.user = data;
                 } else {
                     $rootScope.authenticated = false;
                 }

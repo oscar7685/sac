@@ -2,6 +2,7 @@ package naval.dominio;
 // Generated 21/12/2015 11:03:03 PM by Hibernate Tools 4.3.1
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -62,7 +63,7 @@ public class Permisos  implements java.io.Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+@JsonIgnore
 @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="rol_has_permisos", catalog="naval", joinColumns = { 
         @JoinColumn(name="permisos_idpermisos", nullable=false, updatable=false) }, inverseJoinColumns = { 

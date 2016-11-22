@@ -16,7 +16,7 @@
         </a>
     </li>
     <!--AULAS-->
-    <li ng-class="{'active open':$state.includes('app.aulas')}">
+    <li ng-show="{{hasPermiso(1)}}" ng-class="{'active open':$state.includes('app.aulas')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
@@ -38,11 +38,10 @@
                     <span class="title" translate="sidebar.nav.aulas.LISTAR"> Listar Aula </span>
                 </a>
             </li>
-
         </ul>
     </li>
     <!--EDIFICIOS-->
-    <li ng-class="{'active open':$state.includes('app.edificios')}">
+    <li ng-show="{{hasPermiso(2)}}" ng-class="{'active open':$state.includes('app.edificios')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
@@ -68,7 +67,7 @@
         </ul>
     </li>
     <!--PROFESORES-->
-    <li ng-class="{'active open':$state.includes('app.profesores')}">
+    <li ng-show="{{hasPermiso(3)}}" ng-class="{'active open':$state.includes('app.profesores')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
@@ -94,14 +93,14 @@
         </ul>
     </li>
     <!--CURSOS-->
-    <li ng-class="{'active open':$state.includes('app.cursos')}">
+    <li ng-show="{{hasPermiso(4)}}" ng-class="{'active open':$state.includes('app.cursos')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
                     <i class="ti-id-badge"></i>
                 </div>
                 <div class="item-inner">
-                    <span class="title" translate="sidebar.nav.cursos.MAIN"> Cursos </span><i class="icon-arrow"></i>
+                    <span class="title" translate="sidebar.nav.cursos.MAIN"> Cursos</span><i class="icon-arrow"></i>
                 </div>
             </div>
         </a>
@@ -116,7 +115,6 @@
                     <span class="title" translate="sidebar.nav.cursos.LISTAR"> Listar Cursos </span>
                 </a>
             </li>
-
         </ul>
     </li>
     <!--
@@ -321,9 +319,9 @@
              </li>
          </ul>
      </li> 
-     -->
-     
-    <li ng-class="{'active open':$state.includes('app.horario')}">
+    -->
+
+    <li ng-show="{{hasPermiso(5)}}"ng-class="{'active open':$state.includes('app.horario')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
@@ -378,8 +376,8 @@
             </li>-->
         </ul>
     </li>
-    
-    <li ng-class="{'active open':$state.includes('app.mantenimiento')}">
+
+    <li ng-show="{{hasPermiso(6)}}" ng-class="{'active open':$state.includes('app.mantenimiento')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
@@ -423,8 +421,8 @@
             </li>-->
         </ul>
     </li>
-    
-    
+
+
     <!--  <li ng-class="{'active open':$state.includes('app.utilities')}">
           <a href="javascript:void(0)">
               <div class="item-content">

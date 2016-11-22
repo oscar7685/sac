@@ -5,6 +5,9 @@
  */
 package naval.presentacion;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.naval.persistencia.dao.BussinessException;
 import com.naval.persistencia.dao.BussinessMessage;
 import java.io.IOException;
@@ -47,13 +50,13 @@ public class UsuarioController {
                 Usuario userBD = usuarioDAO.get(aux2.getUsuario());
                 if (userBD != null && userBD.getPassword().equals(aux2.getPassword())) {
                     Rol r = userBD.getRol();
-                    Set<Permisos> permisos = r.getPermisoses();
                     httpServletResponse.setStatus(HttpServletResponse.SC_OK);
                     httpServletResponse.setContentType("application/json; charset=UTF-8");
                     String jsonSalida = jsonTransformer.toJson(userBD);
-                    //jsonSalida += jsonTransformer.toJson(r);
-                    //jsonSalida += jsonTransformer.toJson(permisos);
-                    httpServletResponse.getWriter().println(jsonSalida);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode json = mapper.readTree(jsonSalida);
+                    ((ObjectNode) json).remove("password");
+                    httpServletResponse.getWriter().println(json.toString());
                     credencialesValidas = true;
                 }
             }

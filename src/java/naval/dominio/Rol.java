@@ -71,7 +71,6 @@ public class Rol implements java.io.Serializable {
         this.usuarios = usuarios;
     }
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "rol_has_permisos", catalog = "naval", joinColumns = {
         @JoinColumn(name = "rol_codigo", nullable = false, updatable = false)}, inverseJoinColumns = {

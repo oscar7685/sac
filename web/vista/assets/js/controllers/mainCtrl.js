@@ -5,6 +5,14 @@
 app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', 'cfpLoadingBar',
     function ($rootScope, $scope, $state, $translate, $localStorage, $window, $document, $timeout, cfpLoadingBar) {
 
+        $rootScope.hasPermiso = function (permiso) {
+            for(var i=0;i<$rootScope.user.rol.permisoses.length;i++){
+                if($rootScope.user.rol.permisoses[i].idpermisos === permiso){
+                return true;    
+                }
+            }
+            return false;
+        };
         // Loading bar transition
         // -----------------------------------
         var $win = $($window);
@@ -19,7 +27,12 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
             cfpLoadingBar.start();
         });
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
+            if (toState.name.indexOf('app') !== -1 && !$rootScope.authenticated) {
+                $state.go('login.signin');
+            } else if (toState.name.indexOf('login') !== -1 && $rootScope.authenticated) {
+                $rootScope.authenticated = false;
+                $state.go('login.signin');
+            }
             //stop loading bar on stateChangeSuccess
             event.targetScope.$watch("$viewContentLoaded", function () {
 
