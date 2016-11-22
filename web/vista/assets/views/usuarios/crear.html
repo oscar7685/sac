@@ -1,0 +1,53 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.edificios.EDITAR">EDITAR EDIFICIOS</h1>
+            <span class="mainDescription">Formulario para crear Edificios.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="crearEdificioCtrl2">
+            <form name="Form2" novalidate ng-submit="form.submit(Form2)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Edificios
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form2.nombre.$dirty && Form2.nombre.$invalid, 'has-success':Form2.nombre.$valid}">
+                                <label for="nombre" class="control-label">
+                                    Nombre Edificio <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Nombre Edificio" id="nombre" name="nombre" class="form-control" ng-model="edificio.nombre" required/>
+                                <span class="error text-small block" ng-if="Form2.nombre.$dirty && Form2.nombre.$dirty && Form2.nombre.$invalid">El campo nombre es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.num_pisos.$dirty && Form2.num_pisos.$invalid, 'has-success':Form2.num_pisos.$valid}">
+                                <label for="num_pisos" class="control-label">
+                                    N° de Pisos <span class="symbol required"></span>
+                                </label>
+                                <input type="number" placeholder="N° de Pisos" id="num_pisos" name="num_pisos" class="form-control" ng-model="edificio.pisos" ng-pattern="/^[0-9]*$/" required/>
+                                <span class="error text-small block" ng-if="Form2.num_pisos.$error.number">Not valid number!</span>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Crear Edificio
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
+                     Resetear
+                 </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->
+

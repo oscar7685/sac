@@ -22,6 +22,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
                 $state.go('login.signin');
             } else if (toState.name.indexOf('login') !== -1 && $rootScope.authenticated) {
                 $rootScope.authenticated = false;
+                $rootScope.user = null;
                 $state.go('login.signin');
             }
             cfpLoadingBar.start();
@@ -31,6 +32,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
                 $state.go('login.signin');
             } else if (toState.name.indexOf('login') !== -1 && $rootScope.authenticated) {
                 $rootScope.authenticated = false;
+                $rootScope.user = null;
                 $state.go('login.signin');
             }
             //stop loading bar on stateChangeSuccess

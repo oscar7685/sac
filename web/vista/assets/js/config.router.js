@@ -86,6 +86,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Editar Aulas'
             },
             resolve: loadSequence('aulas')
+        }).state('app.usuarios', {
+            url: '/usuarios',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Usuarios',
+            ncyBreadcrumb: {
+                label: 'Usuarios'
+            }
+        }).state('app.usuarios.crear', {
+            url: '/crear',
+            templateUrl: "assets/views/usuarios/crear.html",
+            title: 'Crear Usuarios',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear Usuarios'
+            },
+            resolve: loadSequence('usuarioCtrl')
+        }).state('app.usuarios.listar', {
+            url: '/listar',
+            templateUrl: "assets/views/usuarios/listar.html",
+            title: 'Listar Usuarios',
+            ncyBreadcrumb: {
+                label: 'Listar Usuarios'
+            },
+            resolve: loadSequence('ngTable', 'usuarioCtrl')
+        }).state('app.usuarios.editar', {
+            url: '/editar:idusuario',
+            templateUrl: "assets/views/usuarios/editar.html",
+            title: 'Editar Usuarios',
+            ncyBreadcrumb: {
+                label: 'Editar Usuarios'
+            },
+            resolve: loadSequence('usuarioCtrl')
         }).state('app.edificios', {
             url: '/edificios',
             template: '<div ui-view class="fade-in-up"></div>',

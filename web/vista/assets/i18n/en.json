@@ -79,6 +79,21 @@
                 "EDITAR": "Editar Curso",
                 "LISTAR": "Listar Cursos"
             },
+            
+            "usuarios": {
+                "MAIN": "Usuarios",
+                "CREAR": "Crear Usuario",
+                "EDITAR": "Editar Usuario",
+                "LISTAR": "Listar Usuarios"
+            },
+            
+            "roles": {
+                "MAIN": "Roles",
+                "CREAR": "Crear Rol",
+                "EDITAR": "Editar Rol",
+                "LISTAR": "Listar Roles"
+            },
+            
             "horario": {
                 "MAIN": "Horario",
                 "AULAS": "Horario Aulas",

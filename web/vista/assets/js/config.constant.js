@@ -58,6 +58,7 @@ app.constant('JS_REQUIRES', {
         'horarioProfesorCtrl': ['assets/js/controllers/horarioProfesorCtrl.js'],
         'horarioCursoCtrl': ['assets/js/controllers/horarioCursoCtrl.js'],
         'mantenimientoCtrl': ['assets/js/controllers/mantenimientoCtrl.js'],
+        'usuarioCtrl': ['assets/js/controllers/usuarioCtrl.js'],
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
     },

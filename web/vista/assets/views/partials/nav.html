@@ -422,7 +422,59 @@
         </ul>
     </li>
 
-
+    
+    <!--USUARIOS-->
+    <li ng-show="{{hasPermiso(7)}}" ng-class="{'active open':$state.includes('app.usuarios')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-id-badge"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.usuarios.MAIN"> Usuarios</span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.usuarios.crear">
+                    <span class="title" translate="sidebar.nav.usuarios.CREAR"> Crear Usuario </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.usuarios.listar">
+                    <span class="title" translate="sidebar.nav.usuarios.LISTAR"> Listar Usuarios </span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    
+    <!--ROLES-->
+    <li ng-show="{{hasPermiso(8)}}" ng-class="{'active open':$state.includes('app.roles')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-id-badge"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.roles.MAIN"> Roles</span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.roles.crear">
+                    <span class="title" translate="sidebar.nav.roles.CREAR"> Crear Rol </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.roles.listar">
+                    <span class="title" translate="sidebar.nav.roles.LISTAR"> Listar Roles </span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    
     <!--  <li ng-class="{'active open':$state.includes('app.utilities')}">
           <a href="javascript:void(0)">
               <div class="item-content">
