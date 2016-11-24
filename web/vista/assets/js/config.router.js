@@ -118,6 +118,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Editar Usuarios'
             },
             resolve: loadSequence('usuarioCtrl')
+        }).state('app.roles', {
+            url: '/roles',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Roles',
+            ncyBreadcrumb: {
+                label: 'Roles'
+            }
+        }).state('app.roles.crear', {
+            url: '/crear',
+            templateUrl: "assets/views/roles/crear.html",
+            title: 'Crear Roles',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear Roles'
+            },
+            resolve: loadSequence('rolCtrl')
+        }).state('app.roles.listar', {
+            url: '/listar',
+            templateUrl: "assets/views/roles/listar.html",
+            title: 'Listar Roles',
+            ncyBreadcrumb: {
+                label: 'Listar Roles'
+            },
+            resolve: loadSequence('ngTable', 'rolCtrl')
+        }).state('app.roles.editar', {
+            url: '/editar:idrol',
+            templateUrl: "assets/views/roles/editar.html",
+            title: 'Editar Roles',
+            ncyBreadcrumb: {
+                label: 'Editar Roles'
+            },
+            resolve: loadSequence('rolCtrl')
         }).state('app.edificios', {
             url: '/edificios',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -728,6 +760,13 @@ app.factory('UsuarioFactory', function ($resource) {
             headers: {'Content-Type': 'application/json'},
             params: {usuario: '@usuario', password: '@password'},
             isArray: false
+        }
+    });
+});
+app.factory('RolFactory', function ($resource) {
+    return $resource('/sac/api/Rol/:idRol', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
         }
     });
 });

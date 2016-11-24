@@ -5,7 +5,7 @@
  */
 
 
-app.controller('crearUsuarioCtrl', ["$scope", "UsuarioFactory", "RolFactory", "$location", "SweetAlert", function ($scope, UsuarioFactory, RolFactory, $location, SweetAlert) {
+app.controller('crearRolCtrl', ["$scope", "UsuarioFactory", "RolFactory", "$location", "SweetAlert", function ($scope, UsuarioFactory, RolFactory, $location, SweetAlert) {
         RolFactory.query().$promise.then(function (result) {
             $scope.roles = result;
             $scope.usuario = {
@@ -62,7 +62,7 @@ app.controller('crearUsuarioCtrl', ["$scope", "UsuarioFactory", "RolFactory", "$
     }]);
 
 
-app.controller('editarUsuarioCtrl', ["$scope", "$state", "$stateParams", "UsuarioFactory", "RolFactory", "$location", "SweetAlert",
+app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "UsuarioFactory", "RolFactory", "$location", "SweetAlert",
     function ($scope, $state, $stateParams, UsuarioFactory, RolFactory, $location, SweetAlert) {
         UsuarioFactory.get({idUsuario: $stateParams.idusuario}).$promise.then(function (result) {
             $scope.usuario = result;
@@ -116,8 +116,8 @@ app.controller('editarUsuarioCtrl', ["$scope", "$state", "$stateParams", "Usuari
     }]);
 
 
-app.controller('tablaUsuarioCtrl', ["$scope", "$filter", "UsuarioFactory", "ngTableParams", function ($scope, $filter, UsuarioFactory, ngTableParams) {
-        UsuarioFactory.query().$promise.then(function (result) {
+app.controller('tablaRolCtrl', ["$scope", "$filter", "RolFactory", "ngTableParams", function ($scope, $filter, RolFactory, ngTableParams) {
+        RolFactory.query().$promise.then(function (result) {
             $scope.data = result;
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page

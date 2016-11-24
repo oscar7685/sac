@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.usuarios.LISTAR">Lista de Usuarios</h1>
-            <span class="mainDescription">Lista todos los usuarios registrados en el sistema.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.roles.LISTAR">Lista de Roles</h1>
+            <span class="mainDescription">Lista todos los roles registrados en el sistema.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -14,16 +14,16 @@
     <div class="row">
         <div class="col-md-12">
             <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-            <div ng-controller="tablaUsuarioCtrl">
+            <div ng-controller="tablaRolCtrl">
                 <p>
                     Mostrando registros del {{ tableParams.total() > 0 ? (tableParams.page() * tableParams.count()) - (tableParams.count()) + 1 : 0}} 
                     al {{(tableParams.page() * tableParams.count()) < tableParams.total() ? (tableParams.page() * tableParams.count()) : tableParams.total()}} 
                     de un total de {{tableParams.total()}}
                 </p>
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
-                    <tr ng-repeat="usuario in $data">
-                        <td data-title="'Nombre'" sortable="'nombre'" filter="{'nombre': 'text'}"><a ui-sref="app.usuarios.editar({idusuario:'{{usuario.usuario}}'})">{{usuario.nombre}}</a></td>
-                        <td data-title="'Apellidos'" sortable="'apellido'">{{usuario.apellido}}</td>
+                    <tr ng-repeat="rol in $data">
+                        <td data-title="'Codigo'" sortable="'codigo'">{{rol.codigo}}</td>
+                        <td data-title="'Descripcion'" sortable="'descripcion'" filter="{'descripcion': 'text'}"><a ui-sref="app.rol.editar({codigo:'{{rol.codigo}}'})">{{rol.descripcion}}</a></td>
                     </tr>
                 </table>
             </div>

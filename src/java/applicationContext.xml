@@ -21,5 +21,6 @@
     <bean class="naval.persistencia.dao.impl.MantenimientoDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.SolicitudDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.UsuarioDAOImplHibernate" />
+    <bean class="naval.persistencia.dao.impl.RolDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.JsonTransformerImplJackson" /> 
 </beans>
