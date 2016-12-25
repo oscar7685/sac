@@ -23,7 +23,8 @@
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
                     <tr ng-repeat="rol in $data">
                         <td data-title="'Codigo'" sortable="'codigo'">{{rol.codigo}}</td>
-                        <td data-title="'Descripcion'" sortable="'descripcion'" filter="{'descripcion': 'text'}"><a ui-sref="app.rol.editar({codigo:'{{rol.codigo}}'})">{{rol.descripcion}}</a></td>
+                        <td data-title="'Descripcion'" sortable="'descripcion'" filter="{'descripcion': 'text'}"><a ui-sref="app.roles.editar({idrol:'{{rol.codigo}}'})">{{rol.descripcion}}</a></td>
+                                                                                                                    
                     </tr>
                 </table>
             </div>

@@ -4,22 +4,19 @@
  * and open the template in the editor.
  */
 
-
-app.controller('crearRolCtrl', ["$scope", "UsuarioFactory", "RolFactory", "$location", "SweetAlert", function ($scope, UsuarioFactory, RolFactory, $location, SweetAlert) {
-        RolFactory.query().$promise.then(function (result) {
-            $scope.roles = result;
-            $scope.usuario = {
-                usuario: "",
-                nombre: "",
-                apellido: "",
-                password: "",
-                estado: "Activo",
-                rol: {
-                    codigo: "",
-                    descripcion: ""
-                }
+app.controller('crearRolCtrl', ["$scope", "RolFactory", "PermisoFactory", "$location", "SweetAlert", "$filter", function ($scope, RolFactory, PermisoFactory, $location, SweetAlert, $filter) {
+        PermisoFactory.query().$promise.then(function (result) {
+            $scope.permisos = result;
+            $scope.rol = {
+                codigo: null,
+                descripcion: "",
+                permisoses: []
             };
-            $scope.master = angular.copy($scope.usuario);
+            $scope.seleccionados = function () {
+                $scope.playList1 = $filter('filter')($scope.permisos, {checked: true});
+            }
+            $scope.master = angular.copy($scope.rol);
+            $scope.master2 = angular.copy($scope.permisos);
             $scope.form = {
                 submit: function (form) {
                     var firstError = null;
@@ -43,8 +40,11 @@ app.controller('crearRolCtrl', ["$scope", "UsuarioFactory", "RolFactory", "$loca
                         return;
                     } else {
                         if (form.$valid) {
-                            UsuarioFactory.save($scope.usuario).$promise.then(function () {
-                                $location.path("app/usuario/listar");
+                            for (var i = 0; i < $scope.playList1.length; i++) {
+                                $scope.rol.permisoses.push({'idpermisos': $scope.playList1[i]['idpermisos'], 'descripcion': $scope.playList1[i]['descripcion']});
+                            }
+                            RolFactory.save($scope.rol).$promise.then(function () {
+                                $location.path("app/rol/listar");
                             }, function (bussinessMessages) {
                                 $scope.bussinessMessages = bussinessMessages;
                             });
@@ -54,22 +54,40 @@ app.controller('crearRolCtrl', ["$scope", "UsuarioFactory", "RolFactory", "$loca
 
                 },
                 reset: function (form) {
-                    $scope.usuario = angular.copy($scope.master);
+                    $scope.rol = angular.copy($scope.master);
+                    $scope.permisos = angular.copy($scope.master2);
+
                     form.$setPristine(true);
                 }
             };
         });
     }]);
+app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "RolFactory", "PermisoFactory", "$location", "SweetAlert", "$filter",
+    function ($scope, $state, $stateParams, RolFactory, PermisoFactory, $location, SweetAlert, $filter) {
+        RolFactory.get({idRol: $stateParams.idrol}).$promise.then(function (result) {
+            $scope.rol = result;
+            PermisoFactory.query().$promise.then(function (result2) {
+                $scope.permisos = result2;
+                $scope.containsObject = function (obj, list) {
+                    var i;
+                    for (i = 0; i < list.length; i++) {
+                        if (list[i].idpermisos === obj.idpermisos) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                for (var i = 0; i < $scope.rol.permisoses.length; i++) {
+                    if ($scope.containsObject($scope.rol.permisoses[i], $scope.permisos)) {
+                        $scope.permisos[i].checked = true;
+                    }
+                }
+                $scope.seleccionados = function () {
+                    $scope.playList = $filter('filter')($scope.permisos, {checked: true});
+                }
+                $scope.master = angular.copy($scope.rol);
+                $scope.master2 = angular.copy($scope.permisos);
 
-
-app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "UsuarioFactory", "RolFactory", "$location", "SweetAlert",
-    function ($scope, $state, $stateParams, UsuarioFactory, RolFactory, $location, SweetAlert) {
-        UsuarioFactory.get({idUsuario: $stateParams.idusuario}).$promise.then(function (result) {
-            $scope.usuario = result;
-
-            RolFactory.query().$promise.then(function (result2) {
-                $scope.roles = result2;
-                $scope.master = angular.copy($scope.usuario);
                 $scope.form = {
                     submit: function (form) {
                         var firstError = null;
@@ -93,9 +111,12 @@ app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "UsuarioFac
                             return;
                         } else {
                             if (form.$valid) {
-
-                                UsuarioFactory.update({idUsuario: $scope.usuario.idusuario}, $scope.usuario).$promise.then(function () {
-                                    $location.path("app/usuario/listar");
+                                $scope.rol.permisoses = [];
+                                for (var i = 0; i < $scope.playList.length; i++) {
+                                    $scope.rol.permisoses.push({'idpermisos': $scope.playList[i]['idpermisos'], 'descripcion': $scope.playList[i]['descripcion']});
+                                }
+                                RolFactory.update({idRol: $scope.rol.codigo}, $scope.rol).$promise.then(function () {
+                                    $location.path("app/roles/listar");
                                 }, function (bussinessMessages) {
                                     $scope.bussinessMessages = bussinessMessages;
                                 });
@@ -105,17 +126,14 @@ app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "UsuarioFac
 
                     },
                     reset: function (form) {
-                        $scope.usuario = angular.copy($scope.master);
+                        $scope.rol = angular.copy($scope.master);
+                        $scope.permisos = angular.copy($scope.master2);
                         form.$setPristine(true);
                     }
                 };
             });
-
-
         });
     }]);
-
-
 app.controller('tablaRolCtrl', ["$scope", "$filter", "RolFactory", "ngTableParams", function ($scope, $filter, RolFactory, ngTableParams) {
         RolFactory.query().$promise.then(function (result) {
             $scope.data = result;

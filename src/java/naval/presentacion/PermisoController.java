@@ -14,8 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import naval.dominio.Rol;
-import naval.persistencia.dao.RolDAO;
+import naval.dominio.Permisos;
+import naval.persistencia.dao.PermisosDAO;
 import naval.persistencia.dao.JsonTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,31 +25,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class RolController {
+public class PermisoController {
 
     @Autowired
-    private RolDAO rolDAO;
+    private PermisosDAO permisoDAO;
 
     @Autowired
     private JsonTransformer jsonTransformer;
 
-    @RequestMapping(value = {"/Rol"}, method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = {"/Permiso"}, method = RequestMethod.GET, produces = "application/json")
     public void find(HttpServletRequest httpRequest, HttpServletResponse httpServletResponse) throws IOException {
         try {
-            List<Rol> a2 = rolDAO.findAll();
-            String jsonRol = jsonTransformer.toJson(a2);
+            List<Permisos> a2 = permisoDAO.findAll();
+            String jsonPermiso = jsonTransformer.toJson(a2);
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
             httpServletResponse.setContentType("application/json; charset=UTF-8");
-            httpServletResponse.getWriter().println(jsonRol);
+            httpServletResponse.getWriter().println(jsonPermiso);
         } catch (BussinessException ex) {
-            Logger.getLogger(RolController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PermisoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    @RequestMapping(value = "/Rol/{idRol}", method = RequestMethod.GET, produces = "application/json")
-    public void read(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idRol") Integer idRol) {
+    @RequestMapping(value = "/Permiso/{idPermiso}", method = RequestMethod.GET, produces = "application/json")
+    public void read(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idPermiso") Integer idPermiso) {
         try {
-            Rol aux = rolDAO.get(idRol);
+            Permisos aux = permisoDAO.get(idPermiso);
             String jsonSalida = jsonTransformer.toJson(aux);
 
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
@@ -65,7 +65,7 @@ public class RolController {
             try {
                 httpServletResponse.getWriter().println(jsonSalida);
             } catch (IOException ex1) {
-                Logger.getLogger(RolController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(PermisoController.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
         } catch (Exception ex) {
@@ -75,12 +75,11 @@ public class RolController {
 
     }
 
-    @RequestMapping(value = "/Rol/{idRol}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-    public void update(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada, @PathVariable("idRol") int idRol) {
+    @RequestMapping(value = "/Permiso/{idPermiso}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+    public void update(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada, @PathVariable("idPermiso") int idPermiso) {
         try {
-            System.out.println("pasamos por aqui]!!!!");
-            Rol aux2 = (Rol) jsonTransformer.fromJson(jsonEntrada, Rol.class);
-            rolDAO.saveOrUpdate(aux2);
+            Permisos aux2 = (Permisos) jsonTransformer.fromJson(jsonEntrada, Permisos.class);
+            permisoDAO.saveOrUpdate(aux2);
             String jsonSalida = jsonTransformer.toJson(aux2);
 
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
@@ -96,7 +95,7 @@ public class RolController {
             try {
                 httpServletResponse.getWriter().println(jsonSalida);
             } catch (IOException ex1) {
-                Logger.getLogger(RolController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(PermisoController.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
         } catch (Exception ex) {
@@ -105,16 +104,16 @@ public class RolController {
             try {
                 ex.printStackTrace(httpServletResponse.getWriter());
             } catch (IOException ex1) {
-                Logger.getLogger(RolController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(PermisoController.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
     }
 
-    @RequestMapping(value = "/Rol", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/Permiso", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public void insert(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada) {
         try {
-            Rol ed = (Rol) jsonTransformer.fromJson(jsonEntrada, Rol.class);
-            rolDAO.saveOrUpdate(ed);
+            Permisos ed = (Permisos) jsonTransformer.fromJson(jsonEntrada, Permisos.class);
+            permisoDAO.saveOrUpdate(ed);
             String jsonSalida = jsonTransformer.toJson(ed);
 
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
@@ -130,7 +129,7 @@ public class RolController {
             try {
                 httpServletResponse.getWriter().println(jsonSalida);
             } catch (IOException ex1) {
-                Logger.getLogger(RolController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(PermisoController.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
         } catch (Exception ex) {
@@ -139,7 +138,7 @@ public class RolController {
             try {
                 ex.printStackTrace(httpServletResponse.getWriter());
             } catch (IOException ex1) {
-                Logger.getLogger(RolController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(PermisoController.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
     }

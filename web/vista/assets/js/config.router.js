@@ -770,6 +770,13 @@ app.factory('RolFactory', function ($resource) {
         }
     });
 });
+app.factory('PermisoFactory', function ($resource) {
+    return $resource('/sac/api/Permiso/:idPermiso', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
 app.factory('HorarioFactory', function ($resource) {
     return $resource('/sac/api/Horario/:idHorario', null,
             {

@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.usuarios.EDITAR">EDITAR USUARIOS</h1>
-            <span class="mainDescription">Formulario para editar Usuario.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.roles.CREAR">CREAR ROLES</h1>
+            <span class="mainDescription">Formulario para crear Roles.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -12,69 +12,55 @@
 <!-- start: FIELDSET -->
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
-        <div class="col-md-12" ng-controller="editarUsuarioCtrl">
+        <div class="col-md-12" ng-controller="editarRolCtrl">
             <form name="Form2" novalidate ng-submit="form.submit(Form2)">
                 <div class="row">
                     <div class="col-md-6">
                         <fieldset>
                             <legend>
-                                Usuarios
+                                Roles
                             </legend>
-                            <div class="form-group" ng-class="{'has-error':Form2.usuario.$dirty && Form2.usuario.$invalid, 'has-success':Form2.usuario.$valid}">
-                                <label for="usuario" class="control-label">
-                                    Usuario <span class="symbol required"></span>
-                                </label>
-                                <input type="text" placeholder="Usuario" id="usuario" name="usuario" class="form-control" ng-model="usuario.usuario" required/>
-                                <span class="error text-small block" ng-if="Form2.usuario.$dirty && Form2.usuario.$dirty && Form2.usuario.$invalid">El campo usuario es requerido</span>
-                            </div>
-                            <div class="form-group" ng-class="{'has-error':Form2.nombre.$dirty && Form2.nombre.$invalid, 'has-success':Form2.nombre.$valid}">
-                                <label for="nombre" class="control-label">
-                                    Nombre <span class="symbol required"></span>
-                                </label>
-                                <input type="text" placeholder="Nombre" id="nombre" name="nombre" class="form-control" ng-model="usuario.nombre" required/>
-                                <span class="error text-small block" ng-if="Form2.nombre.$dirty && Form2.nombre.$dirty && Form2.nombre.$invalid">El campo nombre es requerido</span>
-                            </div>
-                            <div class="form-group" ng-class="{'has-error':Form2.apellido.$dirty && Form2.apellido.$invalid, 'has-success':Form2.apellido.$valid}">
-                                <label for="apellido" class="control-label">
-                                    Apellidos <span class="symbol required"></span>
-                                </label>
-                                <input type="text" placeholder="Apellido" id="nombre" name="apellido" class="form-control" ng-model="usuario.apellido" required/>
-                                <span class="error text-small block" ng-if="Form2.apellido.$dirty && Form2.apellido.$dirty && Form2.apellido.$invalid">El campo apellido es requerido</span>
-                            </div>
-                            <div class="form-group" ng-class="{'has-error':Form2.password.$dirty && Form2.password.$invalid, 'has-success':Form2.password.$valid}">
-                                <label for="password" class="control-label">
-                                    Contrase&nacute;a <span class="symbol required"></span>
-                                </label>
-                                <span class="input-icon">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" ng-model="usuario.password" required/> 
-                                    <i class="fa fa-lock"></i> </span>
-                                <span class="error text-small block" ng-if="Form2.password.$dirty && Form2.password.$dirty && Form2.password.$invalid">El campo Contrase&nacute;a es invalido</span> 
-                            </div>
-                            <div class="form-group" ng-class="{'has-error':Form2.password2.$dirty && Form2.password2.$invalid, 'has-success':Form2.password2.$valid}"
-                                 <label for="password" class="control-label">
-                                    Repetir Contrase&nacute;a <span class="symbol required"></span>
-                                </label>
-                                <span class="input-icon">
-                                    <input type="password" class="form-control" id="password2" name="password2" placeholder="Repetir Contraseña" ng-model="usuario.password">
-                                    <i class="fa fa-lock"></i> </span>
-                                <span class="error text-small block" ng-if="Form2.password2.$dirty && Form2.password2.$dirty && Form2.password2.$invalid">El campo repetir Contrase&nacute;a es invalido</span> 
-                            </div>
-                            <div class="form-group" ng-class="{'has-error':Form2.rol.$dirty && Form2.rol.$invalid, 'has-success':Form2.rol.$valid}">
-                                <label for="rol">
+                            <div class="form-group" ng-class="{'has-error':Form2.descripcion.$dirty && Form2.descripcion.$invalid, 'has-success':Form2.descripcion.$valid}">
+                                <label for="descripcion" class="control-label">
                                     Rol <span class="symbol required"></span>
                                 </label>
-                                <select id="rol" name="rol" class="form-control" ng-model="usuario.rol.codigo" ng-options="rol.codigo as rol.descripcion for rol in roles"  required>
-                                    <option value="">&nbsp;</option>
-                                </select>
-                                <span class="error text-small block" ng-if="Form2.rol.$dirty && Form2.rol.$dirty && Form2.rol.$invalid">El campo rol es requerido</span>
+                                <input type="text" placeholder="Rol" id="descripcion" name="descripcion" class="form-control" ng-model="rol.descripcion" required/>
+                                <span class="error text-small block" ng-if="Form2.descripcion.$dirty && Form2.descripcion.$dirty && Form2.descripcion.$invalid">El campo rol es requerido</span>
+                            </div>
+                            <div class="row">
+                                <h5 class="over-title margin-bottom-15">
+                                    <span class="text-bold">Asignaci&oacute;n de permisos</span>
+                                </h5>
+                                <div class="col-md-4">
+                                    <div class="checkbox clip-check check-primary" ng-repeat="permiso in permisos" ng-if="$index % 3 === 0">
+                                        <input type="checkbox" id="checkbox{{permiso.idpermisos}}" ng-model="permiso.checked" ng-change="seleccionados()">
+                                        <label for="checkbox{{permiso.idpermisos}}">
+                                            {{permiso.descripcion}}
+                                        </label>
+                                    </div>  
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox clip-check check-primary" ng-repeat="permiso in permisos" ng-if="$index % 3 === 1">
+                                        <input type="checkbox" id="checkbox{{permiso.idpermisos}}" checked ng-model="permiso.checked" ng-change="seleccionados()"> 
+                                        <label for="checkbox{{permiso.idpermisos}}">
+                                            {{permiso.descripcion}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox clip-check check-primary" ng-repeat="permiso in permisos" ng-if="$index % 3 === 2">
+                                        <input type="checkbox" id="checkbox{{permiso.idpermisos}}" ng-model="permiso.checked" ng-change="seleccionados()">
+                                        <label for="checkbox{{permiso.idpermisos}}">
+                                            {{permiso.descripcion}}
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </fieldset>
                     </div>
-
-
                 </div>
                 <button class="btn btn-o btn-primary" type="submit">
-                    Editar Usuario
+                    Editar Rol
                 </button>   
                 <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
                     Resetear
