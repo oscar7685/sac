@@ -143,7 +143,6 @@ app.controller('editarEdificioCtrl', ["$scope", "$state", "$stateParams", "Edifi
 
             },
             reset: function (form) {
-                console.log("haciendo reset");
                 $scope.edificio = angular.copy($scope.master);
                 form.$setPristine(true);
             }
@@ -158,7 +157,7 @@ app.controller('ngTableCtrlEdificio', ["$scope", "$filter", "EdificioFactory", "
             $scope.data = result;
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
-                count: 5, // count per page
+                count: 10, // count per page
                 sorting: {
                     name: 'asc' // initial sorting
                 }

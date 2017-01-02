@@ -22,14 +22,16 @@
                 </p>
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
                     <tr ng-repeat="aula in $data">
-                        <td data-title="'Aula'" sortable="'nombre'" filter="{'nombre': 'text' }"><a ui-sref="app.aulas.editar({idaula:'{{aula.idaula}}'})">{{aula.nombre}}</a></td>
-                        <!--<td data-title="'Aula'" sortable="'name'" filter="{'nombre': 'text'}"><a ui-sref="app.edificios.editar({idedificio:'{{edificio.idedificio}}'})">{{edificio.nombre}}</a></td>-->
-                        <td data-title="'Tipo'" sortable="'tipo'">{{aula.tipo}}</td>
-                        <td data-title="'Capacidad'" sortable="'capacidad'">{{aula.capacidad}}</td>
-                        <td data-title="'Estado'" sortable="'estado'">
+                        <td ng-switch="{{hasPermiso(17)}}" data-title="'Aula'" sortable="'nombre'" filter="{'nombre': 'text'}">
+                            <a ng-switch-when="true" ui-sref="app.aulas.editar({idaula:'{{aula.idaula}}'})">{{aula.nombre}}</a>
+                            <span ng-switch-when="false">{{aula.nombre}}</span>
+                        </td>    
+                        <td data-title="'Tipo'" sortable="'tipo'" filter="{'tipo': 'text'}">{{aula.tipo}}</td>
+                        <td data-title="'Capacidad'" sortable="'capacidad'" filter="{'capacidad': 'text'}">{{aula.capacidad}}</td>
+                        <td data-title="'Estado'" sortable="'estado'" filter="{'estado': 'text'}">
                             <span class="label label-sm" ng-class="aula.estado==='Activa' ? 'label-success' : aula.estado === 'Activa con Novedad' ? 'label-warning':'label-danger'">{{aula.estado}}</span>
                         </td>
-                        <td data-title="'Edificio'" sortable="'edificio'">{{aula.edificio.nombre}}</td>
+                        <td data-title="'Edificio'" sortable="'edifaux'" filter="{'edifaux': 'text'}">{{aula.edifaux}}</td>
                     </tr>
                 </table>
             </div>

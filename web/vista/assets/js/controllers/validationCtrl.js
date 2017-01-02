@@ -29,7 +29,7 @@ app.controller('crearEdificioCtrl2', ["$scope", "EdificioFactory", "$location", 
                     }
 
                     angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                    SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+                    SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                     return;
                 } else {
                     if (form.$valid) {
@@ -76,7 +76,7 @@ app.controller('editarEdificioCtrl2', ["$scope", "$state", "$stateParams", "Edif
                     }
 
                     angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                    SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+                    SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                     return;
                 } else {
                     if (form.$valid) {

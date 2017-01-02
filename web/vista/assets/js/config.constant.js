@@ -33,6 +33,8 @@ app.constant('JS_REQUIRES', {
         'laddaCtrl': 'assets/js/controllers/laddaCtrl.js',
         'ngTableCtrl': 'assets/js/controllers/ngTableCtrl.js',
         'aulas': 'assets/js/controllers/aulas.js',
+        'facultadCtrl': 'assets/js/controllers/facultadCtrl.js',
+        'programaCtrl': 'assets/js/controllers/programaCtrl.js',
         'cropCtrl': 'assets/js/controllers/cropCtrl.js',
         'asideCtrl': 'assets/js/controllers/asideCtrl.js',
         'toasterCtrl': 'assets/js/controllers/toasterCtrl.js',

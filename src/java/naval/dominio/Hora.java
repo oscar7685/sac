@@ -1,5 +1,4 @@
 package naval.dominio;
-// Generated 21/12/2015 11:03:03 PM by Hibernate Tools 4.3.1
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,6 +43,7 @@ public class Hora implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+
     @Column(name = "idhorario", unique = true, nullable = false)
     public Integer getIdhorario() {
         return this.idhorario;

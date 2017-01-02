@@ -1,5 +1,4 @@
 package naval.dominio;
-// Generated 21/12/2015 11:03:03 PM by Hibernate Tools 4.3.1
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,7 +24,6 @@ import javax.persistence.Table;
 public class Aula implements java.io.Serializable {
 
     private Integer idaula;
-    private Curso curso;
     private Edificio edificio;
     private String nombre;
     private String tipo;
@@ -48,8 +46,7 @@ public class Aula implements java.io.Serializable {
         this.edificio = edificio;
     }
 
-    public Aula(Curso curso, Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Integer piso, Set<Mantenimiento> mantenimientos, Set<ParteDiario> parteDiarios, Set<Horario> horarios, Set<Solicitud> solicituds) {
-        this.curso = curso;
+    public Aula(Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Integer piso, Set<Mantenimiento> mantenimientos, Set<ParteDiario> parteDiarios, Set<Horario> horarios, Set<Solicitud> solicituds) {
         this.edificio = edificio;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -76,17 +73,6 @@ public class Aula implements java.io.Serializable {
 
     public void setIdaula(Integer idaula) {
         this.idaula = idaula;
-    }
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "responsable")
-    public Curso getCurso() {
-        return this.curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
     }
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

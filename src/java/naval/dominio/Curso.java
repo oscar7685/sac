@@ -1,5 +1,4 @@
 package naval.dominio;
-// Generated 21/12/2015 11:03:03 PM by Hibernate Tools 4.3.1
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
@@ -24,10 +23,10 @@ public class Curso implements java.io.Serializable {
     private Integer idcurso;
     private String codigo;
     private Integer numeroEstudiantes;
+    private Set<ActividadDocencia> actividadDocencias = new HashSet<ActividadDocencia>(0);
+    private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
     private Set<ResponsableCurso> responsableCursos = new HashSet<ResponsableCurso>(0);
     private Set<Horario> horarios = new HashSet<Horario>(0);
-    private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
-    private Set<Aula> aulas = new HashSet<Aula>(0);
 
     public Curso() {
     }
@@ -36,13 +35,13 @@ public class Curso implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Curso(String codigo, Integer numeroEstudiantes, Set<ResponsableCurso> responsableCursos, Set<Horario> horarios, Set<ParteDiario> parteDiarios, Set<Aula> aulas) {
+    public Curso(String codigo, Integer numeroEstudiantes, Set<ActividadDocencia> actividadDocencias, Set<ParteDiario> parteDiarios, Set<ResponsableCurso> responsableCursos, Set<Horario> horarios) {
         this.codigo = codigo;
         this.numeroEstudiantes = numeroEstudiantes;
+        this.actividadDocencias = actividadDocencias;
+        this.parteDiarios = parteDiarios;
         this.responsableCursos = responsableCursos;
         this.horarios = horarios;
-        this.parteDiarios = parteDiarios;
-        this.aulas = aulas;
     }
 
     @Id
@@ -77,22 +76,12 @@ public class Curso implements java.io.Serializable {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
-    public Set<ResponsableCurso> getResponsableCursos() {
-        return this.responsableCursos;
+    public Set<ActividadDocencia> getActividadDocencias() {
+        return this.actividadDocencias;
     }
 
-    public void setResponsableCursos(Set<ResponsableCurso> responsableCursos) {
-        this.responsableCursos = responsableCursos;
-    }
-
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
-    public Set<Horario> getHorarios() {
-        return this.horarios;
-    }
-
-    public void setHorarios(Set<Horario> horarios) {
-        this.horarios = horarios;
+    public void setActividadDocencias(Set<ActividadDocencia> actividadDocencias) {
+        this.actividadDocencias = actividadDocencias;
     }
 
     @JsonIgnore
@@ -105,14 +94,22 @@ public class Curso implements java.io.Serializable {
         this.parteDiarios = parteDiarios;
     }
 
-    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
-    public Set<Aula> getAulas() {
-        return this.aulas;
+    public Set<ResponsableCurso> getResponsableCursos() {
+        return this.responsableCursos;
     }
 
-    public void setAulas(Set<Aula> aulas) {
-        this.aulas = aulas;
+    public void setResponsableCursos(Set<ResponsableCurso> responsableCursos) {
+        this.responsableCursos = responsableCursos;
+    }
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
+    public Set<Horario> getHorarios() {
+        return this.horarios;
+    }
+
+    public void setHorarios(Set<Horario> horarios) {
+        this.horarios = horarios;
     }
 
 }

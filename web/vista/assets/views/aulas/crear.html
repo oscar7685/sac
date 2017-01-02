@@ -34,9 +34,9 @@
                                 <select id="tipo" name="tipo" class="form-control" ng-model="aula.tipo" required>
                                     <option value="">&nbsp;</option>
                                     <option value="Aula">Aula</option>
-                                    <option value="Lab">Laboratorio</option>
-                                    <option value="Aud">Auditorio</option>
-                                    <option value="Aesp">Aula especializada</option>
+                                    <option value="Laboratorio">Laboratorio</option>
+                                    <option value="Auditorio">Auditorio</option>
+                                    <option value="Aula especializada">Aula especializada</option>
                                 </select>
                                 <span class="error text-small block" ng-if="Form2.tipo.$dirty && Form2.tipo.$dirty && Form2.tipo.$invalid">El campo tipo aula es requerido</span>
                             </div>
@@ -44,7 +44,7 @@
                                 <label for="capacidad">
                                     Capacidad (# Alumnos) <span class="symbol required"></span>
                                 </label>
-                                <input type="number" placeholder="Capacidad" id="capacidad" name="capacidad" class="form-control" ng-model="aula.capacidad" required/>
+                                <input type="number" placeholder="Capacidad" id="capacidad" name="capacidad" class="form-control" ng-model="aula.capacidad" ng-pattern="/^[0-9]+$/" required/>
                                 <span class="error text-small block" ng-if="Form2.capacidad.$dirty && Form2.capacidad.$dirty && Form2.capacidad.$invalid">El campo capacidad es invalido</span>
                             </div>
                             <div class="form-group" ng-class="{'has-error':Form2.estado.$dirty && Form2.estado.$invalid, 'has-success':Form2.estado.$valid}">
@@ -87,12 +87,13 @@
                                         <label for="piso">
                                             Piso <span class="symbol required"></span>
                                         </label>
-                                        <select id="piso" class="form-control" ng-model="aula.piso" ng-options="val for val in pisosActuales">
+                                        <select id="piso" name="piso" class="form-control" ng-model="aula.piso" ng-options="val for val in pisosActuales" required>
                                             <option value="">&nbsp;</option>
                                         </select>
                                         <span class="error text-small block" ng-if="Form2.piso.$dirty && Form2.piso.$dirty && Form2.piso.$invalid">El campo piso es requerido</span>
                                     </div>
                                 </div>
+                            </div>
                         </fieldset>
 
                         <fieldset>

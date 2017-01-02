@@ -4,36 +4,37 @@
  * Simple table with sorting and filtering on AngularJS
  */
 
-app.controller('aulasCtrl', ["$scope", "$filter", "$http", "ngTableParams", function ($scope, $filter, $http, ngTableParams) {
-        $http({
-            method: 'GET',
-            url: '/sac/api/Aula'
-        }).success(function (datos, status, headers, config) {
+app.controller('aulasCtrl', ["$scope", "$filter", "ngTableParams", "AulaFactory", function ($scope, $filter, ngTableParams, AulaFactory) {
+        AulaFactory.query().$promise.then(function (datos) {
             $scope.data = datos;
+            for (var i = 0; i < $scope.data.length; i++) {
+                $scope.data[i].edifaux = ""; //initialization of new property 
+                $scope.data[i].edifaux = $scope.data[i].edificio.nombre;  //set the data from nested obj into new property
+            }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
-                count: 5, // count per page
+                count: 10, // count per page
                 sorting: {
                     name: 'asc' // initial sorting
                 }
             }, {
                 total: $scope.data.length, // length of dataEdificios
                 getData: function ($defer, params) {
-                    // use build-in angular filter
-                    var filteredData = params.sorting() ? $filter('orderBy')($scope.data, params.orderBy()) : $scope.data;
-                    var orderedData = $filter('filter')(filteredData, params.filter());
+                    //sorting
+                    var orderedData = params.sorting() ? $filter('orderBy')($scope.data, params.orderBy()) : $scope.data;
+
+                    //filtering
+                    orderedData = $filter('filter')(orderedData, params.filter());
                     $scope.aux = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+
+                    //pagination
                     params.total(orderedData.length);
-                    // set total for recalc pagination
                     $defer.resolve($scope.aux);
                 }
             });
-        }).error(function (data, status, headers, config) {
-            alert("Ha fallado la petición. Estado HTTP:" + status);
         });
 
     }]);
-
 app.controller('crearAulaCtrl2', ["$scope", "AulaFactory", "EdificioFactory", "$location", "SweetAlert", function ($scope, AulaFactory, EdificioFactory, $location, SweetAlert) {
         EdificioFactory.query().$promise.then(function (result) {
 
@@ -64,7 +65,6 @@ app.controller('crearAulaCtrl2', ["$scope", "AulaFactory", "EdificioFactory", "$
                             res.push(i);
                         }
                         $scope.pisosActuales = res;
-
                     });
                 }
             });
@@ -88,7 +88,7 @@ app.controller('crearAulaCtrl2', ["$scope", "AulaFactory", "EdificioFactory", "$
                         }
 
                         angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                        SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+                        SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                         return;
                     } else {
                         if (form.$valid) {
@@ -97,7 +97,7 @@ app.controller('crearAulaCtrl2', ["$scope", "AulaFactory", "EdificioFactory", "$
                             }, function (bussinessMessages) {
                                 $scope.bussinessMessages = bussinessMessages;
                             });
-                            SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                            // SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                         }
                     }
 
@@ -109,15 +109,11 @@ app.controller('crearAulaCtrl2', ["$scope", "AulaFactory", "EdificioFactory", "$
             };
         });
     }]);
-
-
 app.controller('editarAulaCtrl2', ["$scope", "$state", "$stateParams", "AulaFactory", "EdificioFactory", "$location", "SweetAlert",
     function ($scope, $state, $stateParams, AulaFactory, EdificioFactory, $location, SweetAlert) {
         AulaFactory.get({idAula: $stateParams.idaula}).$promise.then(function (result) {
             $scope.aula = result;
             $scope.master = angular.copy($scope.aula);
-
-
             EdificioFactory.query().$promise.then(function (result2) {
                 $scope.edificios = result2;
                 $scope.pisosActuales = [];
@@ -129,7 +125,6 @@ app.controller('editarAulaCtrl2', ["$scope", "$state", "$stateParams", "AulaFact
                                 res.push(i);
                             }
                             $scope.pisosActuales = res;
-
                         });
                     }
                 });
@@ -152,7 +147,7 @@ app.controller('editarAulaCtrl2', ["$scope", "$state", "$stateParams", "AulaFact
                             }
 
                             angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                            SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+                            SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                             return;
                         } else {
                             if (form.$valid) {
@@ -162,7 +157,7 @@ app.controller('editarAulaCtrl2', ["$scope", "$state", "$stateParams", "AulaFact
                                 }, function (bussinessMessages) {
                                     $scope.bussinessMessages = bussinessMessages;
                                 });
-                                SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                                //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                             }
                         }
 
@@ -173,10 +168,5 @@ app.controller('editarAulaCtrl2', ["$scope", "$state", "$stateParams", "AulaFact
                     }
                 };
             });
-
-
         });
-
-
-
     }]);

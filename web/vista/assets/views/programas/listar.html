@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.edificios.LISTAR">Lista de Edificios</h1>
-            <span class="mainDescription">Lista todos los edificios registrados en el sistema.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.facultades.LISTAR">Lista de Facultades</h1>
+            <span class="mainDescription">Lista todas las facultades registradas en el sistema.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -14,19 +14,18 @@
     <div class="row">
         <div class="col-md-12">
             <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-            <div ng-controller="ngTableCtrlEdificio">
+            <div ng-controller="listProgramas">
                 <p>
                     Mostrando registros del {{ tableParams.total() > 0 ? (tableParams.page() * tableParams.count()) - (tableParams.count()) + 1 : 0}} 
                     al {{(tableParams.page() * tableParams.count()) < tableParams.total() ? (tableParams.page() * tableParams.count()) : tableParams.total()}} 
                     de un total de {{tableParams.total()}}
                 </p>
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
-                    <tr ng-repeat="edificio in $data">
-                        <td ng-switch="{{hasPermiso(18)}}" data-title="'Edificio'" sortable="'nombre'">
-                            <a ng-switch-when="true" ui-sref="app.edificios.editar({idedificio:'{{edificio.idedificio}}'})">{{edificio.nombre}}</a>
-                            <span ng-switch-when="false">{{edificio.nombre}}</span>
+                    <tr ng-repeat="programa in $data">
+                        <td ng-switch="{{hasPermiso(30)}}" data-title="'Programa'" sortable="'programa'" filter="{'programa': 'text'}">
+                            <a ng-switch-when="true" ui-sref="app.programas.editar({idprograma:'{{programa.idprograma}}'})">{{programa.nombre}}</a>
+                            <span ng-switch-when="false">{{programa.nombre}}</span>
                         </td>
-                        <td data-title="'Numero de Pisos'" sortable="'pisos'">{{edificio.pisos}}</td>
                     </tr>
                 </table>
             </div>

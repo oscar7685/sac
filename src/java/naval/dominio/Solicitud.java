@@ -1,5 +1,4 @@
 package naval.dominio;
-// Generated 12/01/2016 11:21:10 AM by Hibernate Tools 4.3.1
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -64,7 +63,7 @@ public class Solicitud implements java.io.Serializable {
     public void setIdsolicitud(Integer idsolicitud) {
         this.idsolicitud = idsolicitud;
     }
-    
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aula_idaula", nullable = false)

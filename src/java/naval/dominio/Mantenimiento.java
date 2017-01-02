@@ -1,7 +1,5 @@
 package naval.dominio;
-// Generated 4/01/2016 02:32:26 PM by Hibernate Tools 4.3.1
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;

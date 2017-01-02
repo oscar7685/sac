@@ -1,0 +1,46 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.facultades.CREAR">CREAR FACULTAD</h1>
+            <span class="mainDescription">Formulario para crear Facultades.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="crearFacultadCtrl">
+            <form name="Form2" novalidate ng-submit="form.submit(Form2)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Facultades
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form2.facultad.$dirty && Form2.facultad.$invalid, 'has-success':Form2.facultad.$valid}">
+                                <label for="facultad" class="control-label">
+                                    Nombre Facultad <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Nombre Facultad" id="facultad" name="facultad" class="form-control" ng-model="facultad.facultad" required/>
+                                <span class="error text-small block" ng-if="Form2.facultad.$dirty && Form2.facultad.$dirty && Form2.facultad.$invalid">El campo nombre es requerido</span>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Crear Facultad
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
+                    Resetear
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->
+

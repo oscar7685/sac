@@ -1,5 +1,4 @@
 package naval.dominio;
-// Generated 21/12/2015 11:03:03 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

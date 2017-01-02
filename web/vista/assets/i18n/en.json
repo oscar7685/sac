@@ -67,6 +67,18 @@
                 "EDITAR": "Editar Edificio",
                 "LISTAR": "Listar Edificios"
             },
+            "facultades": {
+                "MAIN": "Facultades",
+                "CREAR": "Crear Facultad",
+                "EDITAR": "Editar Facultad",
+                "LISTAR": "Listar Facultades"
+            },
+            "programas": {
+                "MAIN": "Programas",
+                "CREAR": "Crear Programa",
+                "EDITAR": "Editar Programa",
+                "LISTAR": "Listar Programas"
+            },
             "profesores": {
                 "MAIN": "Profesores",
                 "CREAR": "Crear Profesor",

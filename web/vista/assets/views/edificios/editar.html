@@ -25,15 +25,14 @@
                                     Nombre Edificio <span class="symbol required"></span>
                                 </label>
                                 <input type="text" placeholder="Nombre Edificio" id="nombre" name="nombre" class="form-control" ng-model="edificio.nombre" required/>
-                                <span class="error text-small block" ng-if="Form.nombre.$dirty && Form.nombre.$dirty && Form.nombre.$invalid">First Name is required</span>
-                                <span class="success text-small" ng-if="Form.nombre.$valid">Thank You!</span>
+                                <span class="error text-small block" ng-if="Form.nombre.$dirty && Form.nombre.$dirty && Form.nombre.$invalid">Nombre del edificio es requerido</span>
                             </div>
                             <div class="form-group" ng-class="{'has-error':Form.num_pisos.$dirty && Form.num_pisos.$invalid, 'has-success':Form.num_pisos.$valid}">
                                 <label for="num_pisos" class="control-label">
                                     N° de Pisos <span class="symbol required"></span>
                                 </label>
-                                <input type="number" placeholder="N° de Pisos" id="num_pisos" name="num_pisos" class="form-control" ng-model="edificio.pisos" ng-pattern="/^[0-9]*$/" required/>
-                                <span class="error text-small block" ng-if="Form.num_pisos.$error.number">Not valid number!</span>
+                                <input type="number" placeholder="N° de Pisos" id="num_pisos" name="num_pisos" class="form-control" ng-model="edificio.pisos" ng-pattern="/^[1-9][0-9]*$/" required/>
+                                <span class="error text-small block" ng-if="Form.num_pisos.$error.number || Form.num_pisos.$invalid">Número no válido</span>
                             </div>
                         </fieldset>
                     </div>

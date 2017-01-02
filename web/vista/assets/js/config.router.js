@@ -86,6 +86,70 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Editar Aulas'
             },
             resolve: loadSequence('aulas')
+        }).state('app.facultades', {
+            url: '/facultades',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Facultades',
+            ncyBreadcrumb: {
+                label: 'Facultades'
+            }
+        }).state('app.facultades.crear', {
+            url: '/crear',
+            templateUrl: "assets/views/facultad/crear.html",
+            title: 'Crear Facultades',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear Facultad'
+            },
+            resolve: loadSequence('facultadCtrl')
+        }).state('app.facultades.listar', {
+            url: '/listar',
+            templateUrl: "assets/views/facultad/listar.html",
+            title: 'Listar Facultades',
+            ncyBreadcrumb: {
+                label: 'Listar Facultades'
+            },
+            resolve: loadSequence('ngTable', 'facultadCtrl')
+        }).state('app.facultades.editar', {
+            url: '/editar:idfacultad',
+            templateUrl: "assets/views/facultad/editar.html",
+            title: 'Editar Facultad',
+            ncyBreadcrumb: {
+                label: 'Editar Facultades'
+            },
+            resolve: loadSequence('facultadCtrl')
+        }).state('app.programas', {
+            url: '/programas',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Programas',
+            ncyBreadcrumb: {
+                label: 'Programas'
+            }
+        }).state('app.programas.crear', {
+            url: '/crear',
+            templateUrl: "assets/views/programas/crear.html",
+            title: 'Crear Programa',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear Programa'
+            },
+            resolve: loadSequence('programaCtrl')
+        }).state('app.programas.listar', {
+            url: '/listar',
+            templateUrl: "assets/views/programas/listar.html",
+            title: 'Listar Programa',
+            ncyBreadcrumb: {
+                label: 'Listar Programa'
+            },
+            resolve: loadSequence('ngTable', 'programaCtrl')
+        }).state('app.programas.editar', {
+            url: '/editar:idprograma',
+            templateUrl: "assets/views/programas/editar.html",
+            title: 'Editar Programa',
+            ncyBreadcrumb: {
+                label: 'Editar Programa'
+            },
+            resolve: loadSequence('programaCtrl')
         }).state('app.usuarios', {
             url: '/usuarios',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -705,6 +769,13 @@ app.factory('AulaFactory', function ($resource) {
 });
 app.factory('FacultadFactory', function ($resource) {
     return $resource('/sac/api/Facultad/:idFacultad', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+app.factory('ProgramaFactory', function ($resource) {
+    return $resource('/sac/api/Programa/:idPrograma', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }

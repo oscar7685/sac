@@ -15,57 +15,109 @@
             </div>
         </a>
     </li>
-    <!--AULAS-->
-    <li ng-show="{{hasPermiso(1)}}" ng-class="{'active open':$state.includes('app.aulas')}">
+    <!--EDIFICIOS Y AULAS-->
+    <li ng-show="{{hasPermiso(1) || hasPermiso(2)}}" ng-class="{'active open':$state.includes('app.aulas') || $state.includes('app.edificios')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
                     <i class="ti-location-pin"></i>
                 </div>
                 <div class="item-inner">
-                    <span class="title" translate="sidebar.nav.aulas.MAIN"> Aulas </span><i class="icon-arrow"></i>
+                    <span class="title"> Espacios f&iacute;sicos </span><i class="icon-arrow"></i>
                 </div>
             </div>
         </a>
         <ul class="sub-menu">
-            <li ui-sref-active="active">
-                <a ui-sref="app.aulas.crear">
-                    <span class="title" translate="sidebar.nav.aulas.CREAR"> Crear Aula </span>
+            <li ng-show="{{hasPermiso(2)}}">
+                <a href="javascript:;">
+                    <span translate="sidebar.nav.edificios.MAIN">Edificios</span> <i class="icon-arrow"></i>
                 </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active" ng-show="{{hasPermiso(10)}}">
+                        <a ui-sref="app.edificios.crear">
+                            <span class="title" translate="sidebar.nav.edificios.CREAR"> Crear Edificio </span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.edificios.listar">
+                            <span class="title" translate="sidebar.nav.edificios.LISTAR"> Listar Edificio </span>
+                        </a>
+                    </li>
+
+                </ul>
             </li>
-            <li ui-sref-active="active">
-                <a ui-sref="app.aulas.listar">
-                    <span class="title" translate="sidebar.nav.aulas.LISTAR"> Listar Aula </span>
+            <li ng-show="{{hasPermiso(1)}}">
+                <a href="javascript:;">
+                    <span translate="sidebar.nav.aulas.MAIN">Aulas</span> <i class="icon-arrow"></i>
                 </a>
+                <ul class="sub-menu">
+                    <li ui-sref-active="active" ng-show="{{hasPermiso(9)}}">
+                        <a ui-sref="app.aulas.crear">
+                            <span class="title" translate="sidebar.nav.aulas.CREAR"> Crear Aula </span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.aulas.listar">
+                            <span class="title" translate="sidebar.nav.aulas.LISTAR"> Listar Aula </span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </li>
-    <!--EDIFICIOS-->
-    <li ng-show="{{hasPermiso(2)}}" ng-class="{'active open':$state.includes('app.edificios')}">
+    
+    <li ng-show="{{hasPermiso(25)}}" ng-class="{'active open':$state.includes('app.facultades')}">
         <a href="javascript:void(0)">
             <div class="item-content">
                 <div class="item-media">
-                    <i class="ti-home"></i>
+                    <i class="ti-check-box"></i>
                 </div>
                 <div class="item-inner">
-                    <span class="title" translate="sidebar.nav.edificios.MAIN"> Edificios </span><i class="icon-arrow"></i>
+                    <span class="title" translate="sidebar.nav.facultades.MAIN"> Facultades </span><i class="icon-arrow"></i>
                 </div>
             </div>
         </a>
         <ul class="sub-menu">
-            <li ui-sref-active="active">
-                <a ui-sref="app.edificios.crear">
-                    <span class="title" translate="sidebar.nav.edificios.CREAR"> Crear Edificio </span>
+            <li ui-sref-active="active" ng-show="{{hasPermiso(26)}}">
+                <a ui-sref="app.facultades.crear">
+                    <span class="title" translate="sidebar.nav.facultades.CREAR"> Crear Facultad </span>
                 </a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="app.edificios.listar">
-                    <span class="title" translate="sidebar.nav.edificios.LISTAR"> Listar Edificio </span>
+                <a ui-sref="app.facultades.listar">
+                    <span class="title" translate="sidebar.nav.facultades.LISTAR"> Listar Facultades </span>
                 </a>
             </li>
 
         </ul>
     </li>
+    <li ng-show="{{hasPermiso(28)}}" ng-class="{'active open':$state.includes('app.programas')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-check-box"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.programas.MAIN"> Programas </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-show="{{hasPermiso(29)}}">
+                <a ui-sref="app.programas.crear">
+                    <span class="title" translate="sidebar.nav.programas.CREAR"> Crear Programa </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.programas.listar">
+                    <span class="title" translate="sidebar.nav.programas.LISTAR"> Listar Programas </span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+    
+    
     <!--PROFESORES-->
     <li ng-show="{{hasPermiso(3)}}" ng-class="{'active open':$state.includes('app.profesores')}">
         <a href="javascript:void(0)">
@@ -422,7 +474,7 @@
         </ul>
     </li>
 
-    
+
     <!--USUARIOS-->
     <li ng-show="{{hasPermiso(7)}}" ng-class="{'active open':$state.includes('app.usuarios')}">
         <a href="javascript:void(0)">
@@ -448,7 +500,7 @@
             </li>
         </ul>
     </li>
-    
+
     <!--ROLES-->
     <li ng-show="{{hasPermiso(8)}}" ng-class="{'active open':$state.includes('app.roles')}">
         <a href="javascript:void(0)">
@@ -474,7 +526,7 @@
             </li>
         </ul>
     </li>
-    
+
     <!--  <li ng-class="{'active open':$state.includes('app.utilities')}">
           <a href="javascript:void(0)">
               <div class="item-content">

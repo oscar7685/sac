@@ -16,90 +16,42 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import naval.dominio.Profesor;
+import naval.dominio.Programa;
+import naval.persistencia.dao.ProgramaDAO;
 import naval.persistencia.dao.JsonTransformer;
-import naval.persistencia.dao.ProfesorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ProfesorController {
+public class ProgramaController {
 
     @Autowired
-    private ProfesorDAO profesorDAO;
+    private ProgramaDAO programaDAO;
 
     @Autowired
     private JsonTransformer jsonTransformer;
 
-    @RequestMapping({"/indexProfesor"})
-    public ModelAndView read(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> model = new HashMap<String, Object>();
-        String viewName;
-
-        try {
-            Profesor s = profesorDAO.get(1);
-//            model.put("texto", s.getNombre() + " " + s.getIdprofesor());
-            viewName = "aula";
-        } catch (BussinessException ex) {
-            model.put("msgError", "No es posible obtener los datos");
-            viewName = "error";
-        }
-
-        return new ModelAndView(viewName, model);
-    }
-
-    @RequestMapping(value = {"/Profesor"}, method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = {"/Programa"}, method = RequestMethod.GET, produces = "application/json")
     public void find(HttpServletRequest httpRequest, HttpServletResponse httpServletResponse) throws IOException {
         try {
-            List<Profesor> a2 = profesorDAO.findProfesor();
+            List<Programa> a2 = programaDAO.findAll();
             String jsonUsuario = jsonTransformer.toJson(a2);
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
             httpServletResponse.setContentType("application/json; charset=UTF-8");
             httpServletResponse.getWriter().println(jsonUsuario);
         } catch (BussinessException ex) {
-            Logger.getLogger(ProfesorController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProgramaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    @RequestMapping(value = "/Profesor/{idProfesor}", method = RequestMethod.GET, produces = "application/json")
-    public void read(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idProfesor") int idProfesor) {
+    @RequestMapping(value = "/Programa/{idPrograma}", method = RequestMethod.GET, produces = "application/json")
+    public void read(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idPrograma") int idPrograma) {
         try {
-            Profesor a = profesorDAO.get(idProfesor);
-            String jsonSalida = jsonTransformer.toJson(a);
-
-            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-            httpServletResponse.setContentType("application/json; charset=UTF-8");
-            httpServletResponse.getWriter().println(jsonSalida);
-
-        } catch (BussinessException ex) {
-            Set<BussinessMessage> bussinessMessage = ex.getBussinessMessages();
-            String jsonSalida = jsonTransformer.toJson(bussinessMessage);
-
-            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            httpServletResponse.setContentType("application/json; charset=UTF-8");
-            try {
-                httpServletResponse.getWriter().println(jsonSalida);
-            } catch (IOException ex1) {
-                Logger.getLogger(ProfesorController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-
-        } catch (Exception ex) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
-        }
-
-    }
-
-    @RequestMapping(value = "/Profesor/{idProfesor}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-    public void update(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada, @PathVariable("idProfesor") int idProfesor) {
-        try {
-            Profesor aux = (Profesor) jsonTransformer.fromJson(jsonEntrada, Profesor.class);
-            profesorDAO.saveOrUpdate(aux);
+            Programa aux = programaDAO.get(idPrograma);
             String jsonSalida = jsonTransformer.toJson(aux);
 
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
@@ -115,52 +67,82 @@ public class ProfesorController {
             try {
                 httpServletResponse.getWriter().println(jsonSalida);
             } catch (IOException ex1) {
-                Logger.getLogger(ProfesorController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(ProgramaController.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
         } catch (Exception ex) {
             httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            httpServletResponse.setContentType("text/plain; charset=UTF-8");
-            try {
-                ex.printStackTrace(httpServletResponse.getWriter());
-            } catch (IOException ex1) {
-                Logger.getLogger(ProfesorController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+
         }
+
     }
 
-    @RequestMapping(value = "/Profesor", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public void insert(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada) {
+    @RequestMapping(value = "/Programa/{idPrograma}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+    public void update(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada, @PathVariable("idPrograma") int idPrograma) {
         try {
-            Profesor aux2 = (Profesor) jsonTransformer.fromJson(jsonEntrada, Profesor.class);
-            profesorDAO.saveOrUpdate(aux2);
+            Programa aux2 = (Programa) jsonTransformer.fromJson(jsonEntrada, Programa.class);
+            programaDAO.saveOrUpdate(aux2);
             String jsonSalida = jsonTransformer.toJson(aux2);
-            
+
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
             httpServletResponse.setContentType("application/json; charset=UTF-8");
             httpServletResponse.getWriter().println(jsonSalida);
-            
+
         } catch (BussinessException ex) {
-            Set<BussinessMessage> bussinessMessage=ex.getBussinessMessages();
+            Set<BussinessMessage> bussinessMessage = ex.getBussinessMessages();
             String jsonSalida = jsonTransformer.toJson(bussinessMessage);
-            
+
             httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             httpServletResponse.setContentType("application/json; charset=UTF-8");
             try {
                 httpServletResponse.getWriter().println(jsonSalida);
             } catch (IOException ex1) {
-                Logger.getLogger(ProfesorController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(ProgramaController.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
-            
         } catch (Exception ex) {
             httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             httpServletResponse.setContentType("text/plain; charset=UTF-8");
             try {
                 ex.printStackTrace(httpServletResponse.getWriter());
             } catch (IOException ex1) {
-                Logger.getLogger(ProfesorController.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(ProgramaController.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
     }
+
+    @RequestMapping(value = "/Programa", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public void insert(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada) {
+        try {
+            Programa ed = (Programa) jsonTransformer.fromJson(jsonEntrada, Programa.class);
+            programaDAO.saveOrUpdate(ed);
+            String jsonSalida = jsonTransformer.toJson(ed);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            httpServletResponse.getWriter().println(jsonSalida);
+
+        } catch (BussinessException ex) {
+            Set<BussinessMessage> bussinessMessage = ex.getBussinessMessages();
+            String jsonSalida = jsonTransformer.toJson(bussinessMessage);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpServletResponse.setContentType("application/json; charset=UTF-8");
+            try {
+                httpServletResponse.getWriter().println(jsonSalida);
+            } catch (IOException ex1) {
+                Logger.getLogger(ProgramaController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } catch (Exception ex) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            httpServletResponse.setContentType("text/plain; charset=UTF-8");
+            try {
+                ex.printStackTrace(httpServletResponse.getWriter());
+            } catch (IOException ex1) {
+                Logger.getLogger(ProgramaController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
+
 }

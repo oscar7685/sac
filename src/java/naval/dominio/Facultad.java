@@ -1,5 +1,4 @@
 package naval.dominio;
-// Generated 21/12/2015 11:03:03 PM by Hibernate Tools 4.3.1
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
@@ -23,7 +22,9 @@ public class Facultad implements java.io.Serializable {
 
     private Integer idfacultad;
     private String facultad;
+    private Set<Programa> programas = new HashSet<Programa>(0);
     private Set<Profesor> profesors = new HashSet<Profesor>(0);
+    private Set<ProfesorH> profesorHs = new HashSet<ProfesorH>(0);
 
     public Facultad() {
     }
@@ -32,9 +33,11 @@ public class Facultad implements java.io.Serializable {
         this.facultad = facultad;
     }
 
-    public Facultad(String facultad, Set<Profesor> profesors) {
+    public Facultad(String facultad, Set<Programa> programas, Set<Profesor> profesors, Set<ProfesorH> profesorHs) {
         this.facultad = facultad;
+        this.programas = programas;
         this.profesors = profesors;
+        this.profesorHs = profesorHs;
     }
 
     @Id
@@ -60,6 +63,15 @@ public class Facultad implements java.io.Serializable {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "facultad")
+    public Set<Programa> getProgramas() {
+        return this.programas;
+    }
+
+    public void setProgramas(Set<Programa> programas) {
+        this.programas = programas;
+    }
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "facultad")
     public Set<Profesor> getProfesors() {
         return this.profesors;
     }
@@ -67,5 +79,13 @@ public class Facultad implements java.io.Serializable {
     public void setProfesors(Set<Profesor> profesors) {
         this.profesors = profesors;
     }
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "facultad")
+    public Set<ProfesorH> getProfesorHs() {
+        return this.profesorHs;
+    }
 
+    public void setProfesorHs(Set<ProfesorH> profesorHs) {
+        this.profesorHs = profesorHs;
+    }
 }

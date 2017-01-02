@@ -1,0 +1,79 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.programas.CREAR">CREAR PROGRAMA</h1>
+            <span class="mainDescription">Formulario para crear Programas.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="crearProgramaCtrl">
+            <form name="Form2" novalidate ng-submit="form.submit(Form2)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Programas
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form2.nombre.$dirty && Form2.nombre.$invalid, 'has-success':Form2.nombre.$valid}">
+                                <label for="nombre" class="control-label">
+                                    Nombre Programa <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Nombre Programa" id="nombre" name="nombre" class="form-control" ng-model="programa.nombre" required/>
+                                <span class="error text-small block" ng-if="Form2.nombre.$dirty && Form2.nombre.$dirty && Form2.nombre.$invalid">El campo nombre es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.modalidad.$dirty && Form2.modalidad.$invalid, 'has-success':Form2.modalidad.$valid}">
+                                <label for="modalidad">
+                                    Modalidad <span class="symbol required"></span>
+                                </label>
+                                <select id="modalidad" name="modalidad" class="form-control" ng-model="programa.modalidad" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="Presencial">Presencial</option>
+                                    <option value="Distancia">Distancia</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.modalidad.$dirty && Form2.modalidad.$dirty && Form2.modalidad.$invalid">El campo modalidad es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.nivelFormacion.$dirty && Form2.nivelFormacion.$invalid, 'has-success':Form2.nivelFormacion.$valid}">
+                                <label for="nivelFormacion">
+                                    Nivel de formación <span class="symbol required"></span>
+                                </label>
+                                <select id="nivelFormacion" name="nivelFormacion" class="form-control" ng-model="programa.nivelFormacion" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="Universitaria">Universitaria</option>
+                                    <option value="Especializacion">Especializacion</option>
+                                    <option value="Maestria">Maestria</option>
+                                    <option value="Doctorado">Doctorado</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.nivelFormacion.$dirty && Form2.nivelFormacion.$dirty && Form2.nivelFormacion.$invalid">El campo nivel de formación es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.facultad.$dirty && Form2.facultad.$invalid, 'has-success':Form2.facultad.$valid}">
+                                <label for="facultad">
+                                    Facultad <span class="symbol required"></span>
+                                </label>
+                                <select id="facultad" name="facultad" class="form-control" ng-model="programa.facultad.idfacultad" ng-options="facultad.idfacultad as facultad.facultad for facultad in facultades"  required>
+                                    <option value="">&nbsp;</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.facultad.$dirty && Form2.facultad.$dirty && Form2.facultad.$invalid">El campo facultad es requerido</span>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Crear Programa
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
+                    Resetear
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->
+

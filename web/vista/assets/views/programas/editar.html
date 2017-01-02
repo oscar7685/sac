@@ -1,0 +1,44 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.facultades.EDITAR">EDITAR FACULTADES</h1>
+            <span class="mainDescription">Formulario para editar Facultades.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="editarFacultadCtrl">
+            <form name="Form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Facultades
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form.nombre.$dirty && Form.nombre.$invalid, 'has-success':Form.nombre.$valid}">
+                                <label for="nombre" class="control-label">
+                                    Nombre Facultad <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Nombre Facultad" id="nombre" name="nombre" class="form-control" ng-model="facultad.facultad" required/>
+                                <span class="error text-small block" ng-if="Form.nombre.$dirty && Form.nombre.$dirty && Form.nombre.$invalid">Nombre de la facultad es requerido</span>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Editar Facultad
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form)">
+                    Resetear
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->
+

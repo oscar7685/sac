@@ -12,6 +12,7 @@ app.controller('crearRolCtrl', ["$scope", "RolFactory", "PermisoFactory", "$loca
                 descripcion: "",
                 permisoses: []
             };
+            $scope.playList1= [];
             $scope.seleccionados = function () {
                 $scope.playList1 = $filter('filter')($scope.permisos, {checked: true});
             }
@@ -77,14 +78,17 @@ app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "RolFactory
                     }
                     return false;
                 }
-                for (var i = 0; i < $scope.rol.permisoses.length; i++) {
-                    if ($scope.containsObject($scope.rol.permisoses[i], $scope.permisos)) {
+                for (var i = 0; i < $scope.permisos.length; i++) {
+                    if ($scope.containsObject($scope.permisos[i],$scope.rol.permisoses)) {
                         $scope.permisos[i].checked = true;
+                    }else{
+                        $scope.permisos[i].checked = false;
                     }
                 }
                 $scope.seleccionados = function () {
                     $scope.playList = $filter('filter')($scope.permisos, {checked: true});
                 }
+                $scope.seleccionados();
                 $scope.master = angular.copy($scope.rol);
                 $scope.master2 = angular.copy($scope.permisos);
 
@@ -107,7 +111,7 @@ app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "RolFactory
                             }
 
                             angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                            SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+                            SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                             return;
                         } else {
                             if (form.$valid) {
@@ -120,7 +124,7 @@ app.controller('editarRolCtrl', ["$scope", "$state", "$stateParams", "RolFactory
                                 }, function (bussinessMessages) {
                                     $scope.bussinessMessages = bussinessMessages;
                                 });
-                                SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                                //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                             }
                         }
 
