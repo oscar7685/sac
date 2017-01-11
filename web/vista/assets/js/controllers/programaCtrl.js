@@ -88,8 +88,10 @@ app.controller('crearProgramaCtrl', ["$scope", "ProgramaFactory", "$location", "
 
 
     }]);
-app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "ProgramaFactory", "$location", "SweetAlert",
-    function ($scope, $state, $stateParams, ProgramaFactory, $location, SweetAlert) {
+app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "ProgramaFactory", "FacultadFactory", "$location", "SweetAlert",
+    function ($scope, $state, $stateParams, ProgramaFactory, FacultadFactory, $location, SweetAlert) {
+        FacultadFactory.query().$promise.then(function (result0) {
+            $scope.facultades = result0;
         ProgramaFactory.get({idPrograma: $stateParams.idprograma}).$promise.then(function (result) {
             $scope.programa = result;
             $scope.master = angular.copy($scope.programa);
@@ -98,7 +100,6 @@ app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "Progr
             submit: function (form) {
                 var firstError = null;
                 if (form.$invalid) {
-
                     var field = null, firstError = null;
                     for (field in form) {
                         if (field[0] != '$') {
@@ -117,7 +118,6 @@ app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "Progr
                     return;
                 } else {
                     if (form.$valid) {
-
                         ProgramaFactory.update({idPrograma: $scope.programa.idprograma}, $scope.programa).$promise.then(function () {
                             $location.path("app/programas/listar");
                         }, function (bussinessMessages) {
@@ -132,4 +132,5 @@ app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "Progr
                 form.$setPristine(true);
             }
         };
+    });
     }]);

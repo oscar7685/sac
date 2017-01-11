@@ -1,6 +1,7 @@
 package naval.dominio;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Facultad implements java.io.Serializable {
 
     public Facultad() {
     }
-
+    
     public Facultad(String facultad) {
         this.facultad = facultad;
     }

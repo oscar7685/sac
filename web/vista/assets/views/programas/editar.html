@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.facultades.EDITAR">EDITAR FACULTADES</h1>
-            <span class="mainDescription">Formulario para editar Facultades.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.programas.EDITAR">EDITAR PROGRAMA</h1>
+            <span class="mainDescription">Formulario para editar Programas.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -12,31 +12,343 @@
 <!-- start: FIELDSET -->
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
-        <div class="col-md-12" ng-controller="editarFacultadCtrl">
-            <form name="Form" novalidate ng-submit="form.submit(Form)">
-                <div class="row">
-                    <div class="col-md-6">
-                        <fieldset>
-                            <legend>
-                                Facultades
-                            </legend>
-                            <div class="form-group" ng-class="{'has-error':Form.nombre.$dirty && Form.nombre.$invalid, 'has-success':Form.nombre.$valid}">
-                                <label for="nombre" class="control-label">
-                                    Nombre Facultad <span class="symbol required"></span>
-                                </label>
-                                <input type="text" placeholder="Nombre Facultad" id="nombre" name="nombre" class="form-control" ng-model="facultad.facultad" required/>
-                                <span class="error text-small block" ng-if="Form.nombre.$dirty && Form.nombre.$dirty && Form.nombre.$invalid">Nombre de la facultad es requerido</span>
+        <div class="col-md-12" ng-controller="editarProgramaCtrl">
+            <div><!--ng-controller="UserCtrl"-->
+                <!-- start: USER TABSET -->
+                <tabset class="tabbable">
+                    <!-- start: TAB OVERVIEW -->
+                    <tab heading="Detalle">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">Detalles del Programa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Nombre</td>
+                                            <td>
+                                                {{programa.nombre}}
+                                        </tr>
+                                        <tr>
+                                            <td>Modalidad</td>
+                                            <td>
+                                                {{programa.modalidad}}
+                                        </tr>
+                                        <tr>
+                                            <td>Nivel de formación</td>
+                                            <td>{{programa.nivelFormacion}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Facultad </td>
+                                            <td>
+                                                {{programa.facultad.facultad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <a class="btn btn-primary btn-o btn-wide" href="#" ng-click="editActive = true">
+                                        Editar Programa
+                                    </a>
+                                </div>
+
                             </div>
-                        </fieldset>
-                    </div>
-                </div>
-                <button class="btn btn-o btn-primary" type="submit">
-                    Editar Facultad
-                </button>   
-                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form)">
-                    Resetear
-                </button>
-            </form>
+                            <div class="col-md-9">
+                                <div class="row space20">
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon margin-bottom-5 margin-bottom-5 btn-block">
+                                            <i class="ti-layers-alt block text-primary text-extra-large margin-bottom-10"></i>
+                                            Projects
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon margin-bottom-5 btn-block">
+                                            <i class="ti-comments block text-primary text-extra-large margin-bottom-10"></i>
+                                            Messages <span class="badge badge-danger"> 23 </span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon margin-bottom-5 btn-block">
+                                            <i class="ti-calendar block text-primary text-extra-large margin-bottom-10"></i>
+                                            Calendar
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon margin-bottom-5 btn-block">
+                                            <i class="ti-flag block text-primary text-extra-large margin-bottom-10"></i>
+                                            Notifications
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel panel-white" id="activities">
+                                    <div class="panel-heading border-light">
+                                        <h4 class="panel-title text-primary">Recent Activities</h4>
+                                        <paneltool class="panel-tools" tool-collapse="tool-collapse" tool-refresh="load1" tool-dismiss="tool-dismiss"></paneltool>
+                                    </div>
+                                    <div collapse="activities" ng-init="activities = false" class="panel-wrapper">
+                                        <div class="panel-body">
+                                            <ul class="timeline-xs">
+                                                <li class="timeline-item success">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            2 minutes ago
+                                                        </div>
+                                                        <p>
+                                                            <a class="text-info" href>
+                                                                Steven
+                                                            </a>
+                                                            has completed his account.
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            12:30
+                                                        </div>
+                                                        <p>
+                                                            Staff Meeting
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item danger">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            11:11
+                                                        </div>
+                                                        <p>
+                                                            Completed new layout.
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item info">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            Thu, 12 Jun
+                                                        </div>
+                                                        <p>
+                                                            Contacted
+                                                            <a class="text-info" href>
+                                                                Microsoft
+                                                            </a>
+                                                            for license upgrades.
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            Tue, 10 Jun
+                                                        </div>
+                                                        <p>
+                                                            Started development new site
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            Sun, 11 Apr
+                                                        </div>
+                                                        <p>
+                                                            Lunch with
+                                                            <a class="text-info" href>
+                                                                Nicole
+                                                            </a>
+                                                            .
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item warning">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            Wed, 25 Mar
+                                                        </div>
+                                                        <p>
+                                                            server Maintenance.
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="margin-left-15">
+                                                        <div class="text-muted text-small">
+                                                            Fri, 20 Mar
+                                                        </div>
+                                                        <p>
+                                                            New User Registration
+                                                            <a class="text-info" href>
+                                                                more details
+                                                            </a>
+                                                            .
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <!-- end: TAB OVERVIEW -->
+                    <!-- start: TAB EDIT ACCOUNT -->
+                    <tab heading="Editar Programa" active="editActive">
+                        <form name="Form2" novalidate ng-submit="form.submit(Form2)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend>
+                                            Programas
+                                        </legend>
+                                        <div class="form-group" ng-class="{'has-error':Form2.nombre.$dirty && Form2.nombre.$invalid, 'has-success':Form2.nombre.$valid}">
+                                            <label for="nombre" class="control-label">
+                                                Nombre Programa <span class="symbol required"></span>
+                                            </label>
+                                            <input type="text" placeholder="Nombre Programa" id="nombre" name="nombre" class="form-control" ng-model="programa.nombre" required/>
+                                            <span class="error text-small block" ng-if="Form2.nombre.$dirty && Form2.nombre.$dirty && Form2.nombre.$invalid">El campo nombre es requerido</span>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':Form2.modalidad.$dirty && Form2.modalidad.$invalid, 'has-success':Form2.modalidad.$valid}">
+                                            <label for="modalidad">
+                                                Modalidad <span class="symbol required"></span>
+                                            </label>
+                                            <select id="modalidad" name="modalidad" class="form-control" ng-model="programa.modalidad" required>
+                                                <option value="">&nbsp;</option>
+                                                <option value="Presencial">Presencial</option>
+                                                <option value="Distancia">Distancia</option>
+                                            </select>
+                                            <span class="error text-small block" ng-if="Form2.modalidad.$dirty && Form2.modalidad.$dirty && Form2.modalidad.$invalid">El campo modalidad es requerido</span>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':Form2.nivelFormacion.$dirty && Form2.nivelFormacion.$invalid, 'has-success':Form2.nivelFormacion.$valid}">
+                                            <label for="nivelFormacion">
+                                                Nivel de formación <span class="symbol required"></span>
+                                            </label>
+                                            <select id="nivelFormacion" name="nivelFormacion" class="form-control" ng-model="programa.nivelFormacion" required>
+                                                <option value="">&nbsp;</option>
+                                                <option value="Universitaria">Universitaria</option>
+                                                <option value="Especializacion">Especializacion</option>
+                                                <option value="Maestria">Maestria</option>
+                                                <option value="Doctorado">Doctorado</option>
+                                            </select>
+                                            <span class="error text-small block" ng-if="Form2.nivelFormacion.$dirty && Form2.nivelFormacion.$dirty && Form2.nivelFormacion.$invalid">El campo nivel de formación es requerido</span>
+                                        </div>
+                                        <div class="form-group" ng-class="{'has-error':Form2.facultad.$dirty && Form2.facultad.$invalid, 'has-success':Form2.facultad.$valid}">
+                                            <label for="facultad">
+                                                Facultad <span class="symbol required"></span>
+                                            </label>
+                                            <select id="facultad" name="facultad" class="form-control" ng-model="programa.facultad.idfacultad" ng-options="facultad.idfacultad as facultad.facultad for facultad in facultades"  required>
+                                                <option value="">&nbsp;</option>
+                                            </select>
+                                            <span class="error text-small block" ng-if="Form2.facultad.$dirty && Form2.facultad.$dirty && Form2.facultad.$invalid">El campo facultad es requerido</span>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+
+                            </div>
+                            <button class="btn btn-o btn-primary" type="submit">
+                                Editar Programa
+                            </button>   
+                            <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
+                                Resetear
+                            </button>
+                        </form>
+                    </tab>
+                    <!-- end: TAB EDIT ACCOUNT -->
+                    <!-- start: TAB PROJECTS -->
+                    <tab heading="Asignaturas">
+                        <table class="table" id="projects">
+                            <thead>
+                                <tr>
+                                    <th>Project Name</th>
+                                    <th class="hidden-xs">Client</th>
+                                    <th>Proj Comp</th>
+                                    <th class="hidden-xs">%Comp</th>
+                                    <th class="hidden-xs center">Priority</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>IT Help Desk</td>
+                                    <td class="hidden-xs">Master Company</td>
+                                    <td>11 november 2014</td>
+                                    <td class="hidden-xs">
+                                        <div class="progress active progress-xs">
+                                            <div style="width: 70%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" role="progressbar" class="progress-bar progress-bar-warning">
+                                                <span class="sr-only"> 70% Complete (danger)</span>
+                                            </div>
+                                        </div></td>
+                                    <td class="center hidden-xs"><span class="label label-danger">Critical</span></td>
+                                </tr>
+                                <tr>
+                                    <td>PM New Product Dev</td>
+                                    <td class="hidden-xs">Brand Company</td>
+                                    <td>12 june 2014</td>
+                                    <td class="hidden-xs">
+                                        <div class="progress active progress-xs">
+                                            <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-info">
+                                                <span class="sr-only"> 40% Complete</span>
+                                            </div>
+                                        </div></td>
+                                    <td class="center hidden-xs"><span class="label label-warning">High</span></td>
+                                </tr>
+                                <tr>
+                                    <td>ClipTheme Web Site</td>
+                                    <td class="hidden-xs">Internal</td>
+                                    <td>11 november 2014</td>
+                                    <td class="hidden-xs">
+                                        <div class="progress active progress-xs">
+                                            <div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" role="progressbar" class="progress-bar progress-bar-success">
+                                                <span class="sr-only"> 90% Complete</span>
+                                            </div>
+                                        </div></td>
+                                    <td class="center hidden-xs"><span class="label label-success">Normal</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Local Ad</td>
+                                    <td class="hidden-xs">UI Fab</td>
+                                    <td>15 april 2014</td>
+                                    <td class="hidden-xs">
+                                        <div class="progress active progress-xs">
+                                            <div style="width: 50%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="progressbar" class="progress-bar progress-bar-warning">
+                                                <span class="sr-only"> 50% Complete</span>
+                                            </div>
+                                        </div></td>
+                                    <td class="center hidden-xs"><span class="label label-success">Normal</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Design new theme</td>
+                                    <td class="hidden-xs">Internal</td>
+                                    <td>2 october 2014</td>
+                                    <td class="hidden-xs">
+                                        <div class="progress active progress-xs">
+                                            <div style="width: 20%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-success">
+                                                <span class="sr-only"> 20% Complete (warning)</span>
+                                            </div>
+                                        </div></td>
+                                    <td class="center hidden-xs"><span class="label label-danger">Critical</span></td>
+                                </tr>
+                                <tr>
+                                    <td>IT Help Desk</td>
+                                    <td class="hidden-xs">Designer TM</td>
+                                    <td>6 december 2014</td>
+                                    <td class="hidden-xs">
+                                        <div class="progress active progress-xs">
+                                            <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-warning">
+                                                <span class="sr-only"> 40% Complete (warning)</span>
+                                            </div>
+                                        </div></td>
+                                    <td class="center hidden-xs"><span class="label label-warning">High</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </tab>
+                    <!-- end: TAB PROJECTS -->
+                </tabset>
+                <!-- end: USER TABSET -->
+            </div>
         </div>
     </div>
 </div>
