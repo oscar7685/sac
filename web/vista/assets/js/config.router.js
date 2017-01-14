@@ -150,6 +150,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Editar Programa'
             },
             resolve: loadSequence('programaCtrl')
+        }).state('app.asignaturas', {
+            url: '/asignaturas',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Asignaturas',
+            ncyBreadcrumb: {
+                label: 'Asignaturas'
+            }
+        }).state('app.asignaturas.crear', {
+            url: '/crear',
+            templateUrl: "assets/views/asignaturas/crear.html",
+            title: 'Crear Asignatura',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear Asignatura'
+            },
+            resolve: loadSequence('asignaturaCtrl')
+        }).state('app.asignaturas.listar', {
+            url: '/listar',
+            templateUrl: "assets/views/asignaturas/listar.html",
+            title: 'Listar Asignaturas',
+            ncyBreadcrumb: {
+                label: 'Listar Asignaturas'
+            },
+            resolve: loadSequence('ngTable', 'asignaturaCtrl')
+        }).state('app.asignaturas.editar', {
+            url: '/editar:idasignatura',
+            templateUrl: "assets/views/asignaturas/editar.html",
+            title: 'Editar Asignatura',
+            ncyBreadcrumb: {
+                label: 'Editar asignatura'
+            },
+            resolve: loadSequence('programaCtrl')
         }).state('app.usuarios', {
             url: '/usuarios',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -781,8 +813,20 @@ app.factory('ProgramaFactory', function ($resource) {
         }
     });
 });
-app.factory('ProfesorFactory', function ($resource) {
-    return $resource('/sac/api/Profesor/:idProfesor', null, {
+app.factory('ProgramaFactory', function ($resource) {
+    return $resource('/sac/api/Programa/:idPrograma', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+app.factory('AsignaturaFactory', function ($resource) {
+    return $resource('/sac/api/Asignatura/:idAsignatura', null, {
+        buscarA: {
+                    method: 'GET',
+                    url: '/sac/api/Asignatura/programa/:idprograma/',
+                    isArray: true
+                },
         update: {
             method: 'PUT' // this method issues a PUT request
         }

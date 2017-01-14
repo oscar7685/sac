@@ -4,10 +4,15 @@
  * Simple table with sorting and filtering on AngularJS
  */
 
-app.controller('listProgramas', ["$scope", "$filter", "ngTableParams", "ProgramaFactory",
-    function ($scope, $filter, ngTableParams, ProgramaFactory) {
-        ProgramaFactory.query().$promise.then(function (datos) {
+app.controller('listAsignaturas', ["$scope", "$filter", "ngTableParams", "AsignaturaFactory",
+    function ($scope, $filter, ngTableParams, AsignaturaFactory) {
+        AsignaturaFactory.query().$promise.then(function (datos) {
             $scope.data = datos;
+            for (var i = 0; i < $scope.data.length; i++) {
+                $scope.data[i].progaux = ""; //initialization of new property 
+                $scope.data[i].progaux = $scope.data[i].programa.nombre;  //set the data from nested obj into new property
+                $scope.data[i].horas = $scope.data[i].creditos * 48;
+            }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
                 count: 10, // count per page
@@ -32,18 +37,21 @@ app.controller('listProgramas', ["$scope", "$filter", "ngTableParams", "Programa
         });
 
     }]);
-app.controller('crearProgramaCtrl', ["$scope", "ProgramaFactory", "$location", "SweetAlert", "FacultadFactory",
-    function ($scope, ProgramaFactory, $location, SweetAlert, FacultadFactory) {
-        FacultadFactory.query().$promise.then(function (result) {
-            $scope.facultades = result;
-            $scope.programa = {
-                idprograma: "",
+app.controller('crearAsignaturaCtrl', ["$scope", "AsignaturaFactory", "$location", "SweetAlert", "ProgramaFactory",
+    function ($scope, AsignaturaFactory, $location, SweetAlert, ProgramaFactory) {
+        ProgramaFactory.query().$promise.then(function (result) {
+            $scope.programas = result;
+            $scope.asignatura = {
+                idasignatura: "",
                 nombre: "",
-                modalidad: "",
-                nivelFormacion: "",
-                facultad: {
-                    idfacultad: "",
-                    facultad: ""
+                codigo: "",
+                creditos: "",
+                semestre: "",
+                ubicacion: "",
+                programa: {
+                    idprograma: "",
+                    nombre: "",
+                    modalidad: ""
                 }
             };
             $scope.master = angular.copy($scope.programa);
@@ -70,8 +78,8 @@ app.controller('crearProgramaCtrl', ["$scope", "ProgramaFactory", "$location", "
                         return;
                     } else {
                         if (form.$valid) {
-                            ProgramaFactory.save($scope.programa).$promise.then(function () {
-                                $location.path("app/programas/listar");
+                            AsignaturaFactory.save($scope.asignatura).$promise.then(function () {
+                                $location.path("app/asignaturas/listar");
                             }, function (bussinessMessages) {
                                 $scope.bussinessMessages = bussinessMessages;
                             });
@@ -80,7 +88,7 @@ app.controller('crearProgramaCtrl', ["$scope", "ProgramaFactory", "$location", "
                     }
                 },
                 reset: function (form) {
-                    $scope.programa = angular.copy($scope.master);
+                    $scope.asignatura = angular.copy($scope.master);
                     form.$setPristine(true);
                 }
             };
@@ -88,34 +96,14 @@ app.controller('crearProgramaCtrl', ["$scope", "ProgramaFactory", "$location", "
 
 
     }]);
-
-app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "ProgramaFactory", "FacultadFactory", "AsignaturaFactory", "$location", "SweetAlert", "$filter",
-    function ($scope, $state, $stateParams, ProgramaFactory, FacultadFactory, AsignaturaFactory, $location, SweetAlert, $filter) {
-        FacultadFactory.query().$promise.then(function (result0) {
-            $scope.facultades = result0;
-            AsignaturaFactory.buscarA({idprograma: $stateParams.idprograma}).$promise.then(function (result3) {
-                $scope.asignaturas = result3;
-                ProgramaFactory.get({idPrograma: $stateParams.idprograma}).$promise.then(function (result) {
-                    $scope.programa = result;
-                    $scope.master = angular.copy($scope.programa);
-                });
+app.controller('editarAsignaturaCtrl', ["$scope", "$state", "$stateParams", "AsignaturaFactory", "ProgramaFactory", "$location", "SweetAlert",
+    function ($scope, $state, $stateParams, AsignaturaFactory, ProgramaFactory, $location, SweetAlert) {
+        ProgramaFactory.query().$promise.then(function (result0) {
+            $scope.programas = result0;
+            AsignaturaFactory.get({idAsignatura: $stateParams.idasignatura}).$promise.then(function (result) {
+                $scope.asignatura = result;
+                $scope.master = angular.copy($scope.asignatura);
             });
-            $scope.getNumber = function (num) {
-                $scope.asignaturas
-                return new Array(num);
-            };
-            $scope.getAsignaturas = function (sem) {
-                var orderedData = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
-                return orderedData.length;
-            };
-            $scope.getCreditos = function (sem) {
-                var filteredData = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
-                var creditos = 0;
-                for (var i = 0; i < filteredData.length; i++) {
-                    creditos += filteredData[i].creditos;
-                }
-                return creditos;
-            };
             $scope.form = {
                 submit: function (form) {
                     var firstError = null;
@@ -138,8 +126,8 @@ app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "Progr
                         return;
                     } else {
                         if (form.$valid) {
-                            ProgramaFactory.update({idPrograma: $scope.programa.idprograma}, $scope.programa).$promise.then(function () {
-                                $location.path("app/programas/listar");
+                            AsignaturaFactory.update({idAsignatura: $scope.asignatura.idasignatura}, $scope.asignatura).$promise.then(function () {
+                                $location.path("app/asignaturas/listar");
                             }, function (bussinessMessages) {
                                 $scope.bussinessMessages = bussinessMessages;
                             });
@@ -148,7 +136,7 @@ app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "Progr
                     }
                 },
                 reset: function (form) {
-                    $scope.programa = angular.copy($scope.master);
+                    $scope.asignatura = angular.copy($scope.master);
                     form.$setPristine(true);
                 }
             };

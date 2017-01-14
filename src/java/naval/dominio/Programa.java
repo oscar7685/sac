@@ -28,6 +28,7 @@ public class Programa implements java.io.Serializable {
     private String nombre;
     private String modalidad;
     private String nivelFormacion;
+    private Set<Asignatura> asignaturas = new HashSet<Asignatura>(0);
     private Set<Graduado> graduados = new HashSet<Graduado>(0);
 
     public Programa() {
@@ -38,11 +39,12 @@ public class Programa implements java.io.Serializable {
         this.nombre = nombre;
     }
 
-    public Programa(Facultad facultad, String nombre, String modalidad, String nivelFormacion, Set<Graduado> graduados) {
+    public Programa(Facultad facultad, String nombre, String modalidad, String nivelFormacion, Set<Asignatura> asignaturas, Set<Graduado> graduados) {
         this.facultad = facultad;
         this.nombre = nombre;
         this.modalidad = modalidad;
         this.nivelFormacion = nivelFormacion;
+        this.asignaturas = asignaturas;
         this.graduados = graduados;
     }
 
@@ -96,6 +98,15 @@ public class Programa implements java.io.Serializable {
         this.nivelFormacion = nivelFormacion;
     }
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programa")
+    public Set<Asignatura> getAsignaturas() {
+        return this.asignaturas;
+    }
+
+    public void setAsignaturas(Set<Asignatura> asignaturas) {
+        this.asignaturas = asignaturas;
+    }
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "programa")
     public Set<Graduado> getGraduados() {

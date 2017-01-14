@@ -79,6 +79,12 @@
                 "EDITAR": "Editar Programa",
                 "LISTAR": "Listar Programas"
             },
+            "asignaturas": {
+                "MAIN": "Asignaturas",
+                "CREAR": "Crear Asignatura",
+                "EDITAR": "Editar Asignatura",
+                "LISTAR": "Listar Asignaturas"
+            },
             "profesores": {
                 "MAIN": "Profesores",
                 "CREAR": "Crear Profesor",
@@ -91,21 +97,18 @@
                 "EDITAR": "Editar Curso",
                 "LISTAR": "Listar Cursos"
             },
-            
             "usuarios": {
                 "MAIN": "Usuarios",
                 "CREAR": "Crear Usuario",
                 "EDITAR": "Editar Usuario",
                 "LISTAR": "Listar Usuarios"
             },
-            
             "roles": {
                 "MAIN": "Roles",
                 "CREAR": "Crear Rol",
                 "EDITAR": "Editar Rol",
                 "LISTAR": "Listar Roles"
             },
-            
             "horario": {
                 "MAIN": "Horario",
                 "AULAS": "Horario Aulas",

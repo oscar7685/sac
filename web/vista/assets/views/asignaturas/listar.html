@@ -1,0 +1,40 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.asignaturas.LISTAR">Lista de Asignaturas</h1>
+            <span class="mainDescription">Lista todas las asignaturas registradas en el sistema.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: SIMPLE TABLE WITH PAGINATION -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+            <div ng-controller="listAsignaturas">
+                <p>
+                    Mostrando registros del {{ tableParams.total() > 0 ? (tableParams.page() * tableParams.count()) - (tableParams.count()) + 1 : 0}} 
+                    al {{(tableParams.page() * tableParams.count()) < tableParams.total() ? (tableParams.page() * tableParams.count()) : tableParams.total()}} 
+                    de un total de {{tableParams.total()}}
+                </p>
+                <table ng-table="tableParams" class="table table-striped" show-filter="true">
+                    <tr ng-repeat="asignatura in $data">
+                        <td ng-switch="{{hasPermiso(33)}}" data-title="'Asignatura'" sortable="'nombre'" filter="{'nombre': 'text'}">
+                            <a ng-switch-when="true" ui-sref="app.asignaturas.editar({idasignatura:'{{asignatura.idasignatura}}'})">{{asignatura.nombre}}</a>
+                            <span ng-switch-when="false">{{asignatura.nombre}}</span>
+                        </td>
+                        <td data-title="'# Creditos'" sortable="'creditos'" filter="{'creditos': 'text'}">{{asignatura.creditos}}</td>
+                        <td data-title="'Horas'" sortable="'horas'" filter="{'horas': 'text'}">{{asignatura.horas}}</td>
+                        <td data-title="'Nivel'" sortable="'semestre'" filter="{'semestre': 'text'}">{{asignatura.semestre}}</td>
+                        <td data-title="'Programa'" sortable="'progaux'" filter="{'progaux': 'text'}">{{asignatura.progaux}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: SIMPLE TABLE WITH PAGINATION -->
+
