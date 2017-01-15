@@ -13,26 +13,53 @@
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
         <div class="col-md-12" ng-controller="editarCursoCtrl2">
-            <form name="Form" novalidate ng-submit="form.submit(Form)">
+            <form name="Form2" novalidate ng-submit="form.submit(Form2)">
                 <div class="row">
                     <div class="col-md-6">
                         <fieldset>
                             <legend>
                                 Cursos
                             </legend>
-                            <div class="form-group" ng-class="{'has-error':Form.codigo.$dirty && Form.codigo.$invalid, 'has-success':Form.codigo.$valid}">
+                            <div class="form-group" ng-class="{'has-error':Form2.codigo.$dirty && Form2.codigo.$invalid, 'has-success':Form2.codigo.$valid}">
                                 <label for="codigo" class="control-label">
                                     Codigo Curso <span class="symbol required"></span>
                                 </label>
                                 <input type="text" placeholder="Codigo Curso" id="codigo" name="codigo" class="form-control" ng-model="curso.codigo" required/>
-                                <span class="error text-small block" ng-if="Form.codigo.$dirty && Form.codigo.$dirty && Form.codigo.$invalid">El campo codigo es requerido</span>
+                                <span class="error text-small block" ng-if="Form2.codigo.$dirty && Form2.codigo.$dirty && Form2.codigo.$invalid">El campo codigo es requerido</span>
                             </div>
-                            <div class="form-group" ng-class="{'has-error':Form.numeroEstudiantes.$dirty && Form.numeroEstudiantes.$invalid, 'has-success':Form.numeroEstudiantes.$valid}">
-                                <label for="numeroEstudiantes" class="control-label">
-                                    N° de Estudiantes <span class="symbol required"></span>
+                            <div class="form-group" ng-class="{'has-error':Form2.anio.$dirty && Form2.anio.$invalid, 'has-success':Form2.anio.$valid}">
+                                <label for="anio" class="control-label">
+                                    A&nacute;o <span class="symbol required"></span>
                                 </label>
-                                <input type="number" placeholder="N° de Estudiantes" id="numeroEstudiantes" name="numeroEstudiantes" class="form-control" ng-model="curso.numeroEstudiantes" ng-pattern="/^[0-9]*$/" required/>
-                                <span class="error text-small block" ng-if="Form.numeroEstudiantes.$error.number">Numero no valido!</span>
+                                <input type="number" placeholder="Año" id="anio" name="anio" class="form-control" ng-model="curso.anio" ng-pattern="/^[0-9]*$/" required/>
+                                <span class="error text-small block" ng-if="Form2.anio.$error.number">A&nacute;o no valido!</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.periodo.$dirty && Form2.periodo.$invalid, 'has-success':Form2.periodo.$valid}">
+                                <label for="periodo">
+                                    Periodo <span class="symbol required"></span>
+                                </label>
+                                <select id="periodo"  name="periodo" class="form-control" ng-model="curso.periodo" convert-to-number required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.periodo.$dirty && Form2.periodo.$dirty && Form2.periodo.$invalid">El campo periodo es requerido</span>  
+                            </div>
+                            <div class="form-group">
+                                <label for="programa">
+                                    Programa
+                                </label>
+                                <select id="programa" name="programa" class="form-control" ng-model="curso.programa.idprograma" ng-options="programa.idprograma as programa.nombre for programa in programas">
+                                    <option value="">&nbsp;</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="aula">
+                                    Aula                                    
+                                </label>
+                                <select id="aula" name="aula" class="form-control" ng-model="curso.aula.idaula" ng-options="aula.idaula as aula.nombre for aula in aulas">
+                                    <option value="">&nbsp;</option>
+                                </select>
                             </div>
                         </fieldset>
                     </div>
@@ -42,7 +69,7 @@
                 <button class="btn btn-o btn-primary" type="submit">
                     Editar Curso
                 </button>   
-                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form)">
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
                     Resetear
                 </button>
             </form>

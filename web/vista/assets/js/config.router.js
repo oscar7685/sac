@@ -150,6 +150,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Editar Programa'
             },
             resolve: loadSequence('programaCtrl')
+        }).state('app.estudiantes', {
+            url: '/estudiantes',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Estudiantes',
+            ncyBreadcrumb: {
+                label: 'Estudiantes'
+            }
+        }).state('app.estudiantes.crear', {
+            url: '/crear',
+            templateUrl: "assets/views/estudiantes/crear.html",
+            title: 'Crear Estudiante',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear Estudiantes'
+            },
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin', 'estudianteCtrl')
+        }).state('app.estudiantes.listar', {
+            url: '/listar',
+            templateUrl: "assets/views/estudiantes/listar.html",
+            title: 'Listar Estudiantes',
+            ncyBreadcrumb: {
+                label: 'Listar Estudiantes'
+            },
+            resolve: loadSequence('ngTable', 'estudianteCtrl')
+        }).state('app.estudiantes.editar', {
+            url: '/editar:codigo',
+            templateUrl: "assets/views/estudiantes/editar.html",
+            title: 'Editar Estudiante',
+            ncyBreadcrumb: {
+                label: 'Editar Estudiante'
+            },
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin', 'estudianteCtrl')
         }).state('app.asignaturas', {
             url: '/asignaturas',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -792,6 +824,13 @@ app.factory('EdificioFactory', function ($resource) {
         }
     });
 });
+app.factory('EstudianteFactory', function ($resource) {
+    return $resource('/sac/api/Estudiante/:codigo', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
 app.factory('AulaFactory', function ($resource) {
     return $resource('/sac/api/Aula/:idAula', null, {
         update: {
@@ -823,10 +862,10 @@ app.factory('ProgramaFactory', function ($resource) {
 app.factory('AsignaturaFactory', function ($resource) {
     return $resource('/sac/api/Asignatura/:idAsignatura', null, {
         buscarA: {
-                    method: 'GET',
-                    url: '/sac/api/Asignatura/programa/:idprograma/',
-                    isArray: true
-                },
+            method: 'GET',
+            url: '/sac/api/Asignatura/programa/:idprograma/',
+            isArray: true
+        },
         update: {
             method: 'PUT' // this method issues a PUT request
         }

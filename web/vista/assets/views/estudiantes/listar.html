@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.cursos.LISTAR">Lista de Cursos</h1>
-            <span class="mainDescription">Lista todos los cursos registrados en el sistema.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.estudiantes.LISTAR">Lista de Estudiantes</h1>
+            <span class="mainDescription">Lista todos los estudiantes registrados en el sistema.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -14,15 +14,19 @@
     <div class="row">
         <div class="col-md-12">
             <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-            <div ng-controller="tablaCursoCtrl">
+            <div ng-controller="listEstudiantes">
                 <p>
                     Mostrando registros del {{ tableParams.total() > 0 ? (tableParams.page() * tableParams.count()) - (tableParams.count()) + 1 : 0}} 
                     al {{(tableParams.page() * tableParams.count()) < tableParams.total() ? (tableParams.page() * tableParams.count()) : tableParams.total()}} 
                     de un total de {{tableParams.total()}}
                 </p>
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
-                    <tr ng-repeat="curso in $data">
-                        <td data-title="'Codigo'" sortable="'codigo'" filter="{'codigo': 'text'}"><a ui-sref="app.cursos.editar({idcurso:'{{curso.idcurso}}'})">{{curso.codigo}}</a></td>
+                    <tr ng-repeat="estudiante in $data">
+                        <td ng-switch="{{hasPermiso(36)}}" data-title="'Nombre'" sortable="'nombre'">
+                            <a ng-switch-when="true" ui-sref="app.estudiantes.editar({codigo:'{{estudiante.codigo}}'})">{{estudiante.nombres}}</a>
+                            <span ng-switch-when="false">{{estudiante.nombres}}</span>
+                        </td>
+                        <td data-title="'Apellidos'" sortable="'apellidos'">{{estudiante.apellidos}}</td>
                     </tr>
                 </table>
             </div>

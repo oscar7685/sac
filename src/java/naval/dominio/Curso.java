@@ -9,6 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,26 +25,35 @@ import javax.persistence.Table;
 public class Curso implements java.io.Serializable {
 
     private Integer idcurso;
+    private Aula aula;
+    private Estudiante estudiante;
+    private Programa programa;
+    private Integer anio;
+    private Integer periodo;
     private String codigo;
-    private Integer numeroEstudiantes;
     private Set<ActividadDocencia> actividadDocencias = new HashSet<ActividadDocencia>(0);
     private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
-    private Set<ResponsableCurso> responsableCursos = new HashSet<ResponsableCurso>(0);
+    private Set<Estudiante> estudiantes = new HashSet<Estudiante>(0);
     private Set<Horario> horarios = new HashSet<Horario>(0);
 
     public Curso() {
     }
 
-    public Curso(String codigo) {
+    public Curso(Programa programa, String codigo) {
+        this.programa = programa;
         this.codigo = codigo;
     }
 
-    public Curso(String codigo, Integer numeroEstudiantes, Set<ActividadDocencia> actividadDocencias, Set<ParteDiario> parteDiarios, Set<ResponsableCurso> responsableCursos, Set<Horario> horarios) {
+    public Curso(Aula aula, Estudiante estudiante, Programa programa, Integer anio, Integer periodo, String codigo, Set<ActividadDocencia> actividadDocencias, Set<ParteDiario> parteDiarios, Set<Estudiante> estudiantes, Set<Horario> horarios) {
+        this.aula = aula;
+        this.estudiante = estudiante;
+        this.programa = programa;
+        this.anio = anio;
+        this.periodo = periodo;
         this.codigo = codigo;
-        this.numeroEstudiantes = numeroEstudiantes;
         this.actividadDocencias = actividadDocencias;
         this.parteDiarios = parteDiarios;
-        this.responsableCursos = responsableCursos;
+        this.estudiantes = estudiantes;
         this.horarios = horarios;
     }
 
@@ -56,6 +69,54 @@ public class Curso implements java.io.Serializable {
         this.idcurso = idcurso;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aula_idaula")
+    public Aula getAula() {
+        return this.aula;
+    }
+
+    public void setAula(Aula aula) {
+        this.aula = aula;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comandante_curso")
+    public Estudiante getEstudiante() {
+        return this.estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "programa_idprograma", nullable = false)
+    public Programa getPrograma() {
+        return this.programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
+    }
+
+    @Column(name = "anio")
+    public Integer getAnio() {
+        return this.anio;
+    }
+
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
+
+    @Column(name = "periodo")
+    public Integer getPeriodo() {
+        return this.periodo;
+    }
+
+    public void setPeriodo(Integer periodo) {
+        this.periodo = periodo;
+    }
+
     @Column(name = "codigo", nullable = false, length = 45)
     public String getCodigo() {
         return this.codigo;
@@ -64,16 +125,6 @@ public class Curso implements java.io.Serializable {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-
-    @Column(name = "numero_estudiantes")
-    public Integer getNumeroEstudiantes() {
-        return this.numeroEstudiantes;
-    }
-
-    public void setNumeroEstudiantes(Integer numeroEstudiantes) {
-        this.numeroEstudiantes = numeroEstudiantes;
-    }
-
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
     public Set<ActividadDocencia> getActividadDocencias() {
@@ -93,14 +144,17 @@ public class Curso implements java.io.Serializable {
     public void setParteDiarios(Set<ParteDiario> parteDiarios) {
         this.parteDiarios = parteDiarios;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
-    public Set<ResponsableCurso> getResponsableCursos() {
-        return this.responsableCursos;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "estudiante_has_curso", catalog = "naval", joinColumns = {
+        @JoinColumn(name = "curso_idcurso", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "estudiante_codigo", nullable = false, updatable = false)})
+    public Set<Estudiante> getEstudiantes() {
+        return this.estudiantes;
     }
 
-    public void setResponsableCursos(Set<ResponsableCurso> responsableCursos) {
-        this.responsableCursos = responsableCursos;
+    public void setEstudiantes(Set<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
     }
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")

@@ -38,6 +38,7 @@ public class Aula implements java.io.Serializable {
     private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
     private Set<Horario> horarios = new HashSet<Horario>(0);
     private Set<Solicitud> solicituds = new HashSet<Solicitud>(0);
+    private Set<Curso> cursos = new HashSet<Curso>(0);
 
     public Aula() {
     }
@@ -46,7 +47,7 @@ public class Aula implements java.io.Serializable {
         this.edificio = edificio;
     }
 
-    public Aula(Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Integer piso, Set<Mantenimiento> mantenimientos, Set<ParteDiario> parteDiarios, Set<Horario> horarios, Set<Solicitud> solicituds) {
+    public Aula(Edificio edificio, String nombre, String tipo, Integer capacidad, String estado, Boolean capacidadAudiovisual, Boolean tablero, Boolean videoBeam, Boolean tv, Integer piso, Set<Mantenimiento> mantenimientos, Set<ParteDiario> parteDiarios, Set<Horario> horarios, Set<Solicitud> solicituds, Set<Curso> cursos) {
         this.edificio = edificio;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -61,6 +62,7 @@ public class Aula implements java.io.Serializable {
         this.parteDiarios = parteDiarios;
         this.horarios = horarios;
         this.solicituds = solicituds;
+        this.cursos = cursos;
     }
 
     @Id
@@ -207,4 +209,13 @@ public class Aula implements java.io.Serializable {
         this.solicituds = solicituds;
     }
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
+    public Set<Curso> getCursos() {
+        return this.cursos;
+    }
+
+    public void setCursos(Set<Curso> cursos) {
+        this.cursos = cursos;
+    }
 }

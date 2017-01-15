@@ -67,6 +67,12 @@
                 "EDITAR": "Editar Edificio",
                 "LISTAR": "Listar Edificios"
             },
+             "estudiantes": {
+                "MAIN": "Estudiantes",
+                "CREAR": "Crear Estudiante",
+                "EDITAR": "Editar Estudiante",
+                "LISTAR": "Listar Estudiantes"
+            },
             "facultades": {
                 "MAIN": "Facultades",
                 "CREAR": "Crear Facultad",

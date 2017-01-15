@@ -24,6 +24,7 @@
     <bean class="naval.persistencia.dao.impl.RolDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.PermisosDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.ProgramaDAOImplHibernate" />
+    <bean class="naval.persistencia.dao.impl.EstudianteDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.AsignaturaDAOImplHibernate" />
     <bean class="naval.persistencia.dao.impl.JsonTransformerImplJackson" /> 
 </beans>

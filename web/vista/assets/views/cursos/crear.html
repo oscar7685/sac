@@ -2,7 +2,7 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.cursos.CREAR">EDITAR EDIFICIOS</h1>
+            <h1 class="mainTitle" translate="sidebar.nav.cursos.CREAR">CREAR CURSOS</h1>
             <span class="mainDescription">Formulario para crear Curso.</span>
         </div>
         <div ncy-breadcrumb></div>
@@ -27,12 +27,39 @@
                                 <input type="text" placeholder="Codigo Curso" id="codigo" name="codigo" class="form-control" ng-model="curso.codigo" required/>
                                 <span class="error text-small block" ng-if="Form2.codigo.$dirty && Form2.codigo.$dirty && Form2.codigo.$invalid">El campo codigo es requerido</span>
                             </div>
-                            <div class="form-group" ng-class="{'has-error':Form2.numeroEstudiantes.$dirty && Form2.numeroEstudiantes.$invalid, 'has-success':Form2.numeroEstudiantes.$valid}">
-                                <label for="numeroEstudiantes" class="control-label">
-                                    N° de Estudiantes <span class="symbol required"></span>
+                            <div class="form-group" ng-class="{'has-error':Form2.anio.$dirty && Form2.anio.$invalid, 'has-success':Form2.anio.$valid}">
+                                <label for="anio" class="control-label">
+                                    A&nacute;o <span class="symbol required"></span>
                                 </label>
-                                <input type="number" placeholder="N° de Estudiantes" id="numeroEstudiantes" name="numeroEstudiantes" class="form-control" ng-model="curso.numeroEstudiantes" ng-pattern="/^[0-9]*$/" required/>
-                                <span class="error text-small block" ng-if="Form2.numeroEstudiantes.$error.number">Numero no valido!</span>
+                                <input type="number" placeholder="Año" id="anio" name="anio" class="form-control" ng-model="curso.anio" ng-pattern="/^[0-9]*$/" required/>
+                                <span class="error text-small block" ng-if="Form2.anio.$error.number">A&nacute;o no valido!</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.periodo.$dirty && Form2.periodo.$invalid, 'has-success':Form2.periodo.$valid}">
+                                <label for="periodo">
+                                    Periodo <span class="symbol required"></span>
+                                </label>
+                                <select id="periodo"  name="periodo" class="form-control" ng-model="curso.periodo" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.periodo.$dirty && Form2.periodo.$dirty && Form2.periodo.$invalid">El campo periodo es requerido</span>  
+                            </div>
+                            <div class="form-group">
+                                <label for="programa">
+                                    Programa
+                                </label>
+                                <select id="programa" name="programa" class="form-control" ng-model="curso.programa.idprograma" ng-options="programa.idprograma as programa.nombre for programa in programas">
+                                    <option value="">&nbsp;</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="aula">
+                                    Aula                                    
+                                </label>
+                                <select id="aula" name="aula" class="form-control" ng-model="curso.aula.idaula" ng-options="aula.idaula as aula.nombre for aula in aulas">
+                                    <option value="">&nbsp;</option>
+                                </select>
                             </div>
                         </fieldset>
                     </div>
@@ -43,8 +70,8 @@
                     Crear Curso
                 </button>   
                 <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
-                     Resetear
-                 </button>
+                    Resetear
+                </button>
             </form>
         </div>
     </div>

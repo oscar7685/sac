@@ -6,12 +6,13 @@
 package naval.persistencia.dao;
 
 import com.naval.persistencia.dao.GenericDAO;
-import naval.dominio.ResponsableCurso;
+import naval.dominio.Estudiante;
+
 
 /**
  *
  * @author Oscar
  */
-public interface ResponsableCursoDAO extends GenericDAO<ResponsableCurso, Integer> {
+public interface EstudianteDAO extends GenericDAO<Estudiante, Integer> {
 
 }

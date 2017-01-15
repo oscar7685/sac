@@ -32,7 +32,6 @@ public class Usuario implements java.io.Serializable {
     private Set<Notificacion> notificacions = new HashSet<Notificacion>(0);
     private Set<Notificacion> notificacions_1 = new HashSet<Notificacion>(0);
     private Set<Mantenimiento> mantenimientosForTrabajador = new HashSet<Mantenimiento>(0);
-    private Set<ResponsableCurso> responsableCursos = new HashSet<ResponsableCurso>(0);
     private Set<Mantenimiento> mantenimientosForAprobadoPor = new HashSet<Mantenimiento>(0);
 
     public Usuario() {
@@ -43,7 +42,7 @@ public class Usuario implements java.io.Serializable {
         this.rol = rol;
     }
 
-    public Usuario(String usuario, Rol rol, String nombre, String apellido, String password, String estado, Set<Solicitud> solicituds, Set<Notificacion> notificacions, Set<Notificacion> notificacions_1, Set<Mantenimiento> mantenimientosForTrabajador, Set<ResponsableCurso> responsableCursos, Set<Mantenimiento> mantenimientosForAprobadoPor) {
+    public Usuario(String usuario, Rol rol, String nombre, String apellido, String password, String estado, Set<Solicitud> solicituds, Set<Notificacion> notificacions, Set<Notificacion> notificacions_1, Set<Mantenimiento> mantenimientosForTrabajador, Set<Mantenimiento> mantenimientosForAprobadoPor) {
         this.usuario = usuario;
         this.rol = rol;
         this.nombre = nombre;
@@ -54,7 +53,6 @@ public class Usuario implements java.io.Serializable {
         this.notificacions = notificacions;
         this.notificacions_1 = notificacions_1;
         this.mantenimientosForTrabajador = mantenimientosForTrabajador;
-        this.responsableCursos = responsableCursos;
         this.mantenimientosForAprobadoPor = mantenimientosForAprobadoPor;
     }
 
@@ -155,16 +153,6 @@ public class Usuario implements java.io.Serializable {
 
     public void setMantenimientosForTrabajador(Set<Mantenimiento> mantenimientosForTrabajador) {
         this.mantenimientosForTrabajador = mantenimientosForTrabajador;
-    }
-
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-    public Set<ResponsableCurso> getResponsableCursos() {
-        return this.responsableCursos;
-    }
-
-    public void setResponsableCursos(Set<ResponsableCurso> responsableCursos) {
-        this.responsableCursos = responsableCursos;
     }
 
     @JsonIgnore

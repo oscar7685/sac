@@ -182,7 +182,7 @@
             </div>
         </a>
         <ul class="sub-menu">
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-show="{{hasPermiso(12)}}">
                 <a ui-sref="app.cursos.crear">
                     <span class="title" translate="sidebar.nav.cursos.CREAR"> Crear Curso </span>
                 </a>
@@ -190,6 +190,31 @@
             <li ui-sref-active="active">
                 <a ui-sref="app.cursos.listar">
                     <span class="title" translate="sidebar.nav.cursos.LISTAR"> Listar Cursos </span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--ESTUDIANTES-->
+    <li ng-show="{{hasPermiso(34)}}" ng-class="{'active open':$state.includes('app.estudiantes')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-id-badge"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.estudiantes.MAIN"> Estudiantes</span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-show="{{hasPermiso(35)}}">
+                <a ui-sref="app.estudiantes.crear">
+                    <span class="title" translate="sidebar.nav.estudiantes.CREAR"> Crear Estudiante </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.estudiantes.listar">
+                    <span class="title" translate="sidebar.nav.estudiantes.LISTAR"> Listar Estudiantes </span>
                 </a>
             </li>
         </ul>

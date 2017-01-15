@@ -5,14 +5,17 @@
  */
 package naval.persistencia.dao.impl;
 
-import naval.persistencia.dao.ResponsableCursoDAO;
 import com.naval.persistencia.dao.impl.GenericDAOImplHibernate;
-import naval.dominio.ResponsableCurso;
+import naval.persistencia.dao.EstudianteDAO;
+import naval.dominio.Estudiante;
+
 
 /**
  *
  * @author Oscar
  */
-public class ResponsableCursoDAOImplHibernate extends GenericDAOImplHibernate<ResponsableCurso, Integer> implements ResponsableCursoDAO{
+public class EstudianteDAOImplHibernate extends GenericDAOImplHibernate<Estudiante, Integer> implements EstudianteDAO {
 
+    
+ 
 }

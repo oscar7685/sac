@@ -35,6 +35,7 @@ app.constant('JS_REQUIRES', {
         'aulas': 'assets/js/controllers/aulas.js',
         'facultadCtrl': 'assets/js/controllers/facultadCtrl.js',
         'programaCtrl': 'assets/js/controllers/programaCtrl.js',
+        'estudianteCtrl': 'assets/js/controllers/estudianteCtrl.js',
         'asignaturaCtrl': 'assets/js/controllers/asignaturaCtrl.js',
         'cropCtrl': 'assets/js/controllers/cropCtrl.js',
         'asideCtrl': 'assets/js/controllers/asideCtrl.js',

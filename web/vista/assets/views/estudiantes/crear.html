@@ -1,0 +1,70 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.estudiantes.CREAR">CREAR ESTUDIANTES</h1>
+            <span class="mainDescription">Formulario para crear Estudiantes.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="crearEstudianteCtrl">
+            <form name="Form2" novalidate ng-submit="form.submit(Form2)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Estudiantes
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form2.nombre.$dirty && Form2.nombre.$invalid, 'has-success':Form2.nombre.$valid}">
+                                <label for="nombres" class="control-label">
+                                    Nombres <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Nombres" id="nombre" name="nombre" class="form-control" ng-model="estudiante.nombres" required/>
+                                <span class="error text-small block" ng-if="Form2.nombre.$dirty && Form2.nombre.$dirty && Form2.nombre.$invalid">El campo nombres es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.apellidos.$dirty && Form2.apellidos.$invalid, 'has-success':Form2.apellidos.$valid}">
+                                <label for="nombres" class="control-label">
+                                    Apellidos <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Apellidos" id="apellidos" name="apellidos" class="form-control" ng-model="estudiante.apellidos" required/>
+                                <span class="error text-small block" ng-if="Form2.apellidos.$dirty && Form2.apellidos.$dirty && Form2.apellidos.$invalid">El campo apellidos es requerido</span>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Cursos
+                                </label>
+                                <ui-select multiple ng-model="multipleDemo.selectedCursos" theme="bootstrap" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Seleccione los curso...">
+                                        {{$item.codigo}} ({{$item.anio}} - {{$item.periodo}})
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="curso in cursos | propsFilter: {anio: $select.search, codigo: $select.search}">
+                                        <div ng-bind-html="curso.codigo | highlight: $select.search"></div>
+                                        <small> A&nacute;o: {{curso.anio}}
+                                            periodo: <span ng-bind-html="''+curso.periodo | highlight: $select.search"></span> </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+
+
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Crear Estudiante
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
+                    Resetear
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->
+
