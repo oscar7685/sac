@@ -64,6 +64,7 @@ app.controller('crearCursoCtrl2', ["$scope", "CursoFactory", "AulaFactory", "Pro
     }]);
 app.controller('editarCursoCtrl2', ["$scope", "$state", "$stateParams", "CursoFactory", "AulaFactory", "ProgramaFactory", "EstudianteFactory", "$location", "SweetAlert",
     function ($scope, $state, $stateParams, CursoFactory, AulaFactory, ProgramaFactory, EstudianteFactory, $location, SweetAlert) {
+        $scope.aux = null;
         AulaFactory.query().$promise.then(function (resultA) {
             $scope.aulas = resultA;
             ProgramaFactory.query().$promise.then(function (resultP) {
@@ -72,6 +73,9 @@ app.controller('editarCursoCtrl2', ["$scope", "$state", "$stateParams", "CursoFa
                     $scope.estudiantes = result3;
                     CursoFactory.get({idCurso: $stateParams.idcurso}).$promise.then(function (result) {
                         $scope.curso = result;
+                        if ($scope.curso.comandante !== null) {
+                            $scope.aux = $scope.curso.comandante;
+                        }
                         $scope.master = angular.copy($scope.curso);
                         $scope.form = {
                             submit: function (form) {
@@ -96,7 +100,7 @@ app.controller('editarCursoCtrl2', ["$scope", "$state", "$stateParams", "CursoFa
                                     return;
                                 } else {
                                     if (form.$valid) {
-
+                                        $scope.curso.comandante = $scope.aux;
                                         CursoFactory.update({idCurso: $scope.curso.idcurso}, $scope.curso).$promise.then(function () {
                                             $location.path("app/cursos/listar");
                                         }, function (bussinessMessages) {

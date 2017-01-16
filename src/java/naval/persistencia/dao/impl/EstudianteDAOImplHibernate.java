@@ -34,10 +34,12 @@ public class EstudianteDAOImplHibernate extends GenericDAOImplHibernate<Estudian
     public List<Estudiante> findEstudiantesxCurso(int idcurso) throws BussinessException {
         Session session = sessionFactory.getCurrentSession();
         try {
+            System.out.println("++++++++++++++++++++++++++++++++++++++++");
             Query query = session.createQuery("SELECT e FROM Estudiante e "
                     + "LEFT JOIN FETCH e.cursos c "
                     + "WHERE c.idcurso like :idc");
             query.setParameter("idc", idcurso);
+            System.out.println("++++++++++++++++++++++++++++++++++++++++"+query.toString());
             List<Estudiante> entities = query.list();
 
             return entities;

@@ -1,7 +1,10 @@
 package naval.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -23,15 +26,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "curso", catalog = "naval"
 )
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Curso implements java.io.Serializable {
 
     private Integer idcurso;
     private Aula aula;
-    private Estudiante estudiante;
     private Programa programa;
     private Integer anio;
     private Integer periodo;
     private String codigo;
+    private Integer comandante;
     private Set<ActividadDocencia> actividadDocencias = new HashSet<ActividadDocencia>(0);
     private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
     private Set<Estudiante> estudiantes = new HashSet<Estudiante>(0);
@@ -45,13 +49,13 @@ public class Curso implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    public Curso(Aula aula, Estudiante estudiante, Programa programa, Integer anio, Integer periodo, String codigo, Set<ActividadDocencia> actividadDocencias, Set<ParteDiario> parteDiarios, Set<Estudiante> estudiantes, Set<Horario> horarios) {
+    public Curso(Aula aula, Programa programa, Integer anio, Integer periodo, String codigo, Integer comandante, Set<ActividadDocencia> actividadDocencias, Set<ParteDiario> parteDiarios, Set<Estudiante> estudiantes, Set<Horario> horarios) {
         this.aula = aula;
-        this.estudiante = estudiante;
         this.programa = programa;
         this.anio = anio;
         this.periodo = periodo;
         this.codigo = codigo;
+        this.comandante = comandante;
         this.actividadDocencias = actividadDocencias;
         this.parteDiarios = parteDiarios;
         this.estudiantes = estudiantes;
@@ -79,17 +83,6 @@ public class Curso implements java.io.Serializable {
 
     public void setAula(Aula aula) {
         this.aula = aula;
-    }
-
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comandante_curso")
-    public Estudiante getEstudiante() {
-        return this.estudiante;
-    }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
     }
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -130,7 +123,15 @@ public class Curso implements java.io.Serializable {
         this.codigo = codigo;
     }
 
-    @JsonIgnore
+    @Column(name = "comandante")
+    public Integer getComandante() {
+        return this.comandante;
+    }
+
+    public void setComandante(Integer comandante) {
+        this.comandante = comandante;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
     public Set<ActividadDocencia> getActividadDocencias() {
         return this.actividadDocencias;
@@ -150,9 +151,8 @@ public class Curso implements java.io.Serializable {
         this.parteDiarios = parteDiarios;
     }
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "estudiante_has_curso", catalog = "naval", joinColumns = {
+    @JoinTable(name = "curso_has_estudiante", catalog = "naval", joinColumns = {
         @JoinColumn(name = "curso_idcurso", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "estudiante_codigo", nullable = false, updatable = false)})
     public Set<Estudiante> getEstudiantes() {
