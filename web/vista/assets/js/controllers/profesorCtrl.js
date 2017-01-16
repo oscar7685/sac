@@ -5,11 +5,13 @@
  */
 
 
-app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFactory", "$location", "SweetAlert", function ($scope, FacultadFactory, ProfesorFactory, $location, SweetAlert) {
+app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFactory", "$location", "SweetAlert", 
+    function ($scope, FacultadFactory, ProfesorFactory, $location, SweetAlert) {
         FacultadFactory.query().$promise.then(function (result) {
             $scope.facultades = result;
             $scope.profesor = {
                 idprofesor: "",
+                numeroId: "",
                 nombre: "",
                 codigo: "",
                 facultad: {

@@ -143,32 +143,6 @@
     </li>
 
 
-    <!--PROFESORES-->
-    <li ng-show="{{hasPermiso(3)}}" ng-class="{'active open':$state.includes('app.profesores')}">
-        <a href="javascript:void(0)">
-            <div class="item-content">
-                <div class="item-media">
-                    <i class="ti-bookmark"></i>
-                </div>
-                <div class="item-inner">
-                    <span class="title" translate="sidebar.nav.profesores.MAIN"> Profesores </span><i class="icon-arrow"></i>
-                </div>
-            </div>
-        </a>
-        <ul class="sub-menu">
-            <li ui-sref-active="active">
-                <a ui-sref="app.profesores.crear">
-                    <span class="title" translate="sidebar.nav.profesores.CREAR"> Crear Profesor </span>
-                </a>
-            </li>
-            <li ui-sref-active="active">
-                <a ui-sref="app.profesores.listar">
-                    <span class="title" translate="sidebar.nav.profesores.LISTAR"> Listar Profesores </span>
-                </a>
-            </li>
-
-        </ul>
-    </li>
     <!--CURSOS-->
     <li ng-show="{{hasPermiso(4)}}" ng-class="{'active open':$state.includes('app.cursos')}">
         <a href="javascript:void(0)">
@@ -219,6 +193,34 @@
             </li>
         </ul>
     </li>
+    
+      <!--PROFESORES-->
+    <li ng-show="{{hasPermiso(3)}}" ng-class="{'active open':$state.includes('app.profesores')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-bookmark"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.profesores.MAIN"> Profesores </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-show="{{hasPermiso(11)}}">
+                <a ui-sref="app.profesores.crear">
+                    <span class="title" translate="sidebar.nav.profesores.CREAR"> Crear Profesor </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.profesores.listar">
+                    <span class="title" translate="sidebar.nav.profesores.LISTAR"> Listar Profesores </span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+    
     <!--
      <li ng-class="{'active open':$state.includes('app.ui')}">
          <a href="javascript:void(0)">

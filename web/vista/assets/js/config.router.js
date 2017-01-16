@@ -850,6 +850,13 @@ app.factory('FacultadFactory', function ($resource) {
         }
     });
 });
+app.factory('ProfesorFactory', function ($resource) {
+    return $resource('/sac/api/Profesor/:idProfesor', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
 app.factory('ProgramaFactory', function ($resource) {
     return $resource('/sac/api/Programa/:idPrograma', null, {
         update: {

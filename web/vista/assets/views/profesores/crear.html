@@ -27,6 +27,24 @@
                                 <input type="text" placeholder="Código" id="codigo" name="codigo" class="form-control" ng-model="profesor.codigo" required/>
                                 <span class="error text-small block" ng-if="Form2.codigo.$dirty && Form2.codigo.$dirty && Form2.codigo.$invalid">El campo codigo es requerido</span>
                             </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.tipo.$dirty && Form2.tipo.$invalid, 'has-success':Form2.tipo.$valid}">
+                                <label for="tipo">
+                                    Tipo de Identificaci&oacute;n <span class="symbol required"></span>
+                                </label>
+                                <select id="tipo" name="tipo" class="form-control" ng-model="profesor.tipoId" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="CC">CC</option>
+                                    <option value="CE">CE</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.tipo.$dirty && Form2.tipo.$dirty && Form2.tipo.$invalid">El campo Tipo de Identificaci&oacute;n es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.numero.$dirty && Form2.numero.$invalid, 'has-success':Form2.numero.$valid}">
+                                <label for="numero" class="control-label">
+                                    Número de Identificaci&oacute;n <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Numero de Identificacion" id="numero" name="numero" class="form-control" ng-model="profesor.numeroId" required/>
+                                <span class="error text-small block" ng-if="Form2.numero.$dirty && Form2.numero.$dirty && Form2.numero.$invalid">El campo numero es requerido</span>
+                            </div>
                             <div class="form-group" ng-class="{'has-error':Form2.nombre.$dirty && Form2.nombre.$invalid, 'has-success':Form2.nombre.$valid}">
                                 <label for="nombre" class="control-label">
                                     Nombre Profesor <span class="symbol required"></span>

@@ -91,6 +91,10 @@ app.controller('crearProgramaCtrl', ["$scope", "ProgramaFactory", "$location", "
 
 app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "ProgramaFactory", "FacultadFactory", "AsignaturaFactory", "$location", "SweetAlert", "$filter",
     function ($scope, $state, $stateParams, ProgramaFactory, FacultadFactory, AsignaturaFactory, $location, SweetAlert, $filter) {
+        var filteredData = [];
+        var orderedData = [];
+        $scope.asignaturas =[];
+        $scope.facultades = [];
         FacultadFactory.query().$promise.then(function (result0) {
             $scope.facultades = result0;
             AsignaturaFactory.buscarA({idprograma: $stateParams.idprograma}).$promise.then(function (result3) {
@@ -101,15 +105,14 @@ app.controller('editarProgramaCtrl', ["$scope", "$state", "$stateParams", "Progr
                 });
             });
             $scope.getNumber = function (num) {
-                $scope.asignaturas
                 return new Array(num);
             };
             $scope.getAsignaturas = function (sem) {
-                var orderedData = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
+                orderedData = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
                 return orderedData.length;
             };
             $scope.getCreditos = function (sem) {
-                var filteredData = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
+                filteredData = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
                 var creditos = 0;
                 for (var i = 0; i < filteredData.length; i++) {
                     creditos += filteredData[i].creditos;
