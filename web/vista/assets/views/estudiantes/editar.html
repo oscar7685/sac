@@ -38,16 +38,19 @@
                                 <label>
                                     Cursos
                                 </label>
-                                <ui-select multiple ng-model="multipleDemo.selectedCursos" theme="bootstrap" ng-disabled="disabled">
-                                    <ui-select-match placeholder="Seleccione">
-                                        {{$item.codigo}} ({{$item.anio}} - {{$item.periodo}})
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="curso in cursos | propsFilter: {anio: $select.search, codigo: $select.search}">
-                                        <div ng-bind-html="curso.codigo | highlight: $select.search"></div>
-                                        <small> A&nacute;o: {{curso.anio}}
-                                            periodo: <span ng-bind-html="''+curso.periodo | highlight: $select.search"></span> </small>
-                                    </ui-select-choices>
-                                </ui-select>
+                                <ui-select multiple ng-model="estudiante.cursos" theme="bootstrap" ng-disabled="disabled">
+                                     <ui-select-match placeholder="Seleccione">
+                                         {{$item.codigo}} ({{$item.anio}} - {{$item.periodo}})
+                                     </ui-select-match>
+                                     <ui-select-choices repeat="curso in cursos | propsFilter: {anio: $select.search, codigo: $select.search}">
+                                         <div ng-bind-html="curso.codigo | highlight: $select.search"></div>
+                                         <small> A&nacute;o: {{curso.anio}}
+                                             periodo: <span ng-bind-html="''+curso.periodo | highlight: $select.search"></span> </small>
+                                     </ui-select-choices>
+                                 </ui-select>
+
+                              
+
                             </div>
 
 

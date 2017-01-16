@@ -61,16 +61,17 @@ app.controller('listEstudiantes', ["$scope", "$filter", "ngTableParams", "Estudi
 
     }]);
 app.controller('crearEstudianteCtrl', ["$scope", "EstudianteFactory", "CursoFactory", "$location", "SweetAlert", function ($scope, EstudianteFactory, CursoFactory, $location, SweetAlert) {
+        $scope.estudiante = {
+            codigo: "",
+            nombres: "",
+            apellidos: "",
+            cursos: []
+        };
+        $scope.curso = {};
+        $scope.cursos = [];
         CursoFactory.query().$promise.then(function (resultC) {
             $scope.cursos = resultC;
-            $scope.curso = {};
-            $scope.estudiante = {
-                codigo: "",
-                nombres: "",
-                apellidos: ""
-            };
-            $scope.multipleDemo = {};
-            $scope.multipleDemo.selectedCursos = [];
+
             $scope.master = angular.copy($scope.estudiante);
             $scope.form = {
                 submit: function (form) {
@@ -114,14 +115,19 @@ app.controller('crearEstudianteCtrl', ["$scope", "EstudianteFactory", "CursoFact
     }]);
 app.controller('editarEstudianteCtrl', ["$scope", "$state", "$stateParams", "EstudianteFactory", "CursoFactory", "$location", "SweetAlert",
     function ($scope, $state, $stateParams, EstudianteFactory, CursoFactory, $location, SweetAlert) {
+        $scope.estudiante = {
+            codigo: "",
+            nombres: "",
+            apellidos: "",
+            cursos: []
+        };
+        $scope.curso = {};
+        $scope.cursos = [];
         CursoFactory.query().$promise.then(function (resultC) {
             $scope.cursos = resultC;
-            $scope.curso = {};
             EstudianteFactory.get({codigo: $stateParams.codigo}).$promise.then(function (result) {
                 $scope.estudiante = result;
-                $scope.master = angular.copy($scope.facultad);
-                $scope.multipleDemo = {};
-                $scope.multipleDemo.selectedCursos = [$scope.estudiante.cursos];
+                $scope.master = angular.copy($scope.estudiante);
                 $scope.form = {
                     submit: function (form) {
                         var firstError = null;

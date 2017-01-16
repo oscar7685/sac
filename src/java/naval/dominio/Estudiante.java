@@ -2,6 +2,8 @@ package naval.dominio;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -73,7 +75,6 @@ public class Estudiante  implements java.io.Serializable {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-
 @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="estudiante_has_curso", catalog="naval", joinColumns = { 
         @JoinColumn(name="estudiante_codigo", nullable=false, updatable=false) }, inverseJoinColumns = { 
@@ -85,7 +86,7 @@ public class Estudiante  implements java.io.Serializable {
     public void setCursos(Set<Curso> cursos) {
         this.cursos = cursos;
     }
-
+@JsonIgnore
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estudiante")
     public Set<Curso> getCursos_1() {
         return this.cursos_1;

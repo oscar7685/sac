@@ -826,6 +826,11 @@ app.factory('EdificioFactory', function ($resource) {
 });
 app.factory('EstudianteFactory', function ($resource) {
     return $resource('/sac/api/Estudiante/:codigo', null, {
+        buscarC: {
+            method: 'GET',
+            url: '/sac/api/Estudiante/curso/:idcurso/',
+            isArray: true
+        },
         update: {
             method: 'PUT' // this method issues a PUT request
         }
@@ -840,13 +845,6 @@ app.factory('AulaFactory', function ($resource) {
 });
 app.factory('FacultadFactory', function ($resource) {
     return $resource('/sac/api/Facultad/:idFacultad', null, {
-        update: {
-            method: 'PUT' // this method issues a PUT request
-        }
-    });
-});
-app.factory('ProgramaFactory', function ($resource) {
-    return $resource('/sac/api/Programa/:idPrograma', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }

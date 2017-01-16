@@ -24,6 +24,7 @@
                     <tr ng-repeat="estudiante in $data">
                         <td ng-switch="{{hasPermiso(36)}}" data-title="'Nombre'" sortable="'nombre'">
                             <a ng-switch-when="true" ui-sref="app.estudiantes.editar({codigo:'{{estudiante.codigo}}'})">{{estudiante.nombres}}</a>
+                                                                                    
                             <span ng-switch-when="false">{{estudiante.nombres}}</span>
                         </td>
                         <td data-title="'Apellidos'" sortable="'apellidos'">{{estudiante.apellidos}}</td>

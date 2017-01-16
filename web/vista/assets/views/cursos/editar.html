@@ -61,6 +61,14 @@
                                     <option value="">&nbsp;</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="estudiante">
+                                    Comandante de curso
+                                </label>
+                                <select id="estudiante" name="estudiante" class="form-control" ng-model="curso.estudiante.codigo" ng-options="estudiante.codigo as estudiante.nombres for estudiante in estudiantes">
+                                    <option value="">&nbsp;</option>
+                                </select>
+                            </div>
                         </fieldset>
                     </div>
 

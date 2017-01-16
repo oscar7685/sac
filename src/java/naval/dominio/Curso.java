@@ -1,6 +1,7 @@
 package naval.dominio;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -69,6 +70,7 @@ public class Curso implements java.io.Serializable {
         this.idcurso = idcurso;
     }
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aula_idaula")
     public Aula getAula() {
@@ -79,6 +81,7 @@ public class Curso implements java.io.Serializable {
         this.aula = aula;
     }
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comandante_curso")
     public Estudiante getEstudiante() {
@@ -89,6 +92,7 @@ public class Curso implements java.io.Serializable {
         this.estudiante = estudiante;
     }
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "programa_idprograma", nullable = false)
     public Programa getPrograma() {
@@ -125,6 +129,7 @@ public class Curso implements java.io.Serializable {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
     public Set<ActividadDocencia> getActividadDocencias() {
@@ -144,6 +149,7 @@ public class Curso implements java.io.Serializable {
     public void setParteDiarios(Set<ParteDiario> parteDiarios) {
         this.parteDiarios = parteDiarios;
     }
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "estudiante_has_curso", catalog = "naval", joinColumns = {
@@ -156,6 +162,7 @@ public class Curso implements java.io.Serializable {
     public void setEstudiantes(Set<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
     public Set<Horario> getHorarios() {
