@@ -124,6 +124,10 @@ app.controller('editarCursoCtrl2', ["$scope", "$state", "$stateParams", "CursoFa
 app.controller('tablaCursoCtrl', ["$scope", "$filter", "CursoFactory", "ngTableParams", function ($scope, $filter, CursoFactory, ngTableParams) {
         CursoFactory.query().$promise.then(function (result) {
             $scope.data = result;
+            for (var i = 0; i < $scope.data.length; i++) {
+                $scope.data[i].numest = ""; //initialization of new property 
+                $scope.data[i].numest = $scope.data[i].estudiantes.length;  //set the data from nested obj into new property
+            }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
                 count: 5, // count per page

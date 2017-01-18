@@ -5,20 +5,49 @@
  */
 
 
-app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFactory", "$location", "SweetAlert", 
+app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFactory", "$location", "SweetAlert",
     function ($scope, FacultadFactory, ProfesorFactory, $location, SweetAlert) {
+        $scope.format = 'dd-MM-yyyy';
+        $scope.maxDate = new Date();
+
+        $scope.open = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = !$scope.opened;
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
+        };
+        $scope.profesor = {
+            idprofesor: "",
+            codigo: "",
+            tipoId: "",
+            numeroId: "",
+            primerNombre:"",
+            segundoNombre:"",
+            primerApellido:"",
+            segundoApellido:"",
+            nivelMaxFormacion:"",
+            fechaIngreso: "",
+            grado:"",
+            facultad: {
+                idfacultad: "",
+                facultad: ""
+            },
+            dedicacionDocente:"",
+            fechaNacimiento: "",
+            genero:"",
+            estadoCivil:"",
+            correo:"",
+            telefono:"",
+            tipoContrato:"",
+            duracionHoras:""
+        };
+
         FacultadFactory.query().$promise.then(function (result) {
             $scope.facultades = result;
-            $scope.profesor = {
-                idprofesor: "",
-                numeroId: "",
-                nombre: "",
-                codigo: "",
-                facultad: {
-                    idfacultad: "",
-                    facultad: ""
-                }
-            };
             $scope.master = angular.copy($scope.profesor);
             $scope.form = {
                 submit: function (form) {

@@ -325,7 +325,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Crear Profesores'
             },
-            resolve: loadSequence('profesorCtrl')
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin','profesorCtrl')
         }).state('app.profesores.listar', {
             url: '/listar',
             templateUrl: "assets/views/profesores/listar.html",

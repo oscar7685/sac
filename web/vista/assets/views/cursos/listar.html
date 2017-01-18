@@ -22,7 +22,13 @@
                 </p>
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
                     <tr ng-repeat="curso in $data">
-                        <td data-title="'Codigo'" sortable="'codigo'" filter="{'codigo': 'text'}"><a ui-sref="app.cursos.editar({idcurso:'{{curso.idcurso}}'})">{{curso.codigo}}</a></td>
+                        <td ng-switch="{{hasPermiso(20)}}" data-title="'Codigo'" sortable="'codigo'" filter="{'codigo': 'text'}">
+                            <a ng-switch-when="true" ui-sref="app.cursos.editar({idcurso:'{{curso.idcurso}}'})">{{curso.codigo}}</a>
+                            <span ng-switch-when="false">{{curso.codigo}}</span>
+                        </td>
+                        <td data-title="'Año'" sortable="'anio'" filter="{'anio': 'text'}">{{curso.anio}}</td>
+                        <td data-title="'Periodo'" sortable="'periodo'" filter="{'periodo': 'text'}">{{curso.periodo}}</td>
+                        <td data-title="'# Estudiantes'" sortable="'numest'" filter="{'numest': 'text'}">{{curso.numest}}</td>
                     </tr>
                 </table>
             </div>
