@@ -36,7 +36,7 @@ public class Profesor implements java.io.Serializable {
     private String primerApellido;
     private String segundoApellido;
     private String nivelMaxFormacion;
-    private String fechaIngreso;
+    private Date fechaIngreso;
     private String grado;
     private String dedicacionDocente;
     private Date fechaNacimiento;
@@ -66,7 +66,7 @@ public class Profesor implements java.io.Serializable {
         this.dedicacionDocente = dedicacionDocente;
     }
 
-    public Profesor(Facultad facultad, String codigo, String tipoId, String numeroId, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String nivelMaxFormacion, String fechaIngreso, String grado, String dedicacionDocente, Date fechaNacimiento, String genero, String estadoCivil, String correo, String telefono, String tipoContrato, String duracionHoras, Set<AdministracionAcademica> administracionAcademicas, Set<ActividadInvestigacion> actividadInvestigacions, Set<EstudiosRealizadosDocente> estudiosRealizadosDocentes, Set<ActividadDocencia> actividadDocencias, Set<OtrasActividades> otrasActividadeses, Set<ObservacionesGenerales> observacionesGeneraleses, Set<Horario> horarios, Set<SeguimientoActividades> seguimientoActividadeses) {
+    public Profesor(Facultad facultad, String codigo, String tipoId, String numeroId, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String nivelMaxFormacion, Date fechaIngreso, String grado, String dedicacionDocente, Date fechaNacimiento, String genero, String estadoCivil, String correo, String telefono, String tipoContrato, String duracionHoras, Set<AdministracionAcademica> administracionAcademicas, Set<ActividadInvestigacion> actividadInvestigacions, Set<EstudiosRealizadosDocente> estudiosRealizadosDocentes, Set<ActividadDocencia> actividadDocencias, Set<OtrasActividades> otrasActividadeses, Set<ObservacionesGenerales> observacionesGeneraleses, Set<Horario> horarios, Set<SeguimientoActividades> seguimientoActividadeses) {
         this.facultad = facultad;
         this.codigo = codigo;
         this.tipoId = tipoId;
@@ -173,7 +173,7 @@ public class Profesor implements java.io.Serializable {
         this.primerApellido = primerApellido;
     }
 
-    @Column(name = "segundo apellido", length = 45)
+    @Column(name = "segundo_apellido", length = 45)
     public String getSegundoApellido() {
         return this.segundoApellido;
     }
@@ -191,12 +191,13 @@ public class Profesor implements java.io.Serializable {
         this.nivelMaxFormacion = nivelMaxFormacion;
     }
 
-    @Column(name = "fecha_ingreso", length = 45)
-    public String getFechaIngreso() {
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_ingreso", length = 10)
+    public Date getFechaIngreso() {
         return this.fechaIngreso;
     }
 
-    public void setFechaIngreso(String fechaIngreso) {
+    public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -282,6 +283,7 @@ public class Profesor implements java.io.Serializable {
         this.duracionHoras = duracionHoras;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     public Set<AdministracionAcademica> getAdministracionAcademicas() {
         return this.administracionAcademicas;
@@ -291,6 +293,7 @@ public class Profesor implements java.io.Serializable {
         this.administracionAcademicas = administracionAcademicas;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     public Set<ActividadInvestigacion> getActividadInvestigacions() {
         return this.actividadInvestigacions;
@@ -300,6 +303,7 @@ public class Profesor implements java.io.Serializable {
         this.actividadInvestigacions = actividadInvestigacions;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     public Set<EstudiosRealizadosDocente> getEstudiosRealizadosDocentes() {
         return this.estudiosRealizadosDocentes;
@@ -309,6 +313,7 @@ public class Profesor implements java.io.Serializable {
         this.estudiosRealizadosDocentes = estudiosRealizadosDocentes;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     public Set<ActividadDocencia> getActividadDocencias() {
         return this.actividadDocencias;
@@ -318,6 +323,7 @@ public class Profesor implements java.io.Serializable {
         this.actividadDocencias = actividadDocencias;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     public Set<OtrasActividades> getOtrasActividadeses() {
         return this.otrasActividadeses;
@@ -327,6 +333,7 @@ public class Profesor implements java.io.Serializable {
         this.otrasActividadeses = otrasActividadeses;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     public Set<ObservacionesGenerales> getObservacionesGeneraleses() {
         return this.observacionesGeneraleses;
@@ -346,6 +353,7 @@ public class Profesor implements java.io.Serializable {
         this.horarios = horarios;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesor")
     public Set<SeguimientoActividades> getSeguimientoActividadeses() {
         return this.seguimientoActividadeses;

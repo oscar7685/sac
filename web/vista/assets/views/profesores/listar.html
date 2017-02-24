@@ -25,7 +25,7 @@
                     <tr ng-repeat="profesor in $data">
                         <td data-title="'Codigo'" sortable="'codigo'"> <a ui-sref="app.profesores.editar({idprofesor:'{{profesor.idprofesor}}'})">{{profesor.codigo}}</a></td>
                         <td data-title="'Nombre'" sortable="'nombre'" filter="{'nombre': 'text' }">{{profesor.nombre}}</td>
-                        <td data-title="'Facultad'" sortable="'facultad'">{{profesor.facultad.facultad}}</td>
+                        <!--<td data-title="'Facultad'" sortable="'facultad'">{{profesor.facultad.facultad}}</td>-->
                     </tr>
                 </table>
             </div>

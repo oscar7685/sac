@@ -36,24 +36,7 @@ public class ProfesorController {
     @Autowired
     private JsonTransformer jsonTransformer;
 
-    @RequestMapping({"/indexProfesor"})
-    public ModelAndView read(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> model = new HashMap<String, Object>();
-        String viewName;
-
-        try {
-            Profesor s = profesorDAO.get(1);
-//            model.put("texto", s.getNombre() + " " + s.getIdprofesor());
-            viewName = "aula";
-        } catch (BussinessException ex) {
-            model.put("msgError", "No es posible obtener los datos");
-            viewName = "error";
-        }
-
-        return new ModelAndView(viewName, model);
-    }
-
-    @RequestMapping(value = {"/Profesor"}, method = RequestMethod.GET, produces = "application/json")
+   @RequestMapping(value = {"/Profesor"}, method = RequestMethod.GET, produces = "application/json")
     public void find(HttpServletRequest httpRequest, HttpServletResponse httpServletResponse) throws IOException {
         try {
             List<Profesor> a2 = profesorDAO.findAll();
