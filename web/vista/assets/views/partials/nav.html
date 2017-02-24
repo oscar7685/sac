@@ -1,6 +1,6 @@
 <!-- start: MAIN NAVIGATION MENU -->
 <div class="navbar-title">
-    <span translate="sidebar.heading.NAVIGATION">Main Navigation</span>
+    <span translate="sidebar.heading.NAVIGATION">Menú Principal</span>
 </div>
 <ul class="main-navigation-menu">
     <li ui-sref-active="active">
@@ -10,7 +10,7 @@
                     <i class="ti-home"></i>
                 </div>
                 <div class="item-inner">
-                    <span class="title" translate="sidebar.nav.dashboard.MAIN"> Dashboard </span>
+                    <span class="title" translate="sidebar.nav.dashboard.MAIN"> Inicio </span>
                 </div>
             </div>
         </a>
@@ -220,7 +220,32 @@
 
         </ul>
     </li>
-    
+      <!--GRADUADOS-->
+    <li ng-show="{{hasPermiso(37)}}" ng-class="{'active open':$state.includes('app.graduados')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-anchor"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="sidebar.nav.graduados.MAIN"> Graduados </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-show="{{hasPermiso(38)}}">
+                <a ui-sref="app.graduados.crear">
+                    <span class="title" translate="sidebar.nav.graduados.CREAR"> Crear Graduado </span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.graduados.listar">
+                    <span class="title" translate="sidebar.nav.graduados.LISTAR"> Listar Graduados </span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
     <!--
      <li ng-class="{'active open':$state.includes('app.ui')}">
          <a href="javascript:void(0)">

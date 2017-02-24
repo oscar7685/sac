@@ -30,7 +30,8 @@ function ($rootScope, $state, $stateParams) {
             isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
             isFooterFixed: false, // true if you want to initialize the template with fixed footer
             theme: 'theme-1', // indicate the theme chosen for your project
-            logo: 'assets/images/logo.png', // relative path of the project logo
+            logo: 'assets/images/naval1.png', // relative path of the project logo
+            logoGrande: 'assets/images/naval0.png' // relative path of the project logo
         }
     };
     $rootScope.user = {

@@ -33,7 +33,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             abstract: true
         }).state('app.dashboard', {
             url: "/dashboard",
-            templateUrl: "assets/views/dashboard.html",
+            templateUrl: "assets/views/dashboard0.html",
             resolve: loadSequence('jquery-sparkline', 'dashboardCtrl'),
             title: 'Dashboard',
             ncyBreadcrumb: {
@@ -342,6 +342,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Editar Profesor'
             },
             resolve: loadSequence('profesorCtrl')
+        }).state('app.graduados', {
+            url: '/graduados',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Graduados',
+            ncyBreadcrumb: {
+                label: 'Graduados'
+            }
+        }).state('app.graduados.crear', {
+            url: '/crear',
+            templateUrl: "assets/views/graduados/crear.html",
+            title: 'Crear Graduados',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear graduados'
+            },
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin','graduadoCtrl')
+        }).state('app.graduados.listar', {
+            url: '/listar',
+            templateUrl: "assets/views/graduados/listar.html",
+            title: 'Listar Graduados',
+            ncyBreadcrumb: {
+                label: 'Listar Graduados'
+            },
+            resolve: loadSequence('ngTable', 'graduadoCtrl')
+        }).state('app.graduados.editar', {
+            url: '/editar:idgraduado',
+            templateUrl: "assets/views/graduados/editar.html",
+            title: 'Editar Graduado',
+            ncyBreadcrumb: {
+                label: 'Editar Graduado'
+            },
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin','graduadoCtrl')
         }).state('app.cursos', {
             url: '/cursos',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -852,6 +884,13 @@ app.factory('FacultadFactory', function ($resource) {
 });
 app.factory('ProfesorFactory', function ($resource) {
     return $resource('/sac/api/Profesor/:idProfesor', null, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+});
+app.factory('GraduadoFactory', function ($resource) {
+    return $resource('/sac/api/Graduado/:idGraduado', null, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }

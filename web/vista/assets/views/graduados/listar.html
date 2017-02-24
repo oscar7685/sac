@@ -1,0 +1,42 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.graduados.LISTAR">Lista de Graduados</h1>
+            <span class="mainDescription">Lista todos los egresados registrados en el sistema.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: SIMPLE TABLE WITH PAGINATION -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+            <div ng-controller="tablaGraduadosCtrl">
+                <p>
+                    Mostrando registros del {{ tableParams.total() > 0 ? (tableParams.page() * tableParams.count()) - (tableParams.count()) + 1 : 0}} 
+                    al {{(tableParams.page() * tableParams.count()) < tableParams.total() ? (tableParams.page() * tableParams.count()) : tableParams.total()}} 
+                    de un total de {{tableParams.total()}}
+
+                </p>
+                <table ng-table="tableParams" class="table table-striped" show-filter="true">
+                    <tr ng-repeat="graduado in $data">
+                         <td ng-switch="{{hasPermiso(39)}}" data-title="'Identificación'" sortable="'numeroId'" filter="{'numeroId': 'text' }">
+                            <a ng-switch-when="true" ui-sref="app.graduados.editar({idgraduado:'{{graduado.idgraduado}}'})">{{graduado.numeroId}}</a>
+                            <span ng-switch-when="false">{{graduado.numeroId}}</span>
+                        </td>   
+                        <td data-title="'Primer Nombre'" sortable="'primerNombre'" filter="{'primerNombre': 'text' }">{{graduado.primerNombre}}</td>
+                        <td data-title="'Primer Apellido'" sortable="'primerApellido'" filter="{'primerApellido': 'text' }">{{graduado.primerApellido}}</td>
+                        <td data-title="'Estado'" sortable="'estado'" filter="{'estado': 'text' }">{{graduado.estado}}</td>
+                        <td data-title="'Categoria'" sortable="'categoria'" filter="{'categoria': 'text' }">{{graduado.categoria}}</td>
+                        <td data-title="'Programa'" sortable="'progaux'" filter="{'progaux': 'text' }">{{graduado.progaux}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: SIMPLE TABLE WITH PAGINATION -->
+

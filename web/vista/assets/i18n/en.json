@@ -44,7 +44,7 @@
     },
     "sidebar": {
         "heading": {
-            "NAVIGATION": "Main Navigation",
+            "NAVIGATION": "Menú Principal",
             "FEATURES": "Core Features",
             "DOCUMENTATION": "Documentation"
         },
@@ -53,7 +53,7 @@
         },
         "nav": {
             "dashboard": {
-                "MAIN": "Dashboard"
+                "MAIN": "Inicio"
             },
             "aulas": {
                 "MAIN": "Aulas",
@@ -96,6 +96,12 @@
                 "CREAR": "Crear Profesor",
                 "EDITAR": "Editar Profesor",
                 "LISTAR": "Listar Profesores"
+            },
+            "graduados": {
+                "MAIN": "Graduados",
+                "CREAR": "Crear Graduado",
+                "EDITAR": "Editar Graduado",
+                "LISTAR": "Listar Graduados"
             },
             "cursos": {
                 "MAIN": "Cursos",

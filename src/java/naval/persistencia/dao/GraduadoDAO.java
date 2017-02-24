@@ -5,15 +5,13 @@
  */
 package naval.persistencia.dao;
 
-import com.naval.persistencia.dao.BussinessException;
 import com.naval.persistencia.dao.GenericDAO;
-import java.util.List;
-import naval.dominio.Profesor;
+import naval.dominio.Graduado;
 
 /**
  *
  * @author Oscar
  */
-public interface ProfesorDAO extends GenericDAO<Profesor, Integer> {
+public interface GraduadoDAO extends GenericDAO<Graduado, Integer> {
 
-   }
+}

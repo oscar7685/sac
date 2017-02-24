@@ -119,6 +119,10 @@ app.controller('editarUsuarioCtrl', ["$scope", "$state", "$stateParams", "Usuari
 app.controller('tablaUsuarioCtrl', ["$scope", "$filter", "UsuarioFactory", "ngTableParams", function ($scope, $filter, UsuarioFactory, ngTableParams) {
         UsuarioFactory.query().$promise.then(function (result) {
             $scope.data = result;
+            for (var i = 0; i < $scope.data.length; i++) {
+                $scope.data[i].rolaux = ""; //initialization of new property 
+                $scope.data[i].rolaux = $scope.data[i].rol.descripcion;  //set the data from nested obj into new property
+            }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
                 count: 5, // count per page

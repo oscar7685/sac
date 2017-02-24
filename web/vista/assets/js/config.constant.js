@@ -56,6 +56,7 @@ app.constant('JS_REQUIRES', {
         'chatCtrl': 'assets/js/controllers/chatCtrl.js',
         'dynamicTableCtrl': 'assets/js/controllers/dynamicTableCtrl.js',
         'profesorCtrl': ['assets/js/controllers/profesorCtrl.js'],
+        'graduadoCtrl': ['assets/js/controllers/graduadoCtrl.js'],
         'cursoCtrl': ['assets/js/controllers/cursoCtrl.js'],
         'loginCtrl': ['assets/js/controllers/loginCtrl.js'],
         'horarioAulaCtrl': ['assets/js/controllers/horarioAulaCtrl.js'],

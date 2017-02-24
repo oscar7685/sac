@@ -24,6 +24,7 @@
                     <tr ng-repeat="usuario in $data">
                         <td data-title="'Nombre'" sortable="'nombre'" filter="{'nombre': 'text'}"><a ui-sref="app.usuarios.editar({idusuario:'{{usuario.usuario}}'})">{{usuario.nombre}}</a></td>
                         <td data-title="'Apellidos'" sortable="'apellido'">{{usuario.apellido}}</td>
+                        <td data-title="'Rol'" sortable="'apellido'">{{usuario.rolaux}}</td>
                     </tr>
                 </table>
             </div>

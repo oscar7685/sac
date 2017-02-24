@@ -98,7 +98,7 @@
                                     <input type="text" id="fechaIngreso" name="fechaIngreso" class="form-control" datepicker-popup="{{format}}" is-open="opened"
                                            ng-model="profesor.fechaIngreso" min-date="1960-01-01" max-date="'2050-01-01'" 
                                            datepicker-options="dateOptions" ng-model="profesor.fechaIngreso"
-                                           ng-required="true" close-text="Cerrar" />
+                                           ng-required="false" close-text="Cerrar" />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open($event)">
                                             <i class="glyphicon glyphicon-calendar"></i>
@@ -141,12 +141,12 @@
                                     Fecha de nacimiento<span class="symbol required"></span>
                                 </label>
                                 <p class="input-group">
-                                    <input type="text" id="fechaNacimiento" name="fechaNacimiento" class="form-control" datepicker-popup="{{format}}" is-open="opened"
+                                    <input type="text" id="fechaNacimiento" name="fechaNacimiento" class="form-control" datepicker-popup="{{format}}" is-open="startOpened"
                                            ng-model="profesor.fechaNacimiento" min-date="1910-01-01" max-date="maxDate" 
                                            datepicker-options="dateOptions" ng-model="profesor.fechaNacimiento"
-                                           ng-required="true" close-text="Cerrar" />
+                                           ng-required="false" close-text="Cerrar" />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="open($event)">
+                                        <button type="button" class="btn btn-default" ng-click="startOpen($event)">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </button> 
                                     </span>

@@ -1,0 +1,168 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.graduados.CREAR">CREAR GRADUADOS</h1>
+            <span class="mainDescription">Formulario para crear Graduados.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FIELDSET -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12" ng-controller="crearGraduadoCtrl2">
+            <form id="Form2" name="Form2" novalidate ng-submit="form.submit(Form2)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                Graduado
+                            </legend>
+                            <div class="form-group" ng-class="{'has-error':Form2.primerNombre.$dirty && Form2.primerNombre.$invalid, 'has-success':Form2.primerNombre.$valid}">
+                                <label for="primerNombre" class="control-label">
+                                    Primer nombre <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Primer nombre" id="primerNombre" name="primerNombre" class="form-control" ng-model="graduado.primerNombre" required/>
+                                <span class="error text-small block" ng-if="Form2.primerNombre.$dirty && Form2.primerNombre.$dirty && Form2.primerNombre.$invalid">El campo primer nombre es requerido</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="segundoNombre" class="control-label">
+                                    Segundo nombre
+                                </label>
+                                <input type="text" placeholder="Segundo nombre" id="segundoNombre" name="segundoNombre" class="form-control" ng-model="graduado.segundoNombre"/>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.primerApellido.$dirty && Form2.primerApellido.$invalid, 'has-success':Form2.primerApellido.$valid}">
+                                <label for="primerApellido" class="control-label">
+                                    Primer apellido <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Primer apellido" id="primerApellido" name="primerApellido" class="form-control" ng-model="graduado.primerApellido" required/>
+                                <span class="error text-small block" ng-if="Form2.primerApellido.$dirty && Form2.primerApellido.$dirty && Form2.primerApellido.$invalid">El campo primer apellido es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.segundoApellido.$dirty && Form2.segundoApellido.$invalid, 'has-success':Form2.segundoApellido.$valid}">
+                                <label for="segundoApellido" class="control-label">
+                                    Segundo apellido <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Segundo apellido" id="segundoApellido" name="segundoApellido" class="form-control" ng-model="graduado.segundoApellido" required/>
+                                <span class="error text-small block" ng-if="Form2.segundoApellido.$dirty && Form2.segundoApellido.$dirty && Form2.segundoApellido.$invalid">El campo segundo apellido es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.tipoId.$dirty && Form2.tipoId.$invalid, 'has-success':Form2.tipoId.$valid}">
+                                <label for="tipoId">
+                                    Tipo de Identificaci&oacute;n <span class="symbol required"></span>
+                                </label>
+                                <select id="tipoId" name="tipoId" class="form-control" ng-model="graduado.tipoId" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="CC">CC</option>
+                                    <option value="CE">CE</option>
+                                    <option value="TI">TI</option>
+                                    <option value="PS">PS</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.tipoId.$dirty && Form2.tipoId.$dirty && Form2.tipoId.$invalid">El campo Tipo de Identificaci&oacute;n es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.numeroId.$dirty && Form2.numeroId.$invalid, 'has-success':Form2.numeroId.$valid}">
+                                <label for="numeroId" class="control-label">
+                                    Número de Identificaci&oacute;n <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Numero de Identificacion" id="numeroId" name="numeroId" class="form-control" ng-model="graduado.numeroId" required/>
+                                <span class="error text-small block" ng-if="Form2.numeroId.$dirty && Form2.numeroId.$dirty && Form2.numeroId.$invalid">El campo numero de identificación es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.categoria.$dirty && Form2.categoria.$invalid, 'has-success':Form2.categoria.$valid}">
+                                <label for="categoria">
+                                    Categoria <span class="symbol required"></span>
+                                </label>
+                                <select id="categoria" name="categoria" class="form-control" ng-model="graduado.categoria" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="CIVIL">CIVIL</option>
+                                    <option value="OFICIAL">OFICIAL</option>
+                                    <option value="OFICIAL RETIRADO">OFICIAL RETIRADO</option>
+                                    <option value="MERCANTE">MERCANTE</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.categoria.$dirty && Form2.categoria.$dirty && Form2.categoria.$invalid">El campo categoria es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.programa.$dirty && Form2.programa.$invalid, 'has-success':Form2.programa.$valid}">
+                                <label for="programa">
+                                    Programa <span class="symbol required"></span>
+                                </label>
+                                <select id="programa" name="programa" class="form-control" ng-model="graduado.programa.idprograma" ng-options="programa.idprograma as programa.nombre for programa in programas"  required>
+                                    <option value="">&nbsp;</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.edificio.$dirty && Form2.edificio.$dirty && Form2.edificio.$invalid">El campo edificio es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.estado.$dirty && Form2.estado.$invalid, 'has-success':Form2.estado.$valid}">
+                                <label for="estado">
+                                    Estado <span class="symbol required"></span>
+                                </label>
+                                <select id="estado" name="estado" class="form-control" ng-model="graduado.estado" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="GRADUADO">GRADUADO</option>
+                                    <option value="EGRESADO">EGRESADO</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.estado.$dirty && Form2.estado.$dirty && Form2.estado.$invalid">El campo estado es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.fechaGrado.$dirty && Form2.fechaGrado.$invalid, 'has-success':Form2.fechaGrado.$valid}">
+                                <label for="fechaGrado" class="control-label">
+                                    Fecha de grado
+                                </label>
+                                <p class="input-group">
+                                    <input type="text" id="fechaGrado" name="fechaGrado" class="form-control" datepicker-popup="{{format}}" is-open="opened"
+                                           ng-model="graduado.fechaGrado" min-date="1960-01-01" max-date="'2050-01-01'" 
+                                           datepicker-options="dateOptions" ng-model="graduado.fechaGrado"
+                                           close-text="Cerrar" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button> 
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.correoElectronico.$dirty && Form2.correoElectronico.$invalid, 'has-success':Form2.correoElectronico.$valid}">
+                                <label for="correoElectronico" class="control-label">
+                                    Correo electr&oacute;nico <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Correo" id="correoElectronico" name="correoElectronico"  class="form-control" ng-model="graduado.correoElectronico" required/>
+                                <span class="error text-small block" ng-if="Form2.correoElectronico.$dirty && Form2.correoElectronico.$dirty && Form2.correoElectronico.$invalid">El campo correo electrónico es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.celular.$dirty && Form2.celular.$invalid, 'has-success':Form2.celular.$valid}">
+                                <label for="celular" class="control-label">
+                                    Celular <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Celular" id="celular" name="celular"  class="form-control" ng-model="graduado.celular" required/>
+                                <span class="error text-small block" ng-if="Form2.celular.$dirty && Form2.celular.$dirty && Form2.celular.$invalid">El campo celular es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.direccion.$dirty && Form2.direccion.$invalid, 'has-success':Form2.direccion.$valid}">
+                                <label for="direccion" class="control-label">
+                                    Direcci&oacute;n <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Dirección" id="direccion" name="direccion"  class="form-control" ng-model="graduado.direccion" required/>
+                                <span class="error text-small block" ng-if="Form2.direccion.$dirty && Form2.direccion.$dirty && Form2.direccion.$invalid">El campo dirección es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.empresaDondeLabora.$dirty && Form2.empresaDondeLabora.$invalid, 'has-success':Form2.empresaDondeLabora.$valid}">
+                                <label for="empresaDondeLabora" class="control-label">
+                                    Empresa donde labora <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Empresa donde labora" id="empresaDondeLabora" name="empresaDondeLabora"  class="form-control" ng-model="graduado.empresaDondeLabora" required/>
+                                <span class="error text-small block" ng-if="Form2.empresaDondeLabora.$dirty && Form2.empresaDondeLabora.$dirty && Form2.direccion.$invalid">El campo empresa donde labora es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.cargo.$dirty && Form2.cargo.$invalid, 'has-success':Form2.cargo.$valid}">
+                                <label for="cargo" class="control-label">
+                                    Cargo <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Cargo" id="cargo" name="cargo"  class="form-control" ng-model="graduado.cargo" required/>
+                                <span class="error text-small block" ng-if="Form2.cargo.$dirty && Form2.cargo.$dirty && Form2.cargo.$invalid">El campo cargo es requerido</span>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </div>
+                <button class="btn btn-o btn-primary" type="submit">
+                    Crear Graduado
+                </button>   
+                <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
+                    Resetear
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: FIELDSET -->

@@ -5,8 +5,8 @@
  */
 
 
-app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFactory", "$location", "SweetAlert",
-    function ($scope, FacultadFactory, ProfesorFactory, $location, SweetAlert) {
+app.controller('crearGraduadoCtrl2', ["$scope", "GraduadoFactory", "ProgramaFactory", "$location", "SweetAlert",
+    function ($scope, GraduadoFactory, ProgramaFactory, $location, SweetAlert) {
         $scope.format = 'dd-MM-yyyy';
         $scope.maxDate = new Date();
 
@@ -16,45 +16,32 @@ app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFact
             $scope.opened = !$scope.opened;
         };
 
-        $scope.startOpen = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.startOpened = !$scope.startOpened;
-        };
-
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1
         };
-        $scope.profesor = {
-            idprofesor: "",
-            codigo: "",
-            tipoId: "",
-            numeroId: "",
+        $scope.graduado = {
+            idgraduado: "",
+            programa: "",
             primerNombre: "",
             segundoNombre: "",
             primerApellido: "",
             segundoApellido: "",
-            nivelMaxFormacion: "",
-            fechaIngreso: "",
-            grado: "",
-            facultad: {
-                idfacultad: "",
-                facultad: ""
-            },
-            dedicacionDocente: "",
-            fechaNacimiento: "",
-            genero: "",
-            estadoCivil: "",
-            correo: "",
-            telefono: "",
-            tipoContrato: "",
-            duracionHoras: ""
+            tipoId: "",
+            numeroId: "",
+            categoria: "",
+            estado: "",
+            fechaGrado: "",
+            correoElectronico: "",
+            celular: "",
+            direccion: "",
+            empresaDondeLabora: "",
+            cargo: ""
         };
 
-        FacultadFactory.query().$promise.then(function (result) {
-            $scope.facultades = result;
-            $scope.master = angular.copy($scope.profesor);
+        ProgramaFactory.query().$promise.then(function (result) {
+            $scope.programas = result;
+            $scope.master = angular.copy($scope.graduado);
             $scope.form = {
                 submit: function (form) {
                     var firstError = null;
@@ -74,22 +61,22 @@ app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFact
                         }
 
                         angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                        SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+                        SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                         return;
                     } else {
                         if (form.$valid) {
-                            ProfesorFactory.save($scope.profesor).$promise.then(function () {
-                                $location.path("app/profesores/listar");
+                            GraduadoFactory.save($scope.graduado).$promise.then(function () {
+                                $location.path("app/graduados/listar");
                             }, function (bussinessMessages) {
                                 $scope.bussinessMessages = bussinessMessages;
                             });
-                            // SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                            //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                         }
                     }
 
                 },
                 reset: function (form) {
-                    $scope.profesor = angular.copy($scope.master);
+                    $scope.graduado = angular.copy($scope.master);
                     form.$setPristine(true);
                 }
             };
@@ -97,13 +84,13 @@ app.controller('crearProfesorCtrl2', ["$scope", "FacultadFactory", "ProfesorFact
     }]);
 
 
-app.controller('editarProfesorCtrl2', ["$scope", "$state", "$stateParams", "FacultadFactory", "ProfesorFactory", "$location", "SweetAlert",
-    function ($scope, $state, $stateParams, FacultadFactory, ProfesorFactory, $location, SweetAlert) {
-        ProfesorFactory.get({idProfesor: $stateParams.idprofesor}).$promise.then(function (result) {
-            $scope.profesor = result;
-            $scope.master = angular.copy($scope.profesor);
-            FacultadFactory.query().$promise.then(function (result2) {
-                $scope.facultades = result2;
+app.controller('editarGraduadoCtrl2', ["$scope", "$state", "$stateParams", "GraduadoFactory", "ProgramaFactory", "$location", "SweetAlert",
+    function ($scope, $state, $stateParams, GraduadoFactory, ProgramaFactory, $location, SweetAlert) {
+        GraduadoFactory.get({idGraduado: $stateParams.idgraduado}).$promise.then(function (result) {
+            $scope.graduado = result;
+            $scope.master = angular.copy($scope.graduado);
+            ProgramaFactory.query().$promise.then(function (result2) {
+                $scope.programas = result2;
                 $scope.form = {
                     submit: function (form) {
                         var firstError = null;
@@ -123,23 +110,23 @@ app.controller('editarProfesorCtrl2', ["$scope", "$state", "$stateParams", "Facu
                             }
 
                             angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                            SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+                            SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                             return;
                         } else {
                             if (form.$valid) {
 
-                                ProfesorFactory.update({idProfesor: $scope.profesor.idprofesor}, $scope.profesor).$promise.then(function () {
-                                    $location.path("app/profesores/listar");
+                                GraduadoFactory.update({idGraduado: $scope.graduado.idgraduado}, $scope.graduado).$promise.then(function () {
+                                    $location.path("app/graduados/listar");
                                 }, function (bussinessMessages) {
                                     $scope.bussinessMessages = bussinessMessages;
                                 });
-                                SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                                //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                             }
                         }
 
                     },
                     reset: function (form) {
-                        $scope.profesor = angular.copy($scope.master);
+                        $scope.graduado = angular.copy($scope.master);
                         form.$setPristine(true);
                     }
                 };
@@ -150,9 +137,13 @@ app.controller('editarProfesorCtrl2', ["$scope", "$state", "$stateParams", "Facu
     }]);
 
 
-app.controller('tablaProfesoresCtrl', ["$scope", "$filter", "ProfesorFactory", "ngTableParams", function ($scope, $filter, ProfesorFactory, ngTableParams) {
-        ProfesorFactory.query().$promise.then(function (result) {
+app.controller('tablaGraduadosCtrl', ["$scope", "$filter", "GraduadoFactory", "ngTableParams", function ($scope, $filter, GraduadoFactory, ngTableParams) {
+        GraduadoFactory.query().$promise.then(function (result) {
             $scope.data = result;
+            for (var i = 0; i < $scope.data.length; i++) {
+                $scope.data[i].progaux = ""; //initialization of new property 
+                $scope.data[i].progaux = $scope.data[i].programa.nombre;  //set the data from nested obj into new property
+            }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
                 count: 5, // count per page
