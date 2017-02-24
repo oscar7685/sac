@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50542
 File Encoding         : 65001
 
-Date: 2017-01-16 11:03:52
+Date: 2017-02-24 12:51:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -286,7 +286,7 @@ CREATE TABLE `curso` (
 -- Records of curso
 -- ----------------------------
 INSERT INTO `curso` VALUES ('1', '2017', '1', 'IN1', '1', '2', null);
-INSERT INTO `curso` VALUES ('2', '2017', '1', 'CCPCN', '40', '2', '28');
+INSERT INTO `curso` VALUES ('2', '2017', '1', 'CCPCN', '40', '2', '26');
 
 -- ----------------------------
 -- Table structure for curso_has_estudiante
@@ -506,7 +506,7 @@ INSERT INTO `facultad` VALUES ('8', 'DECANATURA');
 -- ----------------------------
 DROP TABLE IF EXISTS `graduado`;
 CREATE TABLE `graduado` (
-  `idgraduado` int(11) NOT NULL,
+  `idgraduado` int(11) NOT NULL AUTO_INCREMENT,
   `primer_nombre` varchar(45) DEFAULT NULL,
   `segundo_nombre` varchar(45) DEFAULT NULL,
   `primer_apellido` varchar(45) DEFAULT NULL,
@@ -525,11 +525,13 @@ CREATE TABLE `graduado` (
   PRIMARY KEY (`idgraduado`),
   KEY `fk_graduado_programa1_idx` (`programa_idprograma`),
   CONSTRAINT `fk_graduado_programa1` FOREIGN KEY (`programa_idprograma`) REFERENCES `programa` (`idprograma`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of graduado
 -- ----------------------------
+INSERT INTO `graduado` VALUES ('1', 'Merly', 'Patrcia', 'Liñan', 'Jaraba', 'CC', '33101730', 'OFICIAL', '2', 'GRADUADO', '2016-12-15', 'mlinanj@enap.com', '3001234567', 'canapote', 'Universidad de Cartagena', 'Jefe de División');
+INSERT INTO `graduado` VALUES ('2', 'Alix', 'Patricia', 'Anaya', 'Quiroz', 'CC', '10471234854', 'CIVIL', '2', 'GRADUADO', '2016-11-30', 'alix@gmail.com', '3001234567', 'torices calle 1 carrera 3 #24A', 'CBI', 'Coordinador de Almacen');
 
 -- ----------------------------
 -- Table structure for hora
@@ -786,6 +788,9 @@ INSERT INTO `permisos` VALUES ('33', 'Editar Asignaturas');
 INSERT INTO `permisos` VALUES ('34', 'Listar Estudiantes');
 INSERT INTO `permisos` VALUES ('35', 'Crear Estudiantes');
 INSERT INTO `permisos` VALUES ('36', 'Editar Estudiantes');
+INSERT INTO `permisos` VALUES ('37', 'Listar Graduados');
+INSERT INTO `permisos` VALUES ('38', 'Crear Graduados');
+INSERT INTO `permisos` VALUES ('39', 'Editar Graduados');
 
 -- ----------------------------
 -- Table structure for profesor
@@ -799,9 +804,9 @@ CREATE TABLE `profesor` (
   `primer_nombre` varchar(45) NOT NULL,
   `segundo_nombre` varchar(45) DEFAULT NULL,
   `primer_apellido` varchar(45) DEFAULT NULL,
-  `segundo apellido` varchar(45) DEFAULT NULL,
+  `segundo_apellido` varchar(45) DEFAULT NULL,
   `nivel_max_formacion` varchar(45) DEFAULT NULL,
-  `fecha_ingreso` varchar(45) DEFAULT NULL,
+  `fecha_ingreso` date DEFAULT NULL,
   `grado` varchar(45) DEFAULT NULL,
   `facultad_idfacultad` int(11) NOT NULL,
   `dedicacion_docente` varchar(45) NOT NULL,
@@ -815,11 +820,12 @@ CREATE TABLE `profesor` (
   PRIMARY KEY (`idprofesor`),
   KEY `fk_profesor_facultad1_idx` (`facultad_idfacultad`),
   CONSTRAINT `fk_profesor_facultad1` FOREIGN KEY (`facultad_idfacultad`) REFERENCES `facultad` (`idfacultad`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of profesor
 -- ----------------------------
+INSERT INTO `profesor` VALUES ('1', 'INGLES', 'CC', '78945562', 'JUAN', 'SEBASTIAN', 'VARGAS', 'PACHECO', 'DOCTORADO', '2004-10-26', 'GRADO1', '1', 'Catedra', '1994-10-26', 'Masculino', 'SOLTERO', 'juan@gmail.com', '6333333', 'HORAS', '20');
 
 -- ----------------------------
 -- Table structure for profesor_h
@@ -963,6 +969,9 @@ INSERT INTO `rol_has_permisos` VALUES ('1', '33');
 INSERT INTO `rol_has_permisos` VALUES ('1', '34');
 INSERT INTO `rol_has_permisos` VALUES ('1', '35');
 INSERT INTO `rol_has_permisos` VALUES ('1', '36');
+INSERT INTO `rol_has_permisos` VALUES ('1', '37');
+INSERT INTO `rol_has_permisos` VALUES ('1', '38');
+INSERT INTO `rol_has_permisos` VALUES ('1', '39');
 
 -- ----------------------------
 -- Table structure for seguimiento_actividades
