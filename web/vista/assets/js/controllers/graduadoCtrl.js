@@ -9,7 +9,15 @@ app.controller('crearGraduadoCtrl2', ["$scope", "GraduadoFactory", "ProgramaFact
     function ($scope, GraduadoFactory, ProgramaFactory, $location, SweetAlert) {
         $scope.format = 'dd-MM-yyyy';
         $scope.maxDate = new Date();
-
+        $scope.graduadoEstado = true;
+        $scope.$watch('graduado.estado', function (newValue, oldValue) {
+            console.log()
+            if (newValue === 'GRADUADO') {
+                $scope.graduadoEstado = false;
+            } else {
+                $scope.graduadoEstado = true;
+            }
+        });
         $scope.open = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();

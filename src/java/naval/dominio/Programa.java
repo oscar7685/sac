@@ -73,7 +73,7 @@ public class Programa implements java.io.Serializable {
         this.facultad = facultad;
     }
 
-    @Column(name = "nombre", nullable = false, length = 45)
+    @Column(name = "nombre", nullable = false, length = 255)
     public String getNombre() {
         return this.nombre;
     }

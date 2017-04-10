@@ -105,12 +105,12 @@
                                     Fecha de grado
                                 </label>
                                 <p class="input-group">
-                                    <input type="text" id="fechaGrado" name="fechaGrado" class="form-control" datepicker-popup="{{format}}" is-open="opened"
+                                    <input type="text" ng-disabled="graduadoEstado" id="fechaGrado" name="fechaGrado" class="form-control" datepicker-popup="{{format}}" is-open="opened"
                                            ng-model="graduado.fechaGrado" min-date="1960-01-01" max-date="'2050-01-01'" 
-                                           datepicker-options="dateOptions" ng-model="graduado.fechaGrado"
+                                           datepicker-options="dateOptions"
                                            close-text="Cerrar" />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="open($event)">
+                                        <button type="button" class="btn btn-default" ng-disabled="graduadoEstado" ng-click="open($event)">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </button> 
                                     </span>
@@ -142,7 +142,7 @@
                                     Empresa donde labora <span class="symbol required"></span>
                                 </label>
                                 <input type="text" placeholder="Empresa donde labora" id="empresaDondeLabora" name="empresaDondeLabora"  class="form-control" ng-model="graduado.empresaDondeLabora" required/>
-                                <span class="error text-small block" ng-if="Form2.empresaDondeLabora.$dirty && Form2.empresaDondeLabora.$dirty && Form2.direccion.$invalid">El campo empresa donde labora es requerido</span>
+                                <span class="error text-small block" ng-if="Form2.empresaDondeLabora.$dirty && Form2.empresaDondeLabora.$dirty && Form2.empresaDondeLabora.$invalid">El campo empresa donde labora es requerido</span>
                             </div>
                             <div class="form-group" ng-class="{'has-error':Form2.cargo.$dirty && Form2.cargo.$invalid, 'has-success':Form2.cargo.$valid}">
                                 <label for="cargo" class="control-label">
