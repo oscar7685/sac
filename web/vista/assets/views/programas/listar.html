@@ -22,10 +22,11 @@
                 </p>
                 <table ng-table="tableParams" class="table table-striped" show-filter="true">
                     <tr ng-repeat="programa in $data">
-                        <td ng-switch="{{hasPermiso(30)}}" data-title="'Programa'" sortable="'programa'" filter="{'programa': 'text'}">
+                        <td ng-switch="{{hasPermiso(30)}}" data-title="'Programa'" sortable="'nombre'" filter="{'nombre': 'text'}">
                             <a ng-switch-when="true" ui-sref="app.programas.editar({idprograma:'{{programa.idprograma}}'})">{{programa.nombre}}</a>
                             <span ng-switch-when="false">{{programa.nombre}}</span>
                         </td>
+                        <td data-title="'Nivel de formación'" sortable="'nivelFormacion'" filter="{'nivelFormacion': 'text' }">{{programa.nivelFormacion}}</td>
                     </tr>
                 </table>
             </div>

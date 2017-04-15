@@ -26,40 +26,40 @@
                 <tabset class="tabbable">
                     <!-- start: TAB OVERVIEW -->
                     <tab heading="Detalle">
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="3">Detalles del Programa</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Nombre</td>
-                                            <td>
-                                                {{programa.nombre}}
-                                        </tr>
-                                        <tr>
-                                            <td>Modalidad</td>
-                                            <td>
-                                                {{programa.modalidad}}
-                                        </tr>
-                                        <tr>
-                                            <td>Nivel de formación</td>
-                                            <td>{{programa.nivelFormacion}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Facultad </td>
-                                            <td>
-                                                {{programa.facultad.facultad}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="text-right">
-                                    <a class="btn btn-primary btn-o btn-wide" href="#" ng-click="editActive = true">
-                                        Editar Programa
-                                    </a>
-                                </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Detalles del Programa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>
+                                        {{programa.nombre}}
+                                </tr>
+                                <tr>
+                                    <td>Modalidad</td>
+                                    <td>
+                                        {{programa.modalidad}}
+                                </tr>
+                                <tr>
+                                    <td>Nivel de formación</td>
+                                    <td>{{programa.nivelFormacion}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Facultad </td>
+                                    <td>
+                                        {{programa.facultad.facultad}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-o btn-wide" href="#" ng-click="editActive = true">
+                                Editar Programa
+                            </a>
+                        </div>
                     </tab>
                     <!-- end: TAB OVERVIEW -->
                     <!-- start: TAB EDIT ACCOUNT -->
@@ -127,7 +127,7 @@
                     <!-- end: TAB EDIT ACCOUNT -->
                     <!-- start: TAB PROJECTS -->
                     <tab heading="Plan de estudios">
-                        <div style="height: 700px;width:180px;float:left" ng-repeat="i in getNumber(8) track by $index">
+                        <!--<div style="height: 700px;width:180px;float:left" ng-repeat="i in getNumber(8) track by $index">
                             <div class="inbox ng-scope col-md-1" style="margin: 0 !important">
                                 <div class="col email-list">
                                     <div class="wrap-list" style="width: 180px !important">
@@ -157,6 +157,33 @@
                                             </li>
                                         </ul>
                                     </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="container-fluid container-fullw">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5 class="over-title margin-bottom-15"><span class="text-bold">Plan de estudios</span></h5>
+                                    <accordion close-others="false" class="accordion">
+                                        <accordion-group heading="{{getTitulo($index)}}" ng-repeat="i in getNumber(maxSemestre) track by $index">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center" colspan="2"> {{getTitulo($index) | uppercase}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Asignatura</th>
+                                                        <th>Creditos</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr ng-repeat="asignatura in asignaturas| filter:{semestre:$index+1}">
+                                                    <td>{{asignatura.nombre}}</td>
+                                                    <td>{{asignatura.creditos}}</td>
+                                                </tr>
+                                            </table>
+                                        </accordion-group>
+                                    </accordion>
                                 </div>
                             </div>
                         </div>

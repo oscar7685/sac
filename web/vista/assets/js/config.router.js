@@ -149,7 +149,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Editar Programa'
             },
-            resolve: loadSequence('programaCtrl')
+            resolve: loadSequence('ngTable','programaCtrl')
         }).state('app.estudiantes', {
             url: '/estudiantes',
             template: '<div ui-view class="fade-in-up"></div>',
