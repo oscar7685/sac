@@ -23,28 +23,33 @@ import javax.persistence.Table;
 public class Asignatura implements java.io.Serializable {
 
     private Integer idasignatura;
-    private Programa programa;
+    private Programa programaByProgramaIdprograma;
+    private Programa programaByProgramaEspecialidad;
     private String nombre;
     private String codigo;
     private Integer creditos;
     private Integer semestre;
     private Integer ubicacion;
+    private String tipo;
     private Set<ActividadDocencia> actividadDocencias = new HashSet<ActividadDocencia>(0);
 
     public Asignatura() {
     }
 
-    public Asignatura(Programa programa) {
-        this.programa = programa;
+    public Asignatura(Programa programaByProgramaIdprograma, String nombre) {
+        this.programaByProgramaIdprograma = programaByProgramaIdprograma;
+        this.nombre = nombre;
     }
 
-    public Asignatura(Programa programa, String nombre, String codigo, Integer creditos, Integer semestre, Integer ubicacion, Set<ActividadDocencia> actividadDocencias) {
-        this.programa = programa;
+    public Asignatura(Programa programaByProgramaIdprograma, Programa programaByProgramaEspecialidad, String nombre, String codigo, Integer creditos, Integer semestre, Integer ubicacion, String tipo, Set<ActividadDocencia> actividadDocencias) {
+        this.programaByProgramaIdprograma = programaByProgramaIdprograma;
+        this.programaByProgramaEspecialidad = programaByProgramaEspecialidad;
         this.nombre = nombre;
         this.codigo = codigo;
         this.creditos = creditos;
         this.semestre = semestre;
         this.ubicacion = ubicacion;
+        this.tipo = tipo;
         this.actividadDocencias = actividadDocencias;
     }
 
@@ -63,15 +68,26 @@ public class Asignatura implements java.io.Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "programa_idprograma", nullable = false)
-    public Programa getPrograma() {
-        return this.programa;
+    public Programa getProgramaByProgramaIdprograma() {
+        return this.programaByProgramaIdprograma;
     }
 
-    public void setPrograma(Programa programa) {
-        this.programa = programa;
+    public void setProgramaByProgramaIdprograma(Programa programaByProgramaIdprograma) {
+        this.programaByProgramaIdprograma = programaByProgramaIdprograma;
     }
 
-    @Column(name = "nombre", length = 255)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "programa_especialidad")
+    public Programa getProgramaByProgramaEspecialidad() {
+        return this.programaByProgramaEspecialidad;
+    }
+
+    public void setProgramaByProgramaEspecialidad(Programa programaByProgramaEspecialidad) {
+        this.programaByProgramaEspecialidad = programaByProgramaEspecialidad;
+    }
+
+    @Column(name = "nombre", nullable = false)
     public String getNombre() {
         return this.nombre;
     }
@@ -116,7 +132,15 @@ public class Asignatura implements java.io.Serializable {
         this.ubicacion = ubicacion;
     }
 
-    @JsonIgnore
+    @Column(name = "tipo", length = 45)
+    public String getTipo() {
+        return this.tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "asignatura")
     public Set<ActividadDocencia> getActividadDocencias() {
         return this.actividadDocencias;

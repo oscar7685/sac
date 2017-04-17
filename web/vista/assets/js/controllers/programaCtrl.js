@@ -99,7 +99,27 @@ app.controller('editarProgramaCtrl', ["$scope", "ngTableParams", "$state", "$sta
         FacultadFactory.query().$promise.then(function (result0) {
             $scope.facultades = result0;
             AsignaturaFactory.buscarA({idprograma: $stateParams.idprograma}).$promise.then(function (result3) {
+                ProgramaFactory.get({idPrograma: $stateParams.idprograma}).$promise.then(function (result) {
+                    $scope.programa = result;
+                    $scope.master = angular.copy($scope.programa);
+                });
                 $scope.asignaturas = result3;
+                var expression = {
+                    programaByProgramaEspecialidad: {
+                        idprograma: ''
+                    }
+                }
+
+                var lookup = {};
+                $scope.result = [];
+                var asigEsp = $filter('filter')($scope.asignaturas, expression);
+                for (var i = 0; i < asigEsp.length; i++) {
+                    var name = asigEsp[i].programaByProgramaEspecialidad.idprograma;
+                    if (!(name in lookup)) {
+                        lookup[name] = 1;
+                        $scope.result.push(name);
+                    }
+                }
                 for (var i = 0; i < $scope.asignaturas.length; i++) {
                     if ($scope.asignaturas[i].semestre > $scope.maxSemestre) {
                         $scope.maxSemestre = $scope.asignaturas[i].semestre;
@@ -112,31 +132,30 @@ app.controller('editarProgramaCtrl', ["$scope", "ngTableParams", "$state", "$sta
                         name: 'asc' // initial sorting
                     }
                 }, {
-                    total: $scope.asignaturas.length, 
+                    total: $scope.asignaturas.length,
                     getData: function ($defer, params) {
                         //sorting
                         var orderedData = params.sorting() ? $filter('orderBy')($scope.asignaturas, params.orderBy()) : $scope.asignaturas;
-
                         //filtering
                         orderedData = $filter('filter')(orderedData, params.filter());
                         $scope.aux = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-
                         //pagination
                         params.total(orderedData.length);
                         $defer.resolve($scope.aux);
                     }
                 });
-
-                ProgramaFactory.get({idPrograma: $stateParams.idprograma}).$promise.then(function (result) {
-                    $scope.programa = result;
-                    $scope.master = angular.copy($scope.programa);
-                });
-            });
-
-
-
+            }
+            );
             $scope.getNumber = function (num) {
                 return new Array(num);
+            };
+            $scope.getTotal = function (sem) {
+                var materias = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
+                var totalx = 0;
+                for (var i = 0; i < materias.length; i++) {
+                    totalx += materias[i].creditos;
+                }
+                return "" + totalx;
             };
             $scope.getTitulo = function (num) {
                 var prefijo = "";
@@ -163,7 +182,6 @@ app.controller('editarProgramaCtrl', ["$scope", "ngTableParams", "$state", "$sta
                 }
                 return prefijo + " semestre";
             };
-
             $scope.getAsignaturas = function (sem) {
                 orderedData = $filter('filter')($scope.asignaturas, {semestre: '' + sem});
                 return orderedData.length;
@@ -211,6 +229,8 @@ app.controller('editarProgramaCtrl', ["$scope", "ngTableParams", "$state", "$sta
                     $scope.programa = angular.copy($scope.master);
                     form.$setPristine(true);
                 }
-            };
+            }
+            ;
         });
-    }]);
+    }
+]);

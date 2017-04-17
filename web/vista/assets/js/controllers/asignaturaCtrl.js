@@ -10,7 +10,7 @@ app.controller('listAsignaturas', ["$scope", "$filter", "ngTableParams", "Asigna
             $scope.data = datos;
             for (var i = 0; i < $scope.data.length; i++) {
                 $scope.data[i].progaux = ""; //initialization of new property 
-                $scope.data[i].progaux = $scope.data[i].programa.nombre;  //set the data from nested obj into new property
+                $scope.data[i].progaux = $scope.data[i].programaByProgramaIdprograma.nombre;  //set the data from nested obj into new property
                 $scope.data[i].horas = $scope.data[i].creditos * 48;
             }
             $scope.tableParams = new ngTableParams({
@@ -37,6 +37,13 @@ app.controller('listAsignaturas', ["$scope", "$filter", "ngTableParams", "Asigna
         });
 
     }]);
+app.filter('exclude', function () {
+    return function (items, exclude) {
+        return items.filter(function (item) {
+            return exclude.indexOf(item.idprograma) === -1;
+        });
+    };
+});
 app.controller('crearAsignaturaCtrl', ["$scope", "AsignaturaFactory", "$location", "SweetAlert", "ProgramaFactory",
     function ($scope, AsignaturaFactory, $location, SweetAlert, ProgramaFactory) {
         ProgramaFactory.query().$promise.then(function (result) {
@@ -48,11 +55,13 @@ app.controller('crearAsignaturaCtrl', ["$scope", "AsignaturaFactory", "$location
                 creditos: "",
                 semestre: "",
                 ubicacion: "",
-                programa: {
+                programaByProgramaIdprograma: {
                     idprograma: "",
                     nombre: "",
                     modalidad: ""
-                }
+                },
+                tipo: "",
+                programaByProgramaEspecialidad: null
             };
             $scope.master = angular.copy($scope.programa);
             $scope.form = {
@@ -72,7 +81,6 @@ app.controller('crearAsignaturaCtrl', ["$scope", "AsignaturaFactory", "$location
                                 }
                             }
                         }
-
                         angular.element('.ng-invalid[name=' + firstError + ']').focus();
                         SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
                         return;

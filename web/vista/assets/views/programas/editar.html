@@ -177,7 +177,32 @@
                                                         <th>Creditos</th>
                                                     </tr>
                                                 </thead>
-                                                <tr ng-repeat="asignatura in asignaturas| filter:{semestre:$index+1}">
+                                                <tr ng-repeat="asignatura in asignaturas| filter:{semestre:$index + 1}">
+                                                    <td>{{asignatura.nombre}}</td>
+                                                    <td>{{asignatura.nombre.match("OPTATIVA") ? '' : asignatura.creditos}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TOTAL SEMESTRE</td>
+                                                    <td>{{getTotal($index + 1)}}</td>
+                                                </tr>
+                                            </table>
+                                        </accordion-group>
+                                        <accordion-group heading="Optativas">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center" colspan="3"> OPTATIVAS</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ESPECIALIDAD</th>
+                                                        <th>OPTATIVAS</th>
+                                                        <th>CREDITOS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr ng-repeat-start="r in result">
+                                                    <td>{{r}}</td>
+                                                </tr>
+                                                <tr  ng-repeat-end ng-repeat="asignatura in asignaturas| filter: { programaByProgramaEspecialidad: { idprograma: r } }">
                                                     <td>{{asignatura.nombre}}</td>
                                                     <td>{{asignatura.creditos}}</td>
                                                 </tr>

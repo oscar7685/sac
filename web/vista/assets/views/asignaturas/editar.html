@@ -43,19 +43,40 @@
                             </div>
                             <div class="form-group" ng-class="{'has-error':Form2.semestre.$dirty && Form2.semestre.$invalid, 'has-success':Form2.semestre.$valid}">
                                 <label for="semestre" class="control-label">
-                                    Nivel <span class="symbol required"></span>
+                                    Nivel
                                 </label>
-                                <input type="number" placeholder="semestre" id="semestre" name="semestre" class="form-control" ng-model="asignatura.semestre" ng-pattern="/^[1-9][0-9]*$/" required/>
+                                <input type="number" placeholder="semestre" id="semestre" name="semestre" class="form-control" ng-model="asignatura.semestre" ng-pattern="/^[1-9][0-9]*$/"/>
                                 <span class="error text-small block" ng-if="Form2.semestre.$error.number">Número no válido!</span>
                             </div>
                             <div class="form-group" ng-class="{'has-error':Form2.programa.$dirty && Form2.programa.$invalid, 'has-success':Form2.programa.$valid}">
                                 <label for="programa">
                                     Programa <span class="symbol required"></span>
                                 </label>
-                                <select id="programa" name="programa" class="form-control" ng-model="asignatura.programa.idprograma" ng-options="programa.idprograma as programa.nombre for programa in programas"  required>
+                                <select id="programaByProgramaIdprograma" name="programaByProgramaIdprograma" class="form-control" ng-model="asignatura.programaByProgramaIdprograma.idprograma" ng-options="programaByProgramaIdprograma.idprograma as programaByProgramaIdprograma.nombre for programaByProgramaIdprograma in programas"  required>
                                     <option value="">&nbsp;</option>
                                 </select>
-                                <span class="error text-small block" ng-if="Form2.edificio.$dirty && Form2.edificio.$dirty && Form2.edificio.$invalid">El campo edificio es requerido</span>
+                                <span class="error text-small block" ng-if="Form2.programaByProgramaIdprograma.$dirty && Form2.programaByProgramaIdprograma.$invalid">El campo programa es requerido</span>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':Form2.tipo.$dirty && Form2.tipo.$invalid, 'has-success':Form2.tipo.$valid}">
+                                <label for="tipo">
+                                    Tipo <span class="symbol required"></span>
+                                </label>
+                                <select id="tipo" name="tipo" class="form-control" ng-model="asignatura.tipo" required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="NORMAL">NORMAL</option>
+                                    <option value="OPTATIVA">OPTATIVA</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.tipo.$dirty && Form2.tipo.$dirty && Form2.tipo.$invalid">El campo tipo es requerido</span>
+                            </div>
+                            <div class="form-group" ng-show="asignatura.tipo === 'OPTATIVA'" ng-class="{'has-error':Form2.programaByProgramaEspecialidad.$dirty && Form2.programaByProgramaEspecialidad.$invalid || asignatura.programaByProgramaEspecialidad.idprograma === asignatura.programaByProgramaIdprograma.idprograma, 'has-success':Form2.programaByProgramaEspecialidad.$valid}">
+                                <label for="programaByProgramaEspecialidad">
+                                    Programa especialidad <span class="symbol required"></span>
+                                </label>
+                                <select id="programaByProgramaEspecialidad" name="programaByProgramaEspecialidad" class="form-control" ng-model="asignatura.programaByProgramaEspecialidad.idprograma" ng-options="programaByProgramaEspecialidad.idprograma as programaByProgramaEspecialidad.nombre for programaByProgramaEspecialidad in programas"  ng-required="asignatura.tipo == 'OPTATIVA'">
+                                    <option value="">&nbsp;</option>
+                                </select>
+                                <span class="error text-small block" ng-if="Form2.programaByProgramaEspecialidad.$dirty && Form2.programaByProgramaEspecialidad.$dirty && Form2.programaByProgramaEspecialidad.$invalid">El campo programa especialidad es requerido</span>
+                                <span class="error text-small block" ng-if="Form2.programaByProgramaEspecialidad.$dirty && asignatura.programaByProgramaEspecialidad.idprograma === asignatura.programaByProgramaIdprograma.idprograma">El campo programa especialidad debe ser distinto al campo programa</span>
                             </div>
                         </fieldset>
                     </div>

@@ -29,7 +29,8 @@ public class Programa implements java.io.Serializable {
     private String modalidad;
     private String nivelFormacion;
     private Set<Curso> cursos = new HashSet<Curso>(0);
-    private Set<Asignatura> asignaturas = new HashSet<Asignatura>(0);
+    private Set<Asignatura> asignaturasForProgramaIdprograma = new HashSet<Asignatura>(0);
+    private Set<Asignatura> asignaturasForProgramaEspecialidad = new HashSet<Asignatura>(0);
     private Set<Graduado> graduados = new HashSet<Graduado>(0);
 
     public Programa() {
@@ -40,13 +41,14 @@ public class Programa implements java.io.Serializable {
         this.nombre = nombre;
     }
 
-    public Programa(Facultad facultad, String nombre, String modalidad, String nivelFormacion, Set<Curso> cursos, Set<Asignatura> asignaturas, Set<Graduado> graduados) {
+    public Programa(Facultad facultad, String nombre, String modalidad, String nivelFormacion, Set<Curso> cursos, Set<Asignatura> asignaturasForProgramaIdprograma, Set<Asignatura> asignaturasForProgramaEspecialidad, Set<Graduado> graduados) {
         this.facultad = facultad;
         this.nombre = nombre;
         this.modalidad = modalidad;
         this.nivelFormacion = nivelFormacion;
         this.cursos = cursos;
-        this.asignaturas = asignaturas;
+        this.asignaturasForProgramaIdprograma = asignaturasForProgramaIdprograma;
+        this.asignaturasForProgramaEspecialidad = asignaturasForProgramaEspecialidad;
         this.graduados = graduados;
     }
 
@@ -73,7 +75,7 @@ public class Programa implements java.io.Serializable {
         this.facultad = facultad;
     }
 
-    @Column(name = "nombre", nullable = false, length = 255)
+    @Column(name = "nombre", nullable = false)
     public String getNombre() {
         return this.nombre;
     }
@@ -111,13 +113,22 @@ public class Programa implements java.io.Serializable {
     }
     
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programa")
-    public Set<Asignatura> getAsignaturas() {
-        return this.asignaturas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programaByProgramaIdprograma")
+    public Set<Asignatura> getAsignaturasForProgramaIdprograma() {
+        return this.asignaturasForProgramaIdprograma;
     }
 
-    public void setAsignaturas(Set<Asignatura> asignaturas) {
-        this.asignaturas = asignaturas;
+    public void setAsignaturasForProgramaIdprograma(Set<Asignatura> asignaturasForProgramaIdprograma) {
+        this.asignaturasForProgramaIdprograma = asignaturasForProgramaIdprograma;
+    }
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programaByProgramaEspecialidad")
+    public Set<Asignatura> getAsignaturasForProgramaEspecialidad() {
+        return this.asignaturasForProgramaEspecialidad;
+    }
+
+    public void setAsignaturasForProgramaEspecialidad(Set<Asignatura> asignaturasForProgramaEspecialidad) {
+        this.asignaturasForProgramaEspecialidad = asignaturasForProgramaEspecialidad;
     }
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "programa")

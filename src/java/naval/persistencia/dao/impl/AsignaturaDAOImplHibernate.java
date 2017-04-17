@@ -37,7 +37,7 @@ public class AsignaturaDAOImplHibernate extends GenericDAOImplHibernate<Asignatu
         Session session = sessionFactory.getCurrentSession();
         try {
 
-            Query query = session.createQuery("SELECT a FROM Asignatura a LEFT JOIN FETCH a.programa WHERE a.programa.idprograma like :idpro").setParameter("idpro", idprograma);
+            Query query = session.createQuery("SELECT a FROM Asignatura a LEFT JOIN FETCH a.programaByProgramaIdprograma WHERE a.programaByProgramaIdprograma.idprograma like :idpro").setParameter("idpro", idprograma);
             List<Asignatura> entities = query.list();
 
             return entities;
