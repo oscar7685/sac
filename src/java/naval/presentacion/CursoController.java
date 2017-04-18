@@ -132,7 +132,9 @@ public class CursoController {
     @RequestMapping(value = "/Curso", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public void insert(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada) {
         try {
+            System.out.println("llega!"); 
             Curso ed = (Curso) jsonTransformer.fromJson(jsonEntrada, Curso.class);
+            System.out.println("llega2!"); 
             cursoDAO.saveOrUpdate(ed);
             String jsonSalida = jsonTransformer.toJson(ed);
 

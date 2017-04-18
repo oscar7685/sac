@@ -406,6 +406,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Editar Curso'
             },
             resolve: loadSequence('cursoCtrl')
+        }).state('app.cursos.estudiantes', {
+            url: '/estudiantes',
+            templateUrl: "assets/views/cursos/estudiantes.html",
+            title: 'Estudiantes del Curso',
+            ncyBreadcrumb: {
+                label: 'Estudiantes del Curso'
+            },
+            resolve: loadSequence('cursoCtrl')
         }).state('app.ui.buttons', {
             url: '/buttons',
             templateUrl: "assets/views/ui_buttons.html",

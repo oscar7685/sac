@@ -14,7 +14,7 @@ app.controller('crearCursoCtrl2', ["$scope", "CursoFactory", "AulaFactory", "Pro
                 $scope.curso = {
                     idcurso: "",
                     aula: "",
-                    estudiante: null,
+                    comandante: null,
                     programa: "",
                     anio: "",
                     periodo: "",
@@ -130,7 +130,7 @@ app.controller('tablaCursoCtrl', ["$scope", "$filter", "CursoFactory", "ngTableP
             }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
-                count: 5, // count per page
+                count: 10, // count per page
                 sorting: {
                     name: 'asc' // initial sorting
                 }

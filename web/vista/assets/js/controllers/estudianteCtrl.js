@@ -63,6 +63,7 @@ app.controller('listEstudiantes', ["$scope", "$filter", "ngTableParams", "Estudi
 app.controller('crearEstudianteCtrl', ["$scope", "EstudianteFactory", "CursoFactory", "$location", "SweetAlert", function ($scope, EstudianteFactory, CursoFactory, $location, SweetAlert) {
         $scope.estudiante = {
             codigo: "",
+            estudiantil: "",
             nombres: "",
             apellidos: "",
             cursos: []
@@ -117,6 +118,7 @@ app.controller('editarEstudianteCtrl', ["$scope", "$state", "$stateParams", "Est
     function ($scope, $state, $stateParams, EstudianteFactory, CursoFactory, $location, SweetAlert) {
         $scope.estudiante = {
             codigo: "",
+            estudiantil: "",
             nombres: "",
             apellidos: "",
             cursos: []

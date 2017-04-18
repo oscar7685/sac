@@ -24,6 +24,7 @@ import javax.persistence.Table;
 public class Estudiante implements java.io.Serializable {
 
     private Integer codigo;
+    private String estudiantil;
     private String nombres;
     private String apellidos;
     private Set<Curso> cursos = new HashSet<Curso>(0);
@@ -49,6 +50,14 @@ public class Estudiante implements java.io.Serializable {
         this.codigo = codigo;
     }
 
+    @Column(name = "estudiantil")
+    public String getEstudiantil() {
+        return this.estudiantil;
+    }
+
+    public void setEstudiantil(String estudiantil) {
+        this.estudiantil = estudiantil;
+    }
     @Column(name = "nombres")
     public String getNombres() {
         return this.nombres;

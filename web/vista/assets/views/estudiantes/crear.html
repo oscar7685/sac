@@ -20,6 +20,13 @@
                             <legend>
                                 Estudiantes
                             </legend>
+                             <div class="form-group" ng-class="{'has-error':Form2.estudiantil.$dirty && Form2.estudiantil.$invalid, 'has-success':Form2.estudiantil.$valid}">
+                                <label for="estudiantil" class="control-label">
+                                    Codigo estudiantil <span class="symbol required"></span>
+                                </label>
+                                <input type="text" placeholder="Codigo estudiantil" id="estudiantil" name="estudiantil" class="form-control" ng-model="estudiante.estudiantil" required/>
+                                <span class="error text-small block" ng-if="Form2.estudiantil.$dirty && Form2.estudiantil.$dirty && Form2.estudiantil.$invalid">El campo codigo estudiantil es requerido</span>
+                            </div>
                             <div class="form-group" ng-class="{'has-error':Form2.nombre.$dirty && Form2.nombre.$invalid, 'has-success':Form2.nombre.$valid}">
                                 <label for="nombres" class="control-label">
                                     Nombres <span class="symbol required"></span>
@@ -28,7 +35,7 @@
                                 <span class="error text-small block" ng-if="Form2.nombre.$dirty && Form2.nombre.$dirty && Form2.nombre.$invalid">El campo nombres es requerido</span>
                             </div>
                             <div class="form-group" ng-class="{'has-error':Form2.apellidos.$dirty && Form2.apellidos.$invalid, 'has-success':Form2.apellidos.$valid}">
-                                <label for="nombres" class="control-label">
+                                <label for="apellidos" class="control-label">
                                     Apellidos <span class="symbol required"></span>
                                 </label>
                                 <input type="text" placeholder="Apellidos" id="apellidos" name="apellidos" class="form-control" ng-model="estudiante.apellidos" required/>

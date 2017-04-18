@@ -107,7 +107,8 @@
                 "MAIN": "Cursos",
                 "CREAR": "Crear Curso",
                 "EDITAR": "Editar Curso",
-                "LISTAR": "Listar Cursos"
+                "LISTAR": "Listar Cursos",
+                "ESTUDIANTES": "Estudiantes"
             },
             "usuarios": {
                 "MAIN": "Usuarios",
