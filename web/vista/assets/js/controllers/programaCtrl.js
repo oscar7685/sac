@@ -104,22 +104,25 @@ app.controller('editarProgramaCtrl', ["$scope", "ngTableParams", "$state", "$sta
                     $scope.master = angular.copy($scope.programa);
                 });
                 $scope.asignaturas = result3;
+
+                /*sacamos los diferentes grupos*/
                 var expression = {
                     programaByProgramaEspecialidad: {
                         idprograma: ''
                     }
                 }
-
                 var lookup = {};
-                $scope.result = [];
+                $scope.grupos = [];
                 var asigEsp = $filter('filter')($scope.asignaturas, expression);
                 for (var i = 0; i < asigEsp.length; i++) {
                     var name = asigEsp[i].programaByProgramaEspecialidad.idprograma;
                     if (!(name in lookup)) {
                         lookup[name] = 1;
-                        $scope.result.push(name);
+                        $scope.grupos.push(name);
                     }
                 }
+                /*sacamos los diferentes grupos*/
+
                 for (var i = 0; i < $scope.asignaturas.length; i++) {
                     if ($scope.asignaturas[i].semestre > $scope.maxSemestre) {
                         $scope.maxSemestre = $scope.asignaturas[i].semestre;

@@ -5,6 +5,9 @@
     .messages-item {
         border: 1px solid #c8c7cc;
     }
+    tbody:nth-child(even) {
+        background:#F9F9F9;
+    }
 </style>
 <!-- start: PAGE TITLE -->
 <section id="page-title">
@@ -188,7 +191,7 @@
                                             </table>
                                         </accordion-group>
                                         <accordion-group heading="Optativas">
-                                            <table class="table table-striped">
+                                            <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th class="center" colspan="3"> OPTATIVAS</th>
@@ -199,13 +202,13 @@
                                                         <th>CREDITOS</th>
                                                     </tr>
                                                 </thead>
-                                                <tr ng-repeat-start="r in result">
-                                                    <td>{{r}}</td>
-                                                </tr>
-                                                <tr  ng-repeat-end ng-repeat="asignatura in asignaturas| filter: { programaByProgramaEspecialidad: { idprograma: r } }">
-                                                    <td>{{asignatura.nombre}}</td>
-                                                    <td>{{asignatura.creditos}}</td>
-                                                </tr>
+                                                <tbody ng-repeat="idp in grupos">
+                                                    <tr ng-repeat="asignatura in asignaturas| filter: { programaByProgramaEspecialidad: { idprograma: idp } }">
+                                                        <td ng-if="$index === 0" rowspan="{{asignaturas.length}}">{{asignatura.programaByProgramaEspecialidad.nombre}}</td>
+                                                        <td>{{asignatura.nombre}}</td>
+                                                        <td>{{asignatura.creditos}}</td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </accordion-group>
                                     </accordion>
