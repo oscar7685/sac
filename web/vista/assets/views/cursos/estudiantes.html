@@ -12,35 +12,26 @@
 <!-- start: SELECT BOXES -->
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" ng-controller="estudiantesCurso">
             <div class="row">
                 <div class="col-sm-5">
                     <div class="panel panel-transparent">
-                        <div class="panel-heading">
-                            <h5 class="panel-title">Curso anterior</h5>
-                        </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="form-field-select-2">
-                                    1.1 A
+                                <label for="cursoAnterior">
+                                    Curso anterior <span class="symbol required"></span>
                                 </label>
-                                <select multiple="multiple" id="form-field-select-2" class="form-control" style="height: 400px;">
-                                    <option value="">221710008 - DIANA PATRICIA PADILLA TORRES	</option>
-                                    <option value="">221710009 - CARLOS CASTELLAR BARRETO	</option>
-                                    <option value="">221710012 - ARTURO GONZALEZ VILLAMIZAR	</option>
-                                    <option value="">221710015 - MERLY LIÑAN JARABA	</option>
-                                    <option value="">221220022 - LUIS EDUARDO VIVAS RODRIGUEZ	</option>
-                                    <option value="">221420019 - ALVARO VEGA YANES	</option>
-                                    <option value="">221410052 - JENNIFFER HELENA ALVAREZ PUELLO	</option>
-                                    <option value="">221320017 - ELIO ANGEL MARRUGO CANTILLO	</option>
-                                    <option value="">221110035 - JOSE ANTONIO TAMARA FUENTES	</option>
-                                    <option value="">221510038 - LUIS MIGUEL GUERRA GAMERO	</option>
-                                    <option value="">221410002 - ANDRES FELIPE LOPEZ DURAN	</option>
-                                    <option value="">221620048 - YOMALIS CARABALLOCHAVEZ	</option>
-                                    <option value="">221520013 - SERGIO ANDRES GARCIA BARRIOS	</option>
-                                    <option value="">221120007 - JHONATAN URIBE ECHENIQUE	</option>
-                                    <option value="">221710021 - CRISTIAN DAVID BARRIOS ESCOBAR	</option>
-
+                                <select id="cursoAnterior"  name="cursoAnterior" class="form-control" ng-model="cursoAnterior.idcurso" 
+                                        ng-options="cursoAnterior.idcurso as cursoAnterior.codigo +   ' (' +  cursoAnterior.anio +  '-' +   cursoAnterior.periodo +  ')' for cursoAnterior in cursosAnteriores">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Estudiantes
+                                </label>
+                                <select multiple="multiple" class="form-control" ng-model="estudiantesAnterior.codigo" 
+                                        ng-options="estudiantesAnterior.codigo as estudiantesAnterior.nombres +   ' ' +  estudiantesAnterior.apellidos for estudiantesAnterior in estudiantesAnteriores"
+                                        style="height: 400px;">
                                 </select>
                             </div>
                         </div>
@@ -60,19 +51,19 @@
                             <div class="space12">
                                 <div class="btn-group-vertical">
                                     <a class="btn btn-wide btn-success" href="javascript:;">
-                                        Agregar Estudiante
+                                        Agregar Estudiante >
                                     </a>
                                     <br/>
                                     <a class="btn btn-wide btn-success" href="javascript:;">
-                                        Agregar todos los estudiantes
+                                        Agregar todos los estudiantes >>
                                     </a>
                                     <br/>
                                     <a class="btn btn-wide btn-danger" href="javascript:;">
-                                        Remover Estudiante
+                                        <   Remover Estudiante
                                     </a>
                                     <br/>
                                     <a class="btn btn-wide btn-danger" href="javascript:;">
-                                        Remover todos los estudiante
+                                        <<  Remover todos los estudiante
                                     </a>
                                 </div>
                             </div>
@@ -81,16 +72,24 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="panel panel-transparent">
-                        <div class="panel-heading">
-                            <h5 class="panel-title">Curso actual</h5>
-                        </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="form-field-select-2">
-                                    1.1 B
+                                <label for="cursoActual">
+                                    Curso actual <span class="symbol required"></span>
                                 </label>
-                                <select multiple="multiple" id="form-field-select-2" class="form-control" style="height: 400px;">
-                                    <option value=""></option>
+                                <select id="cursoActual"  name="cursoActual" class="form-control" ng-model="cursoActual.idcurso" 
+                                        ng-model="cursoActual.idcurso" 
+                                        ng-options="cursoActual.idcurso as cursoActual.codigo +   ' (' +  cursoActual.anio +  '-' +   cursoActual.periodo +  ')' for cursoActual in cursosActuales" required>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Estudiantes
+                                </label>
+                                <select multiple="multiple" class="form-control" 
+                                        ng-model="estudianteActual.codigo" 
+                                        ng-options="estudianteActual.codigo as estudianteActual.nombres +   ' ' +  estudianteActual.apellidos for estudianteActual in estudiantesActuales"
+                                        style="height: 400px;">
                                 </select>
                             </div>
                         </div>

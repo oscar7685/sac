@@ -148,3 +148,32 @@ app.controller('tablaCursoCtrl', ["$scope", "$filter", "CursoFactory", "ngTableP
             });
         });
     }]);
+
+app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoFactory","EstudianteFactory", function ($scope, $filter, $stateParams, CursoFactory, EstudianteFactory) {
+         CursoFactory.query().$promise.then(function (result) {
+            $scope.cursosAnteriores = result;
+            $scope.cursosActuales = angular.copy(result);
+            $scope.estudiantesAnteriores = [];
+            $scope.estudiantesActuales = [];
+            
+            $scope.$watch('cursoAnterior.idcurso', function (newVal) {
+                var i, res = [];
+                if (newVal) {
+                    EstudianteFactory.buscarC({idcurso: newVal}).$promise.then(function (result3) {
+                        $scope.estudiantesAnteriores = result3;
+                    });
+                }
+            });
+            $scope.$watch('cursoActual.idcurso', function (newVal) {
+                var i, res = [];
+                if (newVal) {
+                    EstudianteFactory.buscarC({idcurso: newVal}).$promise.then(function (result4) {
+                        $scope.estudiantesActuales = result4;
+                    });
+                }
+            });
+            
+            
+        });
+    }]);
+
