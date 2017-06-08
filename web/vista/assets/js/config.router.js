@@ -390,6 +390,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Crear Cursos'
             },
             resolve: loadSequence('cursoCtrl')
+        }).state('app.cursos.crear2', {
+            url: '/crear',
+            templateUrl: "assets/views/cursos/crearCursosPeriodo.html",
+            title: 'Crear Cursos',
+            icon: 'ti-layout-media-left-alt',
+            ncyBreadcrumb: {
+                label: 'Crear Cursos'
+            },
+            resolve: loadSequence('cursoCtrl')
         }).state('app.cursos.listar', {
             url: '/listar',
             templateUrl: "assets/views/cursos/listar.html",

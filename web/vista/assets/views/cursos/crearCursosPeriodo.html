@@ -2,8 +2,8 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle" translate="sidebar.nav.cursos.CREAR">CREAR CURSOS</h1>
-            <span class="mainDescription">Formulario para crear un Curso.</span>
+            <h1 class="mainTitle" translate="sidebar.nav.cursos.CREAR2">CREAR CURSOS</h1>
+            <span class="mainDescription">Formulario para crear varios cursos de un mismo periodo académico rápidamente.</span>
         </div>
         <div ncy-breadcrumb></div>
     </div>
@@ -12,21 +12,14 @@
 <!-- start: FIELDSET -->
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
-        <div class="col-md-12" ng-controller="crearCursoCtrl2">
+        <div class="col-md-12" ng-controller="crearCursoPCtrl">
             <form name="Form2" novalidate ng-submit="form.submit(Form2)">
                 <div class="row">
                     <div class="col-md-6">
                         <fieldset>
                             <legend>
-                                Cursos
+                                Periodo
                             </legend>
-                            <div class="form-group" ng-class="{'has-error':Form2.codigo.$dirty && Form2.codigo.$invalid, 'has-success':Form2.codigo.$valid}">
-                                <label for="codigo" class="control-label">
-                                    Codigo Curso <span class="symbol required"></span>
-                                </label>
-                                <input type="text" placeholder="Codigo Curso" id="codigo" name="codigo" class="form-control" ng-model="curso.codigo" required/>
-                                <span class="error text-small block" ng-if="Form2.codigo.$dirty && Form2.codigo.$dirty && Form2.codigo.$invalid">El campo codigo es requerido</span>
-                            </div>
                             <div class="form-group" ng-class="{'has-error':Form2.anio.$dirty && Form2.anio.$invalid, 'has-success':Form2.anio.$valid}">
                                 <label for="anio" class="control-label">
                                     A&nacute;o <span class="symbol required"></span>
@@ -45,29 +38,13 @@
                                 </select>
                                 <span class="error text-small block" ng-if="Form2.periodo.$dirty && Form2.periodo.$dirty && Form2.periodo.$invalid">El campo periodo es requerido</span>  
                             </div>
-                            <div class="form-group">
-                                <label for="programa">
-                                    Programa
-                                </label>
-                                <select id="programa" name="programa" class="form-control" ng-model="curso.programa.idprograma" ng-options="programa.idprograma as programa.nombre for programa in programas">
-                                    <option value="">&nbsp;</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="aula">
-                                    Aula                                    
-                                </label>
-                                <select id="aula" name="aula" class="form-control" ng-model="curso.aula.idaula" ng-options="aula.idaula as aula.nombre for aula in aulas">
-                                    <option value="">&nbsp;</option>
-                                </select>
-                            </div>
                         </fieldset>
                     </div>
 
 
                 </div>
                 <button class="btn btn-o btn-primary" type="submit">
-                    Crear Curso
+                    Crear Cursos
                 </button>   
                 <button type="button" class="btn btn-primary btn-o" ng-click="form.reset(Form2)">
                     Resetear

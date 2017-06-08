@@ -62,6 +62,59 @@ app.controller('crearCursoCtrl2', ["$scope", "CursoFactory", "AulaFactory", "Pro
             });
         });
     }]);
+app.controller('crearCursoPCtrl', ["$scope", "CursoFactory", "$location", "SweetAlert",
+    function ($scope, CursoFactory, $location, SweetAlert) {
+               $scope.curso = {
+                    idcurso: "",
+                    aula: "",
+                    comandante: null,
+                    programa: "",
+                    anio: "",
+                    periodo: "",
+                    codigo: ""
+                };
+                $scope.master = angular.copy($scope.curso);
+                $scope.form = {
+                    submit: function (form) {
+                        var firstError = null;
+                        if (form.$invalid) {
+
+                            var field = null, firstError = null;
+                            for (field in form) {
+                                if (field[0] != '$') {
+                                    if (firstError === null && !form[field].$valid) {
+                                        firstError = form[field].$name;
+                                    }
+
+                                    if (form[field].$pristine) {
+                                        form[field].$dirty = true;
+                                    }
+                                }
+                            }
+
+                            angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                            SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
+                            return;
+                        } else {
+                            if (form.$valid) {
+                                CursoFactory.save($scope.curso).$promise.then(function () {
+                                    $location.path("app/cursos/listar");
+                                }, function (bussinessMessages) {
+                                    $scope.bussinessMessages = bussinessMessages;
+                                });
+                                //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                            }
+                        }
+
+                    },
+                    reset: function (form) {
+                        $scope.curso = angular.copy($scope.master);
+                        form.$setPristine(true);
+                    }
+                };
+          
+        
+    }]);
 app.controller('editarCursoCtrl2', ["$scope", "$state", "$stateParams", "CursoFactory", "AulaFactory", "ProgramaFactory", "EstudianteFactory", "$location", "SweetAlert",
     function ($scope, $state, $stateParams, CursoFactory, AulaFactory, ProgramaFactory, EstudianteFactory, $location, SweetAlert) {
         $scope.aux = null;

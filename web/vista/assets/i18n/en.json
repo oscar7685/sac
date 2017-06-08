@@ -105,7 +105,8 @@
             },
             "cursos": {
                 "MAIN": "Cursos",
-                "CREAR": "Crear Curso",
+                "CREAR": "Crear Curso individual",
+                "CREAR2": "Crear Cursos del periodo",
                 "EDITAR": "Editar Curso",
                 "LISTAR": "Listar Cursos",
                 "ESTUDIANTES": "Estudiantes"

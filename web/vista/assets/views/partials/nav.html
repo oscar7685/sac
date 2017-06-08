@@ -158,7 +158,12 @@
         <ul class="sub-menu">
             <li ui-sref-active="active" ng-show="{{hasPermiso(12)}}">
                 <a ui-sref="app.cursos.crear">
-                    <span class="title" translate="sidebar.nav.cursos.CREAR"> Crear Curso </span>
+                    <span class="title" translate="sidebar.nav.cursos.CREAR"> Crear Curso individual</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-show="{{hasPermiso(12)}}">
+                <a ui-sref="app.cursos.crear2">
+                    <span class="title" translate="sidebar.nav.cursos.CREAR2"> Crear Cursos del periodo</span>
                 </a>
             </li>
             <li ui-sref-active="active">
@@ -198,8 +203,8 @@
             </li>
         </ul>
     </li>
-    
-      <!--PROFESORES-->
+
+    <!--PROFESORES-->
     <li ng-show="{{hasPermiso(3)}}" ng-class="{'active open':$state.includes('app.profesores')}">
         <a href="javascript:void(0)">
             <div class="item-content">
@@ -225,7 +230,7 @@
 
         </ul>
     </li>
-      <!--GRADUADOS-->
+    <!--GRADUADOS-->
     <li ng-show="{{hasPermiso(37)}}" ng-class="{'active open':$state.includes('app.graduados')}">
         <a href="javascript:void(0)">
             <div class="item-content">
