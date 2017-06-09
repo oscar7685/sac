@@ -36,6 +36,7 @@ public class Curso implements java.io.Serializable {
     private Integer periodo;
     private String codigo;
     private Integer comandante;
+    private String cursobase;
     private Set<ActividadDocencia> actividadDocencias = new HashSet<ActividadDocencia>(0);
     private Set<ParteDiario> parteDiarios = new HashSet<ParteDiario>(0);
     private Set<Estudiante> estudiantes = new HashSet<Estudiante>(0);
@@ -121,6 +122,15 @@ public class Curso implements java.io.Serializable {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    @Column(name = "cursobase", nullable = true, length = 45)
+    public String getCursobase() {
+        return this.cursobase;
+    }
+
+    public void setCursobase(String cursobase) {
+        this.cursobase = cursobase;
     }
 
     @Column(name = "comandante")

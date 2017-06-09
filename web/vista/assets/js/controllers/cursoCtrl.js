@@ -64,56 +64,61 @@ app.controller('crearCursoCtrl2', ["$scope", "CursoFactory", "AulaFactory", "Pro
     }]);
 app.controller('crearCursoPCtrl', ["$scope", "CursoFactory", "$location", "SweetAlert",
     function ($scope, CursoFactory, $location, SweetAlert) {
-               $scope.curso = {
-                    idcurso: "",
-                    aula: "",
-                    comandante: null,
-                    programa: "",
-                    anio: "",
-                    periodo: "",
-                    codigo: ""
-                };
-                $scope.master = angular.copy($scope.curso);
-                $scope.form = {
-                    submit: function (form) {
-                        var firstError = null;
-                        if (form.$invalid) {
+        $scope.curso = {
+            idcurso: "",
+            aula: null,
+            comandante: null,
+            programa: {"idprograma": 2, "facultad": {"idfacultad": 4, "facultad": "FACULTAD DE CIENCIAS NAVALES Y NÁUTICAS"}},
+            anio: "",
+            periodo: "",
+            codigo: ""
+        };
+        $scope.master = angular.copy($scope.curso);
+        $scope.form = {
+            submit: function (form) {
+                var firstError = null;
+                if (form.$invalid) {
 
-                            var field = null, firstError = null;
-                            for (field in form) {
-                                if (field[0] != '$') {
-                                    if (firstError === null && !form[field].$valid) {
-                                        firstError = form[field].$name;
-                                    }
-
-                                    if (form[field].$pristine) {
-                                        form[field].$dirty = true;
-                                    }
-                                }
+                    var field = null, firstError = null;
+                    for (field in form) {
+                        if (field[0] != '$') {
+                            if (firstError === null && !form[field].$valid) {
+                                firstError = form[field].$name;
                             }
 
-                            angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                            SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
-                            return;
-                        } else {
-                            if (form.$valid) {
-                                CursoFactory.save($scope.curso).$promise.then(function () {
-                                    $location.path("app/cursos/listar");
-                                }, function (bussinessMessages) {
-                                    $scope.bussinessMessages = bussinessMessages;
-                                });
-                                //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                            if (form[field].$pristine) {
+                                form[field].$dirty = true;
                             }
                         }
-
-                    },
-                    reset: function (form) {
-                        $scope.curso = angular.copy($scope.master);
-                        form.$setPristine(true);
                     }
-                };
-          
-        
+
+                    angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                    SweetAlert.swal("El formulario no puede ser enviado porque contiene errores de validación!", "Los errores estan resaltados con color rojo!", "error");
+                    return;
+                } else {
+                    if (form.$valid) {
+                        CursoFactory.buscarB().$promise.then(function (cursosbase) {
+                            if (angular.isArray(cursosbase)) {
+                                cursosbase.forEach(function (cursobase) {
+                                    $scope.cursoNuevo = angular.copy($scope.curso);
+                                    $scope.cursoNuevo.codigo = cursobase.codigo;
+                                    CursoFactory.save($scope.cursoNuevo).$promise.then(function () {});
+                                });
+                            }
+                            $location.path("app/cursos/listar");
+                        }, function (bussinessMessages) {
+                            $scope.bussinessMessages = bussinessMessages;
+                        });
+                        //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                    }
+                }
+
+            },
+            reset: function (form) {
+                $scope.curso = angular.copy($scope.master);
+                form.$setPristine(true);
+            }
+        };
     }]);
 app.controller('editarCursoCtrl2', ["$scope", "$state", "$stateParams", "CursoFactory", "AulaFactory", "ProgramaFactory", "EstudianteFactory", "$location", "SweetAlert",
     function ($scope, $state, $stateParams, CursoFactory, AulaFactory, ProgramaFactory, EstudianteFactory, $location, SweetAlert) {
@@ -179,7 +184,7 @@ app.controller('tablaCursoCtrl', ["$scope", "$filter", "CursoFactory", "ngTableP
             $scope.data = result;
             for (var i = 0; i < $scope.data.length; i++) {
                 $scope.data[i].numest = ""; //initialization of new property 
-                $scope.data[i].numest = $scope.data[i].estudiantes.length;  //set the data from nested obj into new property
+                $scope.data[i].numest = $scope.data[i].estudiantes.length; //set the data from nested obj into new property
             }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
@@ -201,14 +206,12 @@ app.controller('tablaCursoCtrl', ["$scope", "$filter", "CursoFactory", "ngTableP
             });
         });
     }]);
-
-app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoFactory","EstudianteFactory", function ($scope, $filter, $stateParams, CursoFactory, EstudianteFactory) {
-         CursoFactory.query().$promise.then(function (result) {
+app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoFactory", "EstudianteFactory", "SweetAlert", function ($scope, $filter, $stateParams, CursoFactory, EstudianteFactory, SweetAlert) {
+        CursoFactory.query().$promise.then(function (result) {
             $scope.cursosAnteriores = result;
             $scope.cursosActuales = angular.copy(result);
             $scope.estudiantesAnteriores = [];
             $scope.estudiantesActuales = [];
-            
             $scope.$watch('cursoAnterior.idcurso', function (newVal) {
                 var i, res = [];
                 if (newVal) {
@@ -225,8 +228,15 @@ app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoF
                     });
                 }
             });
-            
-            
+            $scope.valor = "";
+            $scope.$watch('estudiantesAnteriores.codigo', function (newVal) {
+               $scope.valor = newVal;
+            });
+
+
+            $scope.agregarEstudiante = function () {
+                SweetAlert.swal("validación!"+$scope.valor, "Los errores!", "error");
+            }
         });
     }]);
 

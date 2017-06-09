@@ -5,7 +5,9 @@
  */
 package naval.persistencia.dao;
 
+import com.naval.persistencia.dao.BussinessException;
 import com.naval.persistencia.dao.GenericDAO;
+import java.util.List;
 import naval.dominio.Curso;
 
 /**
@@ -14,4 +16,5 @@ import naval.dominio.Curso;
  */
 public interface CursoDAO extends GenericDAO<Curso, Integer> {
 
+    List<Curso> findCursosBase() throws BussinessException;
 }

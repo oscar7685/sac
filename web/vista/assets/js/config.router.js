@@ -149,7 +149,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Editar Programa'
             },
-            resolve: loadSequence('ngTable','programaCtrl')
+            resolve: loadSequence('ngTable', 'programaCtrl')
         }).state('app.estudiantes', {
             url: '/estudiantes',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -325,7 +325,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Crear Profesores'
             },
-            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin','profesorCtrl')
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin', 'profesorCtrl')
         }).state('app.profesores.listar', {
             url: '/listar',
             templateUrl: "assets/views/profesores/listar.html",
@@ -357,7 +357,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Crear graduados'
             },
-            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin','graduadoCtrl')
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin', 'graduadoCtrl')
         }).state('app.graduados.listar', {
             url: '/listar',
             templateUrl: "assets/views/graduados/listar.html",
@@ -373,7 +373,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Editar Graduado'
             },
-            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin','graduadoCtrl')
+            resolve: loadSequence('ui.select', 'monospaced.elastic', 'ui.mask', 'touchspin-plugin', 'graduadoCtrl')
         }).state('app.cursos', {
             url: '/cursos',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -390,8 +390,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Crear Cursos'
             },
             resolve: loadSequence('cursoCtrl')
-        }).state('app.cursos.crear2', {
-            url: '/crear',
+        }).state('app.cursos.multipleCrear', {
+            url: '/multipleCrear',
             templateUrl: "assets/views/cursos/crearCursosPeriodo.html",
             title: 'Crear Cursos',
             icon: 'ti-layout-media-left-alt',
@@ -934,6 +934,11 @@ app.factory('AsignaturaFactory', function ($resource) {
 });
 app.factory('CursoFactory', function ($resource) {
     return $resource('/sac/api/Curso/:idCurso', null, {
+        buscarB: {
+            method: 'GET',
+            url: '/sac/api/Curso/cursobase/',
+            isArray: true
+        },
         update: {
             method: 'PUT' // this method issues a PUT request
         }
