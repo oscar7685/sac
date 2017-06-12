@@ -185,7 +185,7 @@ app.controller('tablaCursoCtrl', ["$scope", "$filter", "CursoFactory", "ngTableP
             $scope.data = result;
             for (var i = 0; i < $scope.data.length; i++) {
                 $scope.data[i].numest = ""; //initialization of new property 
-                $scope.data[i].numest = $scope.data[i].estudiantes.length; //set the data from nested obj into new property
+                //$scope.data[i].numest = $scope.data[i].estudiantes.length; //set the data from nested obj into new property
             }
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
@@ -213,7 +213,10 @@ app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoF
             $scope.cursosActuales = angular.copy(result);
             $scope.estudiantesAnteriores = [];
             $scope.estudiantesActuales = [];
+            $scope.cursoActualId = null;
+            $scope.cursoAnteriorId = null;
             $scope.$watch('cursoAnterior.idcurso', function (newVal) {
+                $scope.cursoAnteriorId = newVal;
                 var i, res = [];
                 if (newVal) {
                     EstudianteFactory.buscarC({idcurso: newVal}).$promise.then(function (result3) {
@@ -222,6 +225,7 @@ app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoF
                 }
             });
             $scope.$watch('cursoActual.idcurso', function (newVal) {
+                $scope.cursoActualId = newVal;
                 var i, res = [];
                 if (newVal) {
                     EstudianteFactory.buscarC({idcurso: newVal}).$promise.then(function (result4) {
@@ -231,7 +235,9 @@ app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoF
             });
             $scope.valor = "";
             $scope.estudiantesSelected = [];
+            $scope.estudiantesSelected2 = [];
             $scope.selectedIndex = [];
+            $scope.selectedIndex2 = [];
             $scope.$watch('estudiantesAnteriores.codigo', function (newVal) {
                 $scope.estudiantesSelected = [];
                 $scope.selectedIndex = [];
@@ -245,6 +251,20 @@ app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoF
                 });
             });
 
+            $scope.$watch('estudiantesActuales.codigo', function (newVal2) {
+                $scope.estudiantesSelected2 = [];
+                $scope.selectedIndex2 = [];
+                if (!newVal2) {
+                    // sometimes selected is null or undefined
+                    return;
+                }
+                // here's the magic
+                angular.forEach(newVal2, function (val2) {
+                    $scope.estudiantesSelected2.push(val2);
+                });
+            });
+
+
             function arrayObjectIndexOf(arr, obj) {
                 for (var i = 0; i < arr.length; i++) {
                     if (angular.equals(arr[i].codigo, obj)) {
@@ -255,17 +275,105 @@ app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoF
                 return -1;
             }
             $scope.agregarEstudiante = function () {
-                angular.forEach($scope.estudiantesSelected, function (value) {
-                    var index = arrayObjectIndexOf($scope.estudiantesAnteriores, value);
-                    if (index !== -1) {
-                        $scope.estudiantesAnteriores.splice(index, 1);
-                    }
-                });
+                $scope.cursoActual1 = null;
+                $scope.cursoAnterior1 = null;
+                if ($scope.cursoActualId == null) {
+                    SweetAlert.swal("Error de validación!", "Debe seleccionar el curso actual", "error");
+                } else {
+                    CursoFactory.get({idCurso: $scope.cursoActualId}).$promise.then(function (result) {
+                        $scope.cursoActual1 = result;
+                        CursoFactory.get({idCurso: $scope.cursoAnteriorId}).$promise.then(function (result2) {
+                            $scope.cursoAnterior1 = result2;
+                            if ($scope.cursoActual1.anio < $scope.cursoAnterior1.anio ||
+                                    (($scope.cursoActual1.anio === $scope.cursoAnterior1.anio) && ($scope.cursoActual1.periodo <= $scope.cursoAnterior1.periodo)))
+                            {
+                                SweetAlert.swal("Error de validación!", "El periodo del curso actual debe ser superior al periodo del curso anterior", "error");
+                            } else {
+                                angular.forEach($scope.estudiantesSelected, function (value) {
+                                    var index = arrayObjectIndexOf($scope.estudiantesAnteriores, value);
+                                    if (index !== -1) {
+                                        CursoFactory.insertarEstudiante({idCurso: $scope.cursoActualId, codigo: value}).$promise.then(function () {
+                                            EstudianteFactory.buscarC({idcurso: $scope.cursoActualId}).$promise.then(function (result4) {
+                                                $scope.estudiantesActuales = result4;
+                                            });
+                                            $scope.estudiantesAnteriores.splice(index, 1);
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
             };
             $scope.agregarTodos = function () {
-                $scope.estudiantesAnteriores.splice(0, $scope.estudiantesAnteriores.length);
+                $scope.cursoActual1 = null;
+                $scope.cursoAnterior1 = null;
+                if ($scope.cursoActualId == null) {
+                    SweetAlert.swal("Error de validación!", "Debe seleccionar el curso actual", "error");
+                } else {
+                    CursoFactory.get({idCurso: $scope.cursoActualId}).$promise.then(function (result) {
+                        $scope.cursoActual1 = result;
+                        CursoFactory.get({idCurso: $scope.cursoAnteriorId}).$promise.then(function (result2) {
+                            $scope.cursoAnterior1 = result2;
+                            if ($scope.cursoActual1.anio < $scope.cursoAnterior1.anio ||
+                                    (($scope.cursoActual1.anio === $scope.cursoAnterior1.anio) && ($scope.cursoActual1.periodo <= $scope.cursoAnterior1.periodo)))
+                            {
+                                SweetAlert.swal("Error de validación!", "El periodo del curso actual debe ser superior al periodo del curso anterior", "error");
+                            } else {
+                                angular.forEach($scope.estudiantesAnteriores, function (value) {
+                                    CursoFactory.insertarEstudiante({idCurso: $scope.cursoActualId, codigo: value.codigo}).$promise.then(function () {
+                                    });
+                                });
+                                $scope.estudiantesAnteriores.splice(0, $scope.estudiantesAnteriores.length);
+                                EstudianteFactory.buscarC({idcurso: $scope.cursoActualId}).$promise.then(function (result4) {
+                                    $scope.estudiantesActuales = result4;
+                                });
+                            }
+                        });
+                    });
 
+
+                }
             };
+            $scope.removerEstudiante = function () {
+                $scope.cursoActual1 = null;
+                CursoFactory.get({idCurso: $scope.cursoActualId}).$promise.then(function (result2) {
+                    $scope.cursoActual1 = result2;
+                    angular.forEach($scope.estudiantesSelected2, function (value) {
+                        var index = arrayObjectIndexOf($scope.estudiantesActuales, value);
+                        if (index !== -1) {
+                            CursoFactory.eliminarEstudiante({idCurso: $scope.cursoActualId, codigo: value}).$promise.then(function () {
+                                EstudianteFactory.buscarC({idcurso: $scope.cursoActualId}).$promise.then(function (result4) {
+                                    $scope.estudiantesActuales = result4;
+                                });
+                                $scope.estudiantesActuales.splice(index, 1);
+                            });
+                        }
+                    });
+
+                });
+            };
+
+            $scope.removerTodos = function () {
+                $scope.cursoActual1 = null;
+                CursoFactory.get({idCurso: $scope.cursoActualId}).$promise.then(function (result2) {
+                    $scope.cursoActual1 = result2;
+                    angular.forEach($scope.estudiantesActuales, function (value) {
+
+                        CursoFactory.eliminarEstudiante({idCurso: $scope.cursoActualId, codigo: value.codigo}).$promise.then(function () {
+                            EstudianteFactory.buscarC({idcurso: $scope.cursoActualId}).$promise.then(function (result4) {
+                                $scope.estudiantesActuales = result4;
+                            });
+                        });
+                    });
+
+                    $scope.estudiantesActuales.splice(0, $scope.estudiantesActuales.length);
+
+                });
+            };
+
+
+
         });
     }]);
 

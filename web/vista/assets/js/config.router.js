@@ -880,6 +880,10 @@ app.factory('EstudianteFactory', function ($resource) {
             url: '/sac/api/Estudiante/curso/:idcurso/',
             isArray: true
         },
+        count: {
+            method: 'GET',
+            url: '/sac/api/Estudiante/contarE/:idcurso/'
+        },
         update: {
             method: 'PUT' // this method issues a PUT request
         }
@@ -938,6 +942,14 @@ app.factory('CursoFactory', function ($resource) {
             method: 'GET',
             url: '/sac/api/Curso/cursobase/',
             isArray: true
+        },
+        insertarEstudiante: {
+            method: 'GET',
+            url: '/sac/api/Curso/:idCurso/insertarEstudiante/:codigo/'
+        },
+        eliminarEstudiante: {
+            method: 'GET',
+            url: '/sac/api/Curso/:idCurso/eliminarEstudiante/:codigo/'
         },
         update: {
             method: 'PUT' // this method issues a PUT request

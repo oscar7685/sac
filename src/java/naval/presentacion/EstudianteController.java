@@ -111,6 +111,40 @@ public class EstudianteController {
             }
         }
     }
+    
+    @RequestMapping(value = "/Estudiante/contarE/{idcurso}", method = RequestMethod.GET, produces = "text/plain")
+    public void count(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @PathVariable("idcurso") int idcurso) {
+        try {
+            List<Estudiante> auxs = estudianteDAO.findEstudiantesxCurso(idcurso);
+
+            String jsonSalida = ""+auxs.size();
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+            httpServletResponse.setContentType("text/plain; charset=UTF-8");
+            httpServletResponse.getWriter().println(jsonSalida);
+
+        } catch (BussinessException ex) {
+            Set<BussinessMessage> bussinessMessage = ex.getBussinessMessages();
+            String jsonSalida = jsonTransformer.toJson(bussinessMessage);
+
+            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            httpServletResponse.setContentType("text/plain; charset=UTF-8");
+            try {
+                httpServletResponse.getWriter().println(jsonSalida);
+            } catch (IOException ex1) {
+                Logger.getLogger(EstudianteController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } catch (Exception ex) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            httpServletResponse.setContentType("text/plain; charset=UTF-8");
+            try {
+                ex.printStackTrace(httpServletResponse.getWriter());
+            } catch (IOException ex1) {
+                Logger.getLogger(EstudianteController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
 
     @RequestMapping(value = "/Estudiante/{codigo}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
     public void update(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody String jsonEntrada, @PathVariable("codigo") int codigo) {

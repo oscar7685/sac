@@ -160,7 +160,7 @@ public class Curso implements java.io.Serializable {
     public void setParteDiarios(Set<ParteDiario> parteDiarios) {
         this.parteDiarios = parteDiarios;
     }
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "curso_has_estudiante", catalog = "naval", joinColumns = {
         @JoinColumn(name = "curso_idcurso", nullable = false, updatable = false)}, inverseJoinColumns = {
@@ -168,11 +168,11 @@ public class Curso implements java.io.Serializable {
     public Set<Estudiante> getEstudiantes() {
         return this.estudiantes;
     }
-
+    
     public void setEstudiantes(Set<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
-
+    
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
     public Set<Horario> getHorarios() {
