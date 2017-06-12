@@ -102,7 +102,8 @@ app.controller('crearCursoPCtrl', ["$scope", "CursoFactory", "$location", "Sweet
                                 cursosbase.forEach(function (cursobase) {
                                     $scope.cursoNuevo = angular.copy($scope.curso);
                                     $scope.cursoNuevo.codigo = cursobase.codigo;
-                                    CursoFactory.save($scope.cursoNuevo).$promise.then(function () {});
+                                    CursoFactory.save($scope.cursoNuevo).$promise.then(function () {
+                                    });
                                 });
                             }
                             $location.path("app/cursos/listar");
@@ -229,14 +230,42 @@ app.controller('estudiantesCurso', ["$scope", "$filter", "$stateParams", "CursoF
                 }
             });
             $scope.valor = "";
+            $scope.estudiantesSelected = [];
+            $scope.selectedIndex = [];
             $scope.$watch('estudiantesAnteriores.codigo', function (newVal) {
-               $scope.valor = newVal;
+                $scope.estudiantesSelected = [];
+                $scope.selectedIndex = [];
+                if (!newVal) {
+                    // sometimes selected is null or undefined
+                    return;
+                }
+                // here's the magic
+                angular.forEach(newVal, function (val) {
+                    $scope.estudiantesSelected.push(val);
+                });
             });
 
-
-            $scope.agregarEstudiante = function () {
-                SweetAlert.swal("validación!"+$scope.valor, "Los errores!", "error");
+            function arrayObjectIndexOf(arr, obj) {
+                for (var i = 0; i < arr.length; i++) {
+                    if (angular.equals(arr[i].codigo, obj)) {
+                        return i;
+                    }
+                }
+                ;
+                return -1;
             }
+            $scope.agregarEstudiante = function () {
+                angular.forEach($scope.estudiantesSelected, function (value) {
+                    var index = arrayObjectIndexOf($scope.estudiantesAnteriores, value);
+                    if (index !== -1) {
+                        $scope.estudiantesAnteriores.splice(index, 1);
+                    }
+                });
+            };
+            $scope.agregarTodos = function () {
+                $scope.estudiantesAnteriores.splice(0, $scope.estudiantesAnteriores.length);
+
+            };
         });
     }]);
 
